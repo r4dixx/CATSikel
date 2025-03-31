@@ -19,6 +19,8 @@ composeBom = "2025.03.01"
 
 ktor = "3.1.1"
 
+modulegraph = "0.12.0"
+
 ##########################################################################################################################################
 
 [libraries]
@@ -70,3 +72,5 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+modulegraph = { id = "dev.iurysouza.modulegraph", version.ref = "modulegraph" }
