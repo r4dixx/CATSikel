@@ -19,5 +19,4 @@ android {
 
 dependencies {
     implementation(libs.koin.android)
-    implementation(project(":core"))
 }

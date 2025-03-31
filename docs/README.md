@@ -1,16 +1,9 @@
-# CATS_Test_SIKEL
-
-CATS - Technical Test 2025
-
-Case study can be found in the repository: [docs/test_mobile_CA.pdf](test_mobile_CA.pdf)
-
-### Module Graph
+# Module Graph
 
 ```mermaid
 %%{
   init: {
-    'theme': 'base',
-    'themeVariables': {"primaryTextColor":"#fff","primaryColor":"#5a4f7c","primaryBorderColor":"#5a4f7c","lineColor":"#f5a623","tertiaryColor":"#40375c","fontSize":"12px"}
+    'theme': 'neutral'
   }
 }%%
 
@@ -23,5 +16,18 @@ graph LR
   :app --> :ui
   :data --> :core
   :data --> :domain
-  :domain --> :core
+
+classDef android-library fill:#3BD482,stroke:#fff,stroke-width:2px,color:#fff;
+classDef android-application fill:#2C4162,stroke:#fff,stroke-width:2px,color:#fff;
+class :ui android-library
+class :core android-library
+class :domain android-library
+class :app android-application
+class :data android-library
+
 ```
+# About
+
+CATS - Technical Test 2025
+
+Case study can be found in the repository: [docs/test_mobile_CA.pdf](test_mobile_CA.pdf)
