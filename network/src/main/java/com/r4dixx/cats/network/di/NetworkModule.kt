@@ -19,12 +19,14 @@ val networkModule = module {
                 level = LogLevel.ALL
             }
             install(ContentNegotiation) {
-                json(Json {
-                    prettyPrint = true
-                    isLenient = true
-                    ignoreUnknownKeys = true
-                    explicitNulls = false
-                })
+                json(
+                    Json {
+                        prettyPrint = true
+                        isLenient = true
+                        ignoreUnknownKeys = true
+                        explicitNulls = false
+                    }
+                )
             }
         }
     }
