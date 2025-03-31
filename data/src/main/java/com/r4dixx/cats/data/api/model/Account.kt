@@ -1,11 +1,10 @@
-package com.r4dixx.cats.data.remote.model
+package com.r4dixx.cats.data.api.model
 
-import com.r4dixx.cats.network.remote.model.APIOperation
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class APIAccount(
+data class Account(
     val order: Int,
     val id: String,
     val holder: String,
@@ -14,5 +13,5 @@ data class APIAccount(
     val label: String,
     @SerialName("product_code") val productCode: String,
     val balance: Double,
-    val operations: List<APIOperation>
+    val operations: List<Operation>
 )

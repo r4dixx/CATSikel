@@ -16,5 +16,3 @@ android {
         jvmTarget = libs.versions.java.get()
     }
 }
-
-dependencies {}

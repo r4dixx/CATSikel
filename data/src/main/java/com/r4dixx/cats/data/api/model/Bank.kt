@@ -1,10 +1,10 @@
-package com.r4dixx.cats.data.remote.model
+package com.r4dixx.cats.data.api.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class APIBank(
+data class Bank(
     val name: String,
     val isCA: Int,
-    val accounts: List<APIAccount>
+    val accounts: List<Account>
 )

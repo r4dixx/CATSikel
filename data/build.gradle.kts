@@ -20,5 +20,8 @@ android {
 
 dependencies {
     implementation(libs.koin.android)
-    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.bundles.ktor)
+    
+    implementation(project(":core"))
+    implementation(project(":domain"))
 }
