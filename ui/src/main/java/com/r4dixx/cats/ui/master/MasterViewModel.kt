@@ -10,8 +10,22 @@ class MasterViewModel(getBanks: GetBanksUseCase) : CATSViewModel<MasterViewModel
 
     init {
         getBanks()
-            .onSuccess {
-                val newData = data.copy(banks = it)
+            .onSuccess { banks ->
+                val banksCA = mutableListOf<Bank>()
+                val banksNotCA = mutableListOf<Bank>()
+                banks.forEach {
+                    if (it.isCA) {
+                        banksCA.add(it)
+                    } else {
+                        banksNotCA.add(it)
+                    }
+                }
+
+                val newData = data.copy(
+                    banksCA = banksCA,
+                    banksNotCA = banksNotCA
+                )
+
                 val newState = State.Success(newData)
                 updateState(newState)
             }
@@ -20,5 +34,8 @@ class MasterViewModel(getBanks: GetBanksUseCase) : CATSViewModel<MasterViewModel
             }
     }
 
-    data class Data(val banks: List<Bank> = emptyList())
+    data class Data(
+        val banksCA: List<Bank> = emptyList(),
+        val banksNotCA: List<Bank> = emptyList()
+    )
 }

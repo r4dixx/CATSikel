@@ -1,7 +1,8 @@
 package com.r4dixx.cats.ui.master
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -28,7 +29,8 @@ private fun MasterSuccess(data: MasterViewModel.Data) {
         topBar = { MasterTopBar() },
         content = { paddingValues ->
             MasterContent(
-                banks = data.banks,
+                banksCA = data.banksCA,
+                banksNotCA = data.banksNotCA,
                 modifier = Modifier
                     .padding(paddingValues)
                     .padding(horizontal = spacingDefault)
@@ -39,13 +41,15 @@ private fun MasterSuccess(data: MasterViewModel.Data) {
 
 @Composable
 private fun MasterContent(
-    banks: List<Bank>,
+    banksCA: List<Bank>,
+    banksNotCA: List<Bank>,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier) {
-        banks.forEach {
-            Text(text = it.name)
-        }
+    LazyColumn(modifier) {
+        item { Text(text = "Crédit Agricole") }
+        items(banksCA) { bank -> Text(text = bank.name) }
+        item { Text(text = "Autres Banques") }
+        items(banksNotCA) { bank -> Text(text = bank.name) }
     }
 }
 
