@@ -4,11 +4,21 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
+import com.r4dixx.cats.design.theme.CATSTheme
+import com.r4dixx.cats.design.theme.spacingDefault
+import com.r4dixx.cats.ui.master.MasterScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        actionBar?.hide()
         enableEdgeToEdge()
-        setContent {}
+        setContent {
+            CATSTheme {
+                MasterScreen(Modifier.padding(spacingDefault))
+            }
+        }
     }
 }

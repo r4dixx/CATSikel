@@ -9,9 +9,11 @@
 
 graph LR
   :ui --> :core
+  :ui --> :design
   :ui --> :domain
   :app --> :core
   :app --> :data
+  :app --> :design
   :app --> :domain
   :app --> :ui
   :data --> :core
@@ -21,6 +23,7 @@ classDef android-library fill:#3BD482,stroke:#fff,stroke-width:2px,color:#fff;
 classDef android-application fill:#2C4162,stroke:#fff,stroke-width:2px,color:#fff;
 class :ui android-library
 class :core android-library
+class :design android-library
 class :domain android-library
 class :app android-application
 class :data android-library
