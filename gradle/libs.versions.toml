@@ -1,0 +1,24 @@
+[versions]
+app_major = "0"
+app_minor = "1"
+app_patch = "0"
+
+sdk_min = "24"
+sdk_compile = "35"
+sdk_target = "35"
+
+java = "17" # Also update sourceCompatibility and targetCompatibility in compileOptions
+kotlin = "2.1.20"
+agp = "8.9.1"
+
+composeActitivy = "1.10.1"
+
+[libraries]
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "composeActitivy" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
