@@ -1,4 +1,4 @@
-package com.r4dixx.cats.network.model
+package com.r4dixx.cats.data.remote.model
 
 import kotlinx.serialization.Serializable
 

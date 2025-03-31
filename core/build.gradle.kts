@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.r4dixx.cats.network"
+    namespace = "com.r4dixx.cats.core"
     compileSdk = libs.versions.sdkCompile.get().toInt()
 
     compileOptions {

@@ -1,7 +1,8 @@
 package com.r4dixx.cats
 
 import android.app.Application
-import com.r4dixx.cats.network.di.networkModule
+import com.r4dixx.cats.data.coreModule
+import com.r4dixx.cats.data.dataModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -12,7 +13,10 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(networkModule)
+            modules(
+                coreModule,
+                dataModule
+            )
         }
     }
 }

@@ -1,5 +1,6 @@
-package com.r4dixx.cats.network.model
+package com.r4dixx.cats.data.remote.model
 
+import com.r4dixx.cats.network.remote.model.APIOperation
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
