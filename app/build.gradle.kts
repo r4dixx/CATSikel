@@ -6,14 +6,14 @@ plugins {
 
 android {
     namespace = "com.r4dixx.cats"
-    compileSdk = libs.versions.sdk.compile.get().toInt()
+    compileSdk = libs.versions.sdkCompile.get().toInt()
 
     defaultConfig {
         applicationId = "com.r4dixx.cats"
-        minSdk = libs.versions.sdk.min.get().toInt()
-        targetSdk = libs.versions.sdk.target.get().toInt()
-        versionCode = libs.versions.app.major.get().toInt() * 10_000 + libs.versions.app.minor.get().toInt() * 100 + libs.versions.app.patch.get().toInt()
-        versionName = "${libs.versions.app.major}.${libs.versions.app.minor}.${libs.versions.app.patch}"
+        minSdk = libs.versions.sdkMin.get().toInt()
+        targetSdk = libs.versions.sdkTarget.get().toInt()
+        versionCode = libs.versions.appMajor.get().toInt() * 10_000 + libs.versions.appMinor.get().toInt() * 100 + libs.versions.appPatch.get().toInt()
+        versionName = "${libs.versions.appMajor}.${libs.versions.appMinor}.${libs.versions.appPatch}"
     }
 
     compileOptions {

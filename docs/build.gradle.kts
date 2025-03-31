@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.r4dixx.cats.docs"
-    compileSdk = libs.versions.sdk.compile.get().toInt()
+    compileSdk = libs.versions.sdkCompile.get().toInt()
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
