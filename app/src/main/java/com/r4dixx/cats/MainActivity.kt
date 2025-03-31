@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.design.theme.spacingDefault
 import com.r4dixx.cats.ui.master.MasterScreen
+import org.koin.compose.KoinContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,8 +17,10 @@ class MainActivity : ComponentActivity() {
         actionBar?.hide()
         enableEdgeToEdge()
         setContent {
-            CATSTheme {
-                MasterScreen(Modifier.padding(spacingDefault))
+            KoinContext {
+                CATSTheme {
+                    MasterScreen(Modifier.padding(spacingDefault))
+                }
             }
         }
     }
