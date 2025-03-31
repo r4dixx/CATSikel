@@ -1,5 +1,7 @@
 package com.r4dixx.cats.ui.master
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -46,9 +48,10 @@ private fun MasterContent(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier) {
-        item { Text(text = "Crédit Agricole") }
+        item { Text(text = "- Crédit Agricole") }
         items(banksCA) { bank -> Text(text = bank.name) }
-        item { Text(text = "Autres Banques") }
+        item { Spacer(modifier = Modifier.height(spacingDefault)) }
+        item { Text(text = "- Autres Banques") }
         items(banksNotCA) { bank -> Text(text = bank.name) }
     }
 }

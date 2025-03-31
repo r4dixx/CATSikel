@@ -10,14 +10,16 @@ class MasterViewModel(getBanks: GetBanksUseCase) : CATSViewModel<MasterViewModel
 
     init {
         getBanks()
-            .onSuccess { banks ->
+            .onSuccess {
+                val banks = it.sortedBy { bank -> bank.name }
+
                 val banksCA = mutableListOf<Bank>()
                 val banksNotCA = mutableListOf<Bank>()
-                banks.forEach {
-                    if (it.isCA) {
-                        banksCA.add(it)
+                banks.forEach { bank ->
+                    if (bank.isCA) {
+                        banksCA.add(bank)
                     } else {
-                        banksNotCA.add(it)
+                        banksNotCA.add(bank)
                     }
                 }
 
