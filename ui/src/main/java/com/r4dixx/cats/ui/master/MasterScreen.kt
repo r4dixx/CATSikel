@@ -1,5 +1,6 @@
 package com.r4dixx.cats.ui.master
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -41,6 +42,7 @@ private fun MasterSuccess(data: MasterViewModel.Data) {
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun MasterContent(
     banksCA: List<Bank>,
@@ -48,10 +50,10 @@ private fun MasterContent(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier) {
-        item { Text(text = "- Crédit Agricole") }
+        stickyHeader { Text(text = "- Crédit Agricole") }
         items(banksCA) { bank -> Text(text = bank.name) }
         item { Spacer(modifier = Modifier.height(spacingDefault)) }
-        item { Text(text = "- Autres Banques") }
+        stickyHeader { Text(text = "- Autres Banques") }
         items(banksNotCA) { bank -> Text(text = bank.name) }
     }
 }
