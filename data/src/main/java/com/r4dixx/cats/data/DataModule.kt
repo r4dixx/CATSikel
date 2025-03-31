@@ -2,6 +2,7 @@ package com.r4dixx.cats.data
 
 import com.r4dixx.cats.data.api.repository.BanksRepositoryImpl
 import com.r4dixx.cats.data.api.service.BanksService
+import com.r4dixx.cats.domain.repository.BanksRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -16,7 +17,7 @@ import org.koin.dsl.module
 
 val dataModule = module {
     single { BanksService(androidApplication().applicationContext) }
-    single { BanksRepositoryImpl(get()) }
+    single<BanksRepository> { BanksRepositoryImpl(get()) }
 
     single {
         HttpClient(Android) {

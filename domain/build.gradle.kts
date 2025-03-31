@@ -7,6 +7,11 @@ android {
     namespace = "com.r4dixx.cats.domain"
     compileSdk = libs.versions.sdkCompile.get().toInt()
 
+    defaultConfig {
+        minSdk = libs.versions.sdkMin.get().toInt()
+        lint.targetSdk = libs.versions.sdkTarget.get().toInt()
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

@@ -31,11 +31,11 @@ android {
 }
 
 dependencies {
-    implementation(libs.koin.android)
     implementation(libs.androidx.activity.compose)
 
     implementation(project(":core"))
     implementation(project(":data"))
+    implementation(project(":design"))
     implementation(project(":domain"))
     implementation(project(":ui"))
 }
