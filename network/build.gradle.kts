@@ -17,4 +17,7 @@ android {
     }
 }
 
-dependencies {}
+dependencies {
+    implementation(libs.koin.android)
+    implementation(libs.ktor.client.android)
+}

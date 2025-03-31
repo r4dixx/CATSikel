@@ -31,5 +31,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.koin.android)
     implementation(libs.androidx.activity.compose)
+
+    implementation(project(":network"))
 }
