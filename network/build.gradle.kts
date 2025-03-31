@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.r4dixx.cats.core"
+    namespace = "com.r4dixx.cats.network"
     compileSdk = libs.versions.sdkCompile.get().toInt()
 
     compileOptions {
@@ -19,5 +19,5 @@ android {
 
 dependencies {
     implementation(libs.koin.android)
-    implementation(libs.ktor.client.android)
+    implementation(libs.bundles.ktor)
 }
