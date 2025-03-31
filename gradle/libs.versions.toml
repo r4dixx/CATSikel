@@ -1,4 +1,5 @@
 [versions]
+
 app_major = "0"
 app_minor = "1"
 app_patch = "0"
@@ -12,11 +13,39 @@ kotlin = "2.1.20"
 agp = "8.9.1"
 
 composeActitivy = "1.10.1"
+composeBom = "2025.03.01"
+
+##########################################################################################################################################
 
 [libraries]
+
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "composeActitivy" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+
+##########################################################################################################################################
+
+[bundles]
+
+compose = [
+    "androidx-ui",
+    "androidx-ui-graphics",
+    "androidx-ui-tooling-preview",
+    "androidx-material3"
+]
+
+compose-debug = [
+    "androidx-ui-tooling"
+]
+
+##########################################################################################################################################
 
 [plugins]
+
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 

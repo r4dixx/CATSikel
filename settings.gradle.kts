@@ -22,3 +22,11 @@ dependencyResolutionManagement {
 rootProject.name = "CATS_Test_SIKEL"
 
 include(":app")
+include(":core")
+include(":data")
+include(":docs")
+include(":design")
+include(":domain")
+include(":feature")
+include(":feature:master")
+include(":feature:detail")

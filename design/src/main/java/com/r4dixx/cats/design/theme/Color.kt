@@ -1,4 +1,4 @@
-package com.r4dixx.cats.ui.theme
+package com.r4dixx.cats.design.theme
 
 import androidx.compose.ui.graphics.Color
 
