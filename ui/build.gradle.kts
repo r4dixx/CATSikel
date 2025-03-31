@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.r4dixx.cats.feature.home"
+    namespace = "com.r4dixx.cats.ui"
     compileSdk = libs.versions.sdk.compile.get().toInt()
 
     compileOptions {
