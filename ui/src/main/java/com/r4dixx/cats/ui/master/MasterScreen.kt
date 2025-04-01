@@ -1,10 +1,11 @@
 package com.r4dixx.cats.ui.master
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -15,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
 import com.r4dixx.cats.design.theme.spacingDefault
+import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import org.koin.androidx.compose.koinViewModel
 
@@ -42,30 +44,45 @@ private fun MasterSuccess(data: MasterViewModel.Data) {
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun MasterContent(
     banksCA: List<Bank>,
     banksNotCA: List<Bank>,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(modifier) {
-        stickyHeader { Text(text = "- Crédit Agricole") }
-        items(banksCA) { bank ->
-            Text(text = bank.name)
-            bank.accounts.forEach {
-                Text(text = it.label)
-            }
-        }
-        item { Spacer(modifier = Modifier.height(spacingDefault)) }
-        stickyHeader { Text(text = "- Autres Banques") }
-        items(banksNotCA) { bank ->
-            Text(text = bank.name)
-            bank.accounts.forEach {
-                Text(text = it.label)
-            }
-        }
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(spacingDefault),
+        modifier = modifier
+    ) {
+        stickyItems("- Crédit Agricole", banksCA)
+        stickyItems("- Autres Banques", banksNotCA)
     }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+private fun LazyListScope.stickyItems(s: String, banksCA: List<Bank>) {
+    stickyHeader { HeaderBank(s) }
+    items(banksCA) { bank -> ItemBank(bank) }
+}
+
+@Composable
+private fun HeaderBank(label: String,modifier: Modifier = Modifier) {
+    Text(text = label, modifier = modifier)
+}
+
+@Composable
+private fun ItemBank(bank: Bank, modifier: Modifier = Modifier) {
+   Column(modifier = modifier) {
+       Text(text = bank.name)
+       bank.accounts.forEach { account ->
+           ItemAccount(account)
+       }
+   }
+}
+
+@Composable
+private fun ItemAccount(account: Account) {
+    Text(text = account.label)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
