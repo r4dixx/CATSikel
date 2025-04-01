@@ -10,18 +10,14 @@ class MasterViewModel(getBanks: GetBanksUseCase) : CATSViewModel<MasterViewModel
     override val data = Data()
 
     init {
-        getBanks()
-            .onSuccess { banks ->
-                val newData = banks
-                    .sanitized()
-                    .withAccountsSanitized()
-                    .toData()
-                val newState = State.Success(newData)
-                updateState(newState)
-            }
-            .onFailure {
-                // TODO: Handle error
-            }
+        getBanks().onSuccess { banks ->
+            val newData = banks
+                .sanitized()
+                .withAccountsSanitized()
+                .toData()
+            val newState = State.Success(newData)
+            updateState(newState)
+        }
     }
 
     private fun List<Bank>.toData(): Data {
