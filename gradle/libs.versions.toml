@@ -16,6 +16,7 @@ koin = "4.0.3"
 
 composeActitivy = "1.10.1"
 composeBom = "2025.03.01"
+composeNavigation = "2.8.9"
 
 ktor = "3.1.1"
 
@@ -28,6 +29,7 @@ modulegraph = "0.12.0"
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "composeActitivy" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -49,7 +51,8 @@ compose = [
     "androidx-ui",
     "androidx-ui-graphics",
     "androidx-ui-tooling-preview",
-    "androidx-material3"
+    "androidx-material3",
+    "androidx-navigation-compose"
 ]
 
 compose-debug = [
