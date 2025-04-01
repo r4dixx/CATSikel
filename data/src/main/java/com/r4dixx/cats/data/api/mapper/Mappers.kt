@@ -12,6 +12,6 @@ fun APIBank.toDomain() = Bank(
 )
 
 fun APIAccount.toDomain() = Account(
-    id = id.toLongOrNull() ?: 0,
+    id = id,
     label = label
 )

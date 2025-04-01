@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Account(
     val order: Int,
-    val id: String,
+    val id: Long,
     val holder: String,
     val role: Int,
     @SerialName("contract_number") val contractNumber: String,
