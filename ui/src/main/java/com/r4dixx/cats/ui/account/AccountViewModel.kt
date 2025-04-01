@@ -10,7 +10,10 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import kotlin.time.ExperimentalTime
 
-class AccountViewModel(account: Account, private val locale: Locale) : CATSViewModel<AccountViewModel.Data>() {
+class AccountViewModel(
+    account: Account,
+    private val locale: Locale
+) : CATSViewModel<AccountViewModel.Data>() {
 
     override val data = Data()
 
@@ -33,7 +36,9 @@ class AccountViewModel(account: Account, private val locale: Locale) : CATSViewM
         )
     }
 
-    private fun List<OperationUI>.sorted() = sortedByDescending { it.date }
+    private fun List<OperationUI>.sorted() = sortedWith(
+        compareByDescending<OperationUI> { it.date }.thenBy { it.title }
+    )
 
     data class Data(
         val label: String = "",
