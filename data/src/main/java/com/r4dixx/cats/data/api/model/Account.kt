@@ -13,5 +13,6 @@ data class Account(
     val label: String,
     @SerialName("product_code") val productCode: String,
     val balance: Double,
+//    @Serializable(CurrencyAmountSerializer::class) val balance: BigDecimal,
     val operations: List<Operation>
 )

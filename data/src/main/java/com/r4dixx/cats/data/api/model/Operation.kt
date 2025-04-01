@@ -1,7 +1,9 @@
 package com.r4dixx.cats.data.api.model
 
+import com.r4dixx.cats.data.api.serializer.BigDecimalSerializer
 import com.r4dixx.cats.data.api.serializer.InstantSerializer
 import kotlinx.serialization.Serializable
+import java.math.BigDecimal
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
@@ -10,8 +12,12 @@ import kotlin.time.Instant
 data class Operation(
     val id: Long,
     val title: String,
-    val amount: String,
+
+    @Serializable(BigDecimalSerializer::class)
+    val amount: BigDecimal,
+
     val category: String,
-    @Serializable(with = InstantSerializer::class)
+
+    @Serializable(InstantSerializer::class)
     val date: Instant
 )

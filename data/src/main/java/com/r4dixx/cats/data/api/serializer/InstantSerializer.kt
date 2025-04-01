@@ -17,7 +17,7 @@ object InstantSerializer : KSerializer<Instant> {
     override fun deserialize(decoder: Decoder): Instant {
         return try {
             val input = decoder.decodeLong()
-             Instant.fromEpochSeconds(input)
+            Instant.fromEpochSeconds(input)
         } catch (e: SerializationException) {
             throw SerializationException("Unable to deserialize to Instant", e)
         }
