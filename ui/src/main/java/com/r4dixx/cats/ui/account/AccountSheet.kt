@@ -35,6 +35,7 @@ fun AccountSheet(
             val data = (state.value as Success<AccountViewModel.Data>).data
 
             Text(data.balance)
+            Text(data.label)
 
             Spacer(Modifier.height(spacingDefault))
 
