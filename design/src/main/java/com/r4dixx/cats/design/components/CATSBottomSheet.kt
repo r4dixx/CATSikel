@@ -1,13 +1,12 @@
 package com.r4dixx.cats.design.components
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.r4dixx.cats.design.theme.spacingDefault
 
@@ -26,11 +25,10 @@ fun CATSBottomSheet(
             .fillMaxWidth()
             .then(modifier)
     ) {
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(spacingDefault),
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             content()
         }

@@ -25,6 +25,7 @@ import com.r4dixx.cats.design.theme.spacingDefault
 fun CATSExpandable(
     modifier: Modifier = Modifier,
     initiallyExpanded: Boolean = false,
+    onClick: () -> Unit = {},
     header: @Composable () -> Unit,
     content: @Composable () -> Unit,
 ) {
@@ -34,7 +35,10 @@ fun CATSExpandable(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { expanded = !expanded },
+                .clickable {
+                    expanded = !expanded
+                    onClick()
+                },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(spacingDefault)
         ) {
