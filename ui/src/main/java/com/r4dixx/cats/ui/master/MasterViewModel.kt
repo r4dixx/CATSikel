@@ -11,23 +11,7 @@ class MasterViewModel(getBanks: GetBanksUseCase) : CATSViewModel<MasterViewModel
     init {
         getBanks()
             .onSuccess {
-                val banks = it.sortedBy { bank -> bank.name }
-
-                val banksCA = mutableListOf<Bank>()
-                val banksNotCA = mutableListOf<Bank>()
-                banks.forEach { bank ->
-                    if (bank.isCA) {
-                        banksCA.add(bank)
-                    } else {
-                        banksNotCA.add(bank)
-                    }
-                }
-
-                val newData = data.copy(
-                    banksCA = banksCA,
-                    banksNotCA = banksNotCA
-                )
-
+                val newData = it.sorted().toData()
                 val newState = State.Success(newData)
                 updateState(newState)
             }
@@ -36,8 +20,23 @@ class MasterViewModel(getBanks: GetBanksUseCase) : CATSViewModel<MasterViewModel
             }
     }
 
+    private fun List<Bank>.sorted() = sortedBy { bank -> bank.name }
+
+    private fun List<Bank>.toData(): Data {
+        val banksCA = mutableListOf<Bank>()
+        val banksNotCA = mutableListOf<Bank>()
+        forEach { bank ->
+            if (bank.isCA) {
+                banksCA.add(bank)
+            } else {
+                banksNotCA.add(bank)
+            }
+        }
+        return Data(banksCA, banksNotCA)
+    }
+
     data class Data(
         val banksCA: List<Bank> = emptyList(),
-        val banksNotCA: List<Bank> = emptyList()
+        val banksNotCA: List<Bank> = emptyList(),
     )
 }
