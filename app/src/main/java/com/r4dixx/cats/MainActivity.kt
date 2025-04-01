@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.r4dixx.cats.design.theme.CATSTheme
-import com.r4dixx.cats.ui.master.MasterScreen
+import com.r4dixx.cats.ui.banks.MasterScreen
 import org.koin.compose.KoinContext
 
 class MainActivity : ComponentActivity() {

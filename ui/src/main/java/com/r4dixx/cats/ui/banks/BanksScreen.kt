@@ -1,4 +1,4 @@
-package com.r4dixx.cats.ui.master
+package com.r4dixx.cats.ui.banks
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -22,15 +22,15 @@ import com.r4dixx.cats.domain.model.Bank
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun MasterScreen(viewModel: MasterViewModel = koinViewModel()) {
+fun MasterScreen(viewModel: BanksViewModel = koinViewModel()) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     // TODO - Handle error and loading
     if (state.value !is Success) return
-    MasterSuccess((state.value as Success<MasterViewModel.Data>).data)
+    MasterSuccess((state.value as Success<BanksViewModel.Data>).data)
 }
 
 @Composable
-private fun MasterSuccess(data: MasterViewModel.Data) {
+private fun MasterSuccess(data: BanksViewModel.Data) {
     Scaffold(
         topBar = { MasterTopBar() },
         content = { paddingValues ->

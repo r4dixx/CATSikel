@@ -1,11 +1,11 @@
-package com.r4dixx.cats.ui.master
+package com.r4dixx.cats.ui.banks
 
 import com.r4dixx.cats.core.ui.CATSViewModel
 import com.r4dixx.cats.core.utils.sanitized
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.usecase.GetBanksUseCase
 
-class MasterViewModel(getBanks: GetBanksUseCase) : CATSViewModel<MasterViewModel.Data>() {
+class BanksViewModel(getBanks: GetBanksUseCase) : CATSViewModel<BanksViewModel.Data>() {
 
     override val data = Data()
 
