@@ -23,10 +23,11 @@ import com.r4dixx.cats.design.theme.spacingDefault
 
 @Composable
 fun CATSExpandable(
-    modifier : Modifier = Modifier,
+    modifier: Modifier = Modifier,
     initiallyExpanded: Boolean = false,
-    header : @Composable () -> Unit,
-    content : @Composable () -> Unit
+    onClick: () -> Unit = {},
+    header: @Composable () -> Unit,
+    content: @Composable () -> Unit,
 ) {
     var expanded by rememberSaveable { mutableStateOf(initiallyExpanded) }
 
@@ -34,14 +35,20 @@ fun CATSExpandable(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { expanded = !expanded },
+                .clickable {
+                    expanded = !expanded
+                    onClick()
+                },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(spacingDefault)
         ) {
             header()
             Spacer(modifier = Modifier.weight(1f))
 
-            val rotationAngle by animateFloatAsState(targetValue = if (expanded) 180f else 0f, label = "Icon Rotation")
+            val rotationAngle by animateFloatAsState(
+                targetValue = if (expanded) 180f else 0f,
+                label = "Icon Rotation"
+            )
 
             Icon(
                 imageVector = Icons.Default.KeyboardArrowDown,

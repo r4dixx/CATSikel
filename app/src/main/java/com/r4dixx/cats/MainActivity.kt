@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.r4dixx.cats.design.theme.CATSTheme
-import com.r4dixx.cats.ui.master.MasterScreen
+import com.r4dixx.cats.ui.banks.BanksScreen
 import org.koin.compose.KoinContext
 
 class MainActivity : ComponentActivity() {
@@ -13,6 +13,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         actionBar?.hide()
         enableEdgeToEdge()
-        setContent { KoinContext { CATSTheme { MasterScreen() } } }
+        setContent { KoinContext { CATSTheme { BanksScreen() } } }
     }
 }
