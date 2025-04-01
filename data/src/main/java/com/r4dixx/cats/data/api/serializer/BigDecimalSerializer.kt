@@ -19,7 +19,12 @@ object BigDecimalSerializer : KSerializer<BigDecimal> {
             val stringValue = decoder.decodeString().replace(",", ".").trim()
             stringValue.toBigDecimalOrNull() ?: BigDecimal.ZERO
         } catch (e: SerializationException) {
-            throw SerializationException("Unable to deserialize BigDecimal from string", e)
+            try {
+                val doubleValue = decoder.decodeDouble()
+                BigDecimal(doubleValue).setScale(2, RoundingMode.HALF_UP)
+            } catch (e: SerializationException) {
+                throw SerializationException("Unable to deserialize to BigDecimal", e)
+            }
         }
     }
 
