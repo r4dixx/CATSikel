@@ -25,4 +25,5 @@ android {
 
 dependencies {
     api(libs.koin.android)
+    testImplementation(libs.kotlin.test)
 }

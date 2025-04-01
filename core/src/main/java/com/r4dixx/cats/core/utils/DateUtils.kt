@@ -11,7 +11,7 @@ fun Instant.toFormattedDate(
     dateFormat: Int = SimpleDateFormat.FULL,
     locale: Locale = Locale.getDefault(),
 ): String {
-    val formatter = SimpleDateFormat.getDateInstance(dateFormat, locale)
     val date = Date(this.toEpochMilliseconds())
+    val formatter = SimpleDateFormat.getDateInstance(dateFormat, locale)
     return formatter.format(date)
 }
