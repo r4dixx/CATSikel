@@ -6,8 +6,7 @@ import java.util.Locale
 
 fun BigDecimal.toFormattedAmount(locale: Locale = Locale.getDefault()): String {
     return try {
-        val currencyInstance = NumberFormat.getCurrencyInstance(locale)
-        currencyInstance.format(this)
+        NumberFormat.getCurrencyInstance(locale).format(this)
     } catch (e: IllegalArgumentException) {
         e.printStackTrace()
         "0,00 €"
