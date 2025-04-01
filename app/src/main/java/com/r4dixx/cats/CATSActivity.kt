@@ -9,7 +9,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.domain.model.Account
-import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.ui.account.AccountSheet
 import com.r4dixx.cats.ui.banks.BanksScreen
 import org.koin.compose.KoinContext
@@ -26,23 +25,19 @@ class CATSActivity : ComponentActivity() {
                     NavHost(navController, CATSRoute.Banks.route) {
                         composable(CATSRoute.Banks.route) {
                             BanksScreen(
-                                onAccountClick = { bank, account ->
-                                    navController.currentBackStackEntry?.savedStateHandle?.apply {
-                                        set(CATSRoute.Account.KEY_BANK, bank)
-                                        set(CATSRoute.Account.KEY_ACCOUNT, account)
-                                    }
+                                onAccountClick = { account ->
+                                    val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
+                                    savedStateHandle?.set(CATSRoute.Account.KEY_ACCOUNT, account)
                                     navController.navigate(CATSRoute.Account.route)
                                 }
                             )
                         }
                         composable(CATSRoute.Account.route) {
                             val savedStateHandle = navController.previousBackStackEntry?.savedStateHandle
-                            val bank = savedStateHandle?.get<Bank>(CATSRoute.Account.KEY_BANK)
                             val account = savedStateHandle?.get<Account>(CATSRoute.Account.KEY_ACCOUNT)
 
-                            if (bank != null && account != null) {
+                            if (account != null) {
                                 AccountSheet(
-                                    bank = bank,
                                     account = account,
                                     onDismiss = { navController.popBackStack() }
                                 )

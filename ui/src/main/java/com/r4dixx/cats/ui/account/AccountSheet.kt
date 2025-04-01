@@ -11,29 +11,28 @@ import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
 import com.r4dixx.cats.design.components.CATSBottomSheet
 import com.r4dixx.cats.design.theme.spacingDefault
 import com.r4dixx.cats.domain.model.Account
-import com.r4dixx.cats.domain.model.Bank
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
 @Composable
 fun AccountSheet(
-    bank: Bank,
     account: Account,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: AccountViewModel = koinViewModel(parameters = { parametersOf(account) }),
 ) {
-    Text(bank.name)
+    val state = viewModel.state.collectAsStateWithLifecycle()
+    // TODO - Handle error and loading
+    if (state.value !is Success) return
+    val data = (state.value as Success<AccountViewModel.Data>).data
+
+    Text(data.balance)
+
     CATSBottomSheet(
         onDismiss = onDismiss,
         modifier = modifier
     ) {
         Column {
-            val state = viewModel.state.collectAsStateWithLifecycle()
-            // TODO - Handle error and loading
-            if (state.value !is Success) return@CATSBottomSheet
-            val data = (state.value as Success<AccountViewModel.Data>).data
-
             Text(data.balance)
             Text(data.label)
 
