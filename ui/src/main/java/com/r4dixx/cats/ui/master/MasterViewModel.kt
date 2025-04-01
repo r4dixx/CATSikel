@@ -1,6 +1,7 @@
 package com.r4dixx.cats.ui.master
 
 import com.r4dixx.cats.core.ui.CATSViewModel
+import com.r4dixx.cats.core.utils.sanitized
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.usecase.GetBanksUseCase
 
@@ -10,8 +11,11 @@ class MasterViewModel(getBanks: GetBanksUseCase) : CATSViewModel<MasterViewModel
 
     init {
         getBanks()
-            .onSuccess {
-                val newData = it.sorted().toData()
+            .onSuccess { banks ->
+                val newData = banks
+                    .sanitized()
+                    .withAccountsSanitized()
+                    .toData()
                 val newState = State.Success(newData)
                 updateState(newState)
             }
@@ -19,8 +23,6 @@ class MasterViewModel(getBanks: GetBanksUseCase) : CATSViewModel<MasterViewModel
                 // TODO: Handle error
             }
     }
-
-    private fun List<Bank>.sorted() = sortedBy { bank -> bank.name }
 
     private fun List<Bank>.toData(): Data {
         val banksCA = mutableListOf<Bank>()
@@ -34,6 +36,15 @@ class MasterViewModel(getBanks: GetBanksUseCase) : CATSViewModel<MasterViewModel
         }
         return Data(banksCA, banksNotCA)
     }
+
+    private fun List<Bank>.withAccountsSanitized() = map { bank ->
+        val accounts = bank.accounts
+            .distinctBy { it.id }
+            .sortedBy { account -> account.label.sanitized() }
+        bank.copy(accounts = accounts)
+    }
+
+    private fun List<Bank>.sanitized() = distinct().sortedBy { bank -> bank.name }
 
     data class Data(
         val banksCA: List<Bank> = emptyList(),

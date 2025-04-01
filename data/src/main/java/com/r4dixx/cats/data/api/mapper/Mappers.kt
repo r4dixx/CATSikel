@@ -11,4 +11,7 @@ fun APIBank.toDomain() = Bank(
     accounts = accounts.map { it.toDomain() }
 )
 
-fun APIAccount.toDomain() = Account(label)
+fun APIAccount.toDomain() = Account(
+    id = id.toLongOrNull() ?: 0,
+    label = label
+)
