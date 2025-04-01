@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         tools:targetApi="35">
         <activity
-            android:name=".MainActivity"
+            android:name=".CATSActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

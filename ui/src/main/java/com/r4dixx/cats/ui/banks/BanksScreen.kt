@@ -12,53 +12,41 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.theme.spacingDefault
+import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
-import com.r4dixx.cats.ui.account.AccountSheet
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun BanksScreen(viewModel: BanksViewModel = koinViewModel()) {
-    val state = viewModel.state.collectAsStateWithLifecycle()
-    // TODO - Handle error and loading
-    if (state.value !is Success) return
-    BanksSuccess((state.value as Success<BanksViewModel.Data>).data)
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun BanksSuccess(data: BanksViewModel.Data) {
+fun BanksScreen(
+    onAccountClick: (Bank, Account) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: BanksViewModel = koinViewModel()
+) {
     Scaffold(
+        modifier = modifier,
         topBar = { MasterTopBar() },
         content = { paddingValues ->
+            val state = viewModel.state.collectAsStateWithLifecycle()
 
-            val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-            val scope = rememberCoroutineScope()
+            // TODO - Handle error and loading
+            if (state.value !is Success) return@Scaffold
+
+            val data = (state.value as Success<BanksViewModel.Data>).data
 
             BanksContent(
                 banksCA = data.banksCA,
                 banksNotCA = data.banksNotCA,
-                onAccountClick = { scope.launch { sheetState.expand() } },
+                onAccountClick = onAccountClick,
                 modifier = Modifier
                     .padding(paddingValues)
                     .padding(horizontal = spacingDefault)
             )
-
-            if (sheetState.isVisible) {
-                AccountSheet(
-                    sheetState = sheetState,
-                    onDismiss = { scope.launch { sheetState.hide() } }
-                )
-            }
         }
     )
 }
@@ -68,7 +56,7 @@ private fun BanksContent(
     banksCA: List<Bank>,
     banksNotCA: List<Bank>,
     modifier: Modifier = Modifier,
-    onAccountClick: () -> Job,
+    onAccountClick: (Bank, Account) -> Unit,
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(spacingDefault),
@@ -83,7 +71,7 @@ private fun BanksContent(
 private fun LazyListScope.stickyItems(
     label: String,
     banksCA: List<Bank>,
-    onAccountClick: () -> Job,
+    onAccountClick: (Bank, Account) -> Unit,
 ) {
     stickyHeader { Text(text = label) }
     items(banksCA) { bank ->
@@ -92,7 +80,10 @@ private fun LazyListScope.stickyItems(
             content = {
                 Column {
                     bank.accounts.forEach { account ->
-                        Text(text = account.label, modifier = Modifier.clickable { onAccountClick() } )
+                        Text(
+                            text = account.label,
+                            modifier = Modifier.clickable { onAccountClick(bank, account) }
+                        )
                     }
                 }
             }

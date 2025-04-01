@@ -32,6 +32,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.navigation.compose)
 
     implementation(project(":core"))
     implementation(project(":data"))
