@@ -17,24 +17,23 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.theme.spacingDefault
-import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun MasterScreen(viewModel: BanksViewModel = koinViewModel()) {
+fun BanksScreen(viewModel: BanksViewModel = koinViewModel()) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     // TODO - Handle error and loading
     if (state.value !is Success) return
-    MasterSuccess((state.value as Success<BanksViewModel.Data>).data)
+    BanksSuccess((state.value as Success<BanksViewModel.Data>).data)
 }
 
 @Composable
-private fun MasterSuccess(data: BanksViewModel.Data) {
+private fun BanksSuccess(data: BanksViewModel.Data) {
     Scaffold(
         topBar = { MasterTopBar() },
         content = { paddingValues ->
-            MasterContent(
+            BanksContent(
                 banksCA = data.banksCA,
                 banksNotCA = data.banksNotCA,
                 modifier = Modifier
@@ -46,7 +45,7 @@ private fun MasterSuccess(data: BanksViewModel.Data) {
 }
 
 @Composable
-private fun MasterContent(
+private fun BanksContent(
     banksCA: List<Bank>,
     banksNotCA: List<Bank>,
     modifier: Modifier = Modifier,
@@ -61,42 +60,20 @@ private fun MasterContent(
 }
 
 @OptIn(ExperimentalFoundationApi::class)
-private fun LazyListScope.stickyItems(s: String, banksCA: List<Bank>) {
-    stickyHeader { HeaderBank(s) }
-    items(banksCA) { bank -> ExpandableItemBank(bank) }
-}
-
-@Composable
-private fun HeaderBank(label: String,modifier: Modifier = Modifier) {
-    Text(text = label, modifier = modifier)
-}
-
-@Composable
-private fun ExpandableItemBank(bank: Bank, modifier: Modifier = Modifier) {
-    CATSExpandable(
-        modifier = modifier,
-        header = { ExpandableItemBankHeader(bank) },
-        content = { ExpandableItemBankContent(bank) }
-    )
-}
-
-@Composable
-private fun ExpandableItemBankHeader(bank: Bank, modifier: Modifier = Modifier) {
-    Text(text = bank.name, modifier = modifier)
-}
-
-@Composable
-fun ExpandableItemBankContent(bank: Bank, modifier: Modifier = Modifier) {
-    Column(modifier) {
-        bank.accounts.forEach { account ->
-            ItemAccount(account)
-        }
+private fun LazyListScope.stickyItems(label: String, banksCA: List<Bank>) {
+    stickyHeader { Text(text = label) }
+    items(banksCA) { bank ->
+        CATSExpandable(
+            header = { Text(text = bank.name) },
+            content = {
+                Column {
+                    bank.accounts.forEach { account ->
+                        Text(text = account.label)
+                    }
+                }
+            }
+        )
     }
-}
-
-@Composable
-private fun ItemAccount(account: Account) {
-    Text(text = account.label)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
