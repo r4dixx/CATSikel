@@ -41,8 +41,6 @@ class CATSActivity : ComponentActivity() {
                                     account = account,
                                     onDismiss = { navController.popBackStack() }
                                 )
-                            } else {
-                                // TODO Handle the case where the necessary data is missing
                             }
                         }
                     }
