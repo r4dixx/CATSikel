@@ -1,43 +1,40 @@
 package com.r4dixx.cats.ui.account
 
 import com.r4dixx.cats.core.ui.CATSViewModel
+import com.r4dixx.cats.core.utils.toFormattedAmount
+import com.r4dixx.cats.core.utils.toFormattedDate
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Operation
-import java.math.BigDecimal
+import java.text.SimpleDateFormat
+import java.util.Locale
+import kotlin.time.ExperimentalTime
 
-class AccountViewModel(account: Account) : CATSViewModel<AccountViewModel.Data>() {
+class AccountViewModel(account: Account, private val locale: Locale) : CATSViewModel<AccountViewModel.Data>() {
 
     override val data = Data()
 
     init {
         val newData = Data(
             label = account.label,
-            balance = account.balance.toCurrencyAmount(),
+            balance = account.balance.toFormattedAmount(locale),
             operations = account.operations.toOperationUIList()
         )
         val newState = State.Success(newData)
         updateState(newState)
     }
 
-    private fun BigDecimal.toCurrencyAmount(): String {
-        // TODO
-        return ""
-    }
-
-    private fun List<Operation>.toOperationUIList(): List<OperationUI> {
-        // TODO
-        return emptyList()
+    @OptIn(ExperimentalTime::class)
+    private fun List<Operation>.toOperationUIList() = map {
+        OperationUI(
+            title = it.title,
+            amount = it.amount.toFormattedAmount(locale),
+            date = it.date.toFormattedDate(SimpleDateFormat.SHORT, locale)
+        )
     }
 
     data class Data(
         val label: String = "",
         val balance: String = "",
         val operations: List<OperationUI> = emptyList(),
-    )
-
-    data class OperationUI(
-        val title: String,
-        val amount: String,
-        val date: String,
     )
 }
