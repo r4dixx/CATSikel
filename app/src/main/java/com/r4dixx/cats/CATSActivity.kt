@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.r4dixx.cats.design.theme.CATSTheme
+import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.ui.account.AccountSheet
 import com.r4dixx.cats.ui.banks.BanksScreen
 import org.koin.compose.KoinContext
@@ -23,10 +24,25 @@ class CATSActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(navController, CATSRoute.Banks.route) {
                         composable(CATSRoute.Banks.route) {
-                            BanksScreen(onAccountClick = { navController.navigate(CATSRoute.Account.route) })
+                            BanksScreen(
+                                onAccountClick = { account ->
+                                    navController.currentBackStackEntry?.savedStateHandle?.set(CATSRoute.Account.key, account)
+                                    navController.navigate(CATSRoute.Account.route)
+                                }
+                            )
                         }
                         composable(CATSRoute.Account.route) {
-                            AccountSheet(onDismiss = { navController.popBackStack() })
+                            val account = navController
+                                .previousBackStackEntry
+                                ?.savedStateHandle
+                                ?.get<Account>(CATSRoute.Account.key)
+
+                            account?.let {
+                                AccountSheet(
+                                    account = it,
+                                    onDismiss = { navController.popBackStack() }
+                                )
+                            }
                         }
                     }
                 }

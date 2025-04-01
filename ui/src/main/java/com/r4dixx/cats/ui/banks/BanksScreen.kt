@@ -18,12 +18,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.theme.spacingDefault
+import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun BanksScreen(
-    onAccountClick: () -> Unit,
+    onAccountClick: (Account) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: BanksViewModel = koinViewModel()
 ) {
@@ -55,7 +56,7 @@ private fun BanksContent(
     banksCA: List<Bank>,
     banksNotCA: List<Bank>,
     modifier: Modifier = Modifier,
-    onAccountClick: () -> Unit,
+    onAccountClick: (Account) -> Unit,
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(spacingDefault),
@@ -70,7 +71,7 @@ private fun BanksContent(
 private fun LazyListScope.stickyItems(
     label: String,
     banksCA: List<Bank>,
-    onAccountClick: () -> Unit,
+    onAccountClick: (Account) -> Unit,
 ) {
     stickyHeader { Text(text = label) }
     items(banksCA) { bank ->
@@ -79,7 +80,10 @@ private fun LazyListScope.stickyItems(
             content = {
                 Column {
                     bank.accounts.forEach { account ->
-                        Text(text = account.label, modifier = Modifier.clickable { onAccountClick() } )
+                        Text(
+                            text = account.label,
+                            modifier = Modifier.clickable { onAccountClick(account) }
+                        )
                     }
                 }
             }
