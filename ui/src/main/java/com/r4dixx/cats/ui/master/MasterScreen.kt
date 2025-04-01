@@ -51,10 +51,20 @@ private fun MasterContent(
 ) {
     LazyColumn(modifier) {
         stickyHeader { Text(text = "- Crédit Agricole") }
-        items(banksCA) { bank -> Text(text = bank.name) }
+        items(banksCA) { bank ->
+            Text(text = bank.name)
+            bank.accounts.forEach {
+                Text(text = it.label)
+            }
+        }
         item { Spacer(modifier = Modifier.height(spacingDefault)) }
         stickyHeader { Text(text = "- Autres Banques") }
-        items(banksNotCA) { bank -> Text(text = bank.name) }
+        items(banksNotCA) { bank ->
+            Text(text = bank.name)
+            bank.accounts.forEach {
+                Text(text = it.label)
+            }
+        }
     }
 }
 
