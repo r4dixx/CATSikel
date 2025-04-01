@@ -12,19 +12,19 @@ class AccountViewModel(account: Account) : CATSViewModel<AccountViewModel.Data>(
     init {
         val newData = Data(
             label = account.label,
-            balance = account.balance.toFormattedAmount(),
-            operations = account.operations.toOperationUI()
+            balance = account.balance.toCurrencyAmount(),
+            operations = account.operations.toOperationUIList()
         )
         val newState = State.Success(newData)
         updateState(newState)
     }
 
-    private fun BigDecimal.toFormattedAmount(): String {
+    private fun BigDecimal.toCurrencyAmount(): String {
         // TODO
         return ""
     }
 
-    private fun List<Operation>.toOperationUI(): List<OperationUI> {
+    private fun List<Operation>.toOperationUIList(): List<OperationUI> {
         // TODO
         return emptyList()
     }

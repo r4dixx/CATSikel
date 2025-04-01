@@ -24,7 +24,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun BanksScreen(
-    onAccountClick: (Account) -> Unit,
+    onAccountClick: (Bank, Account) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: BanksViewModel = koinViewModel()
 ) {
@@ -56,7 +56,7 @@ private fun BanksContent(
     banksCA: List<Bank>,
     banksNotCA: List<Bank>,
     modifier: Modifier = Modifier,
-    onAccountClick: (Account) -> Unit,
+    onAccountClick: (Bank, Account) -> Unit,
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(spacingDefault),
@@ -71,7 +71,7 @@ private fun BanksContent(
 private fun LazyListScope.stickyItems(
     label: String,
     banksCA: List<Bank>,
-    onAccountClick: (Account) -> Unit,
+    onAccountClick: (Bank, Account) -> Unit,
 ) {
     stickyHeader { Text(text = label) }
     items(banksCA) { bank ->
@@ -82,7 +82,7 @@ private fun LazyListScope.stickyItems(
                     bank.accounts.forEach { account ->
                         Text(
                             text = account.label,
-                            modifier = Modifier.clickable { onAccountClick(account) }
+                            modifier = Modifier.clickable { onAccountClick(bank, account) }
                         )
                     }
                 }
