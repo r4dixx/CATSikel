@@ -80,7 +80,7 @@ private fun BanksScreenContent(
 ) {
     LazyColumn(modifier) {
         stickyItems(R.string.header_bank_type_ca, banksCA, onAccountClick)
-        item { Spacer(Modifier.height(spacingDefault)) }
+        item { Spacer(Modifier.height(spacingLarge)) }
         stickyItems(R.string.header_bank_type_not_ca, banksNotCA, onAccountClick)
     }
 }
