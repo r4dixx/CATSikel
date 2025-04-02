@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Content descriptions -->
+    <string name="cd_collapse">Afficher moins</string>
+    <string name="cd_expand">Afficher plus</string>
+</resources>

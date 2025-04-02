@@ -3,9 +3,13 @@ package com.r4dixx.cats.design.theme
 import androidx.compose.ui.unit.dp
 
 object Dimension {
-    val spacingSmall = 8.dp
     val spacingDefault = 16.dp
-    val iconMedium = 48.dp
-    val iconLarge = 96.dp
+    val spacingSmall = spacingDefault / 2
+    val spacingLarge = spacingDefault * 2
+
+    val iconDefault = 24.dp
+    val iconLarge = iconDefault * 2
+    val iconExtraLarge = iconLarge * 2
+
     val strokeDefault = 1.dp
 }

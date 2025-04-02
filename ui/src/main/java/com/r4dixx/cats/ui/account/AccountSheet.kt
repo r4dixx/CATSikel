@@ -25,8 +25,9 @@ import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
 import com.r4dixx.cats.design.components.CATSIconGradient
 import com.r4dixx.cats.design.components.CATSSheet
 import com.r4dixx.cats.design.components.CATSTextGradient
-import com.r4dixx.cats.design.theme.Dimension.iconLarge
+import com.r4dixx.cats.design.theme.Dimension.iconExtraLarge
 import com.r4dixx.cats.design.theme.Dimension.spacingDefault
+import com.r4dixx.cats.design.theme.Dimension.spacingLarge
 import com.r4dixx.cats.design.theme.Dimension.spacingSmall
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.ui.account.model.OperationUI
@@ -78,9 +79,9 @@ private fun CATSSheetUnder(
             painter = painterResource(com.r4dixx.cats.design.R.drawable.ic_cats),
             contentDescription = null, // Not necessary here
             modifier = Modifier
-                .size(iconLarge)
+                .size(iconExtraLarge)
                 .align (Alignment.TopCenter)
-                .padding(top = spacingDefault)
+                .padding(top = spacingLarge)
         )
         Column {
             Text(

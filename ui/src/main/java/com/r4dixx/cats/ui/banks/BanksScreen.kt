@@ -1,10 +1,13 @@
 package com.r4dixx.cats.ui.banks
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,8 +28,9 @@ import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.components.CATSIconGradient
 import com.r4dixx.cats.design.components.CATSTextGradient
-import com.r4dixx.cats.design.theme.Dimension.iconMedium
+import com.r4dixx.cats.design.theme.Dimension.iconLarge
 import com.r4dixx.cats.design.theme.Dimension.spacingDefault
+import com.r4dixx.cats.design.theme.Dimension.spacingLarge
 import com.r4dixx.cats.design.theme.Dimension.spacingSmall
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
@@ -41,7 +45,7 @@ fun BanksScreen(
 ) {
     Scaffold(
         modifier = modifier,
-        topBar = { BanksScreenTopBar() },
+        topBar = { BanksScreenTopBar(Modifier.padding(vertical = spacingLarge)) },
         content = { paddingValues ->
             val state = viewModel.state.collectAsStateWithLifecycle()
 
@@ -56,7 +60,8 @@ fun BanksScreen(
                 onAccountClick = onAccountClick,
                 modifier = Modifier
                     .padding(paddingValues)
-                    .padding(horizontal = spacingDefault)
+                    .padding(horizontal = spacingLarge)
+                    .padding(bottom = spacingLarge)
             )
         }
     )
@@ -69,37 +74,61 @@ private fun BanksScreenContent(
     modifier: Modifier = Modifier,
     onAccountClick: (Account) -> Unit,
 ) {
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(spacingDefault),
-        modifier = modifier
-    ) {
-        stickyItems("- Crédit Agricole", banksCA, onAccountClick)
-        stickyItems("- Autres Banques", banksNotCA, onAccountClick)
+    LazyColumn(modifier) {
+        stickyItems(R.string.header_bank_type_ca, banksCA, onAccountClick)
+        item { Spacer(Modifier.height(spacingDefault)) }
+        stickyItems(R.string.header_bank_type_not_ca, banksNotCA, onAccountClick)
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 private fun LazyListScope.stickyItems(
-    label: String,
-    banksCA: List<Bank>,
+    @StringRes labelRes: Int,
+    banks: List<Bank>,
     onAccountClick: (Account) -> Unit,
 ) {
-    stickyHeader { Text(text = label) }
-    items(banksCA) { bank ->
-        CATSExpandable(
-            header = { Text(text = bank.name) },
-            content = {
-                Column {
-                    bank.accounts.forEach { account ->
-                        Text(
-                            text = account.label,
-                            modifier = Modifier.clickable { onAccountClick(account) }
-                        )
-                    }
-                }
-            }
+    stickyHeader {
+        Text(
+            text = stringResource(labelRes),
+            style = MaterialTheme.typography.titleLarge
         )
     }
+    item { Spacer(Modifier.height(spacingDefault)) }
+    items(banks) { bank ->
+        BanksScreenItem(
+            bank = bank,
+            onAccountClick = onAccountClick,
+            modifier = Modifier.padding(bottom = spacingSmall)
+        )
+    }
+}
+
+@Composable
+private fun BanksScreenItem(
+    bank: Bank,
+    onAccountClick: (Account) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    CATSExpandable(
+        modifier = modifier,
+        header = {
+            Text(
+                text = bank.name,
+                style = MaterialTheme.typography.titleMedium
+            )
+        },
+        content = {
+            Column {
+                bank.accounts.forEach { account ->
+                    Text(
+                        text = account.label,
+                        style = MaterialTheme.typography.titleSmall,
+                        modifier = Modifier.clickable { onAccountClick(account) }
+                    )
+                }
+            }
+        }
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -115,7 +144,7 @@ private fun BanksScreenTopBar(modifier: Modifier = Modifier) {
                 CATSIconGradient(
                     painter = painterResource(com.r4dixx.cats.design.R.drawable.ic_cats),
                     contentDescription = null, // Not necessary here
-                    modifier = Modifier.size(iconMedium)
+                    modifier = Modifier.size(iconLarge)
                 )
                 CATSTextGradient(
                     text = stringResource(R.string.banks_top_bar_text),
