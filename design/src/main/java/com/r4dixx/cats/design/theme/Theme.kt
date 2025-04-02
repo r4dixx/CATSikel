@@ -20,7 +20,7 @@ private val ColorScheme = darkColorScheme(
 fun CATSTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = ColorScheme,
-        typography = Typography,
+        typography = Typography.default,
         content = content
     )
 }
