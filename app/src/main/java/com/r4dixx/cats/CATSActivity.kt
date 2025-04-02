@@ -4,10 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.r4dixx.cats.design.theme.CATSTheme
+import com.r4dixx.cats.design.theme.Dimension.spacingLarge
 import com.r4dixx.cats.design.theme.SystemBarStyle
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.ui.account.AccountSheet
@@ -39,7 +43,8 @@ class CATSActivity : ComponentActivity() {
                             if (account != null) {
                                 AccountSheet(
                                     account = account,
-                                    onDismiss = { navController.popBackStack() }
+                                    onDismiss = { navController.popBackStack() },
+                                    modifier = Modifier.statusBarsPadding().padding(top = spacingLarge)
                                 )
                             }
                         }

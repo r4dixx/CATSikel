@@ -93,12 +93,11 @@ private fun LazyListScope.stickyItems(
             style = MaterialTheme.typography.titleLarge
         )
     }
-    item { Spacer(Modifier.height(spacingDefault)) }
+    item { Spacer(Modifier.height(spacingSmall)) }
     items(banks) { bank ->
         BanksScreenItem(
             bank = bank,
             onAccountClick = onAccountClick,
-            modifier = Modifier.padding(bottom = spacingSmall)
         )
     }
 }
@@ -114,7 +113,8 @@ private fun BanksScreenItem(
         header = {
             Text(
                 text = bank.name,
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(vertical = spacingSmall)
             )
         },
         content = {

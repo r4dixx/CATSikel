@@ -81,7 +81,6 @@ private fun CATSSheetUnder(
             modifier = Modifier
                 .size(iconExtraLarge)
                 .align (Alignment.TopCenter)
-                .padding(top = spacingLarge)
         )
         Column {
             Text(
