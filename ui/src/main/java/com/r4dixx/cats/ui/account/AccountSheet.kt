@@ -1,13 +1,11 @@
 package com.r4dixx.cats.ui.account
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
@@ -15,18 +13,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
-import com.r4dixx.cats.design.components.CATSIconGradient
 import com.r4dixx.cats.design.components.CATSSheet
 import com.r4dixx.cats.design.components.CATSTextGradient
-import com.r4dixx.cats.design.theme.Dimension.iconExtraLarge
 import com.r4dixx.cats.design.theme.Dimension.spacingDefault
 import com.r4dixx.cats.design.theme.Dimension.spacingSmall
+import com.r4dixx.cats.design.theme.Gradient
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.ui.account.model.OperationUI
 import org.koin.androidx.compose.koinViewModel
@@ -44,19 +37,29 @@ fun AccountSheet(
     if (state.value !is Success) return
     val data = (state.value as Success<AccountViewModel.Data>).data
 
-    Box(modifier) {
-        CATSSheetUnder(
+    Column(modifier) {
+        CATSSheetTopBar(
             label = data.label,
-            balance = data.balance,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(LocalConfiguration.current.screenHeightDp.dp / 2)
-                .align(Alignment.TopCenter)
+            modifier = Modifier.padding(spacingDefault)
         )
         CATSSheet(onDismiss = onDismiss) {
             LazyColumn(verticalArrangement = Arrangement.spacedBy(spacingDefault)) {
-                items(data.operations) {operation ->
-                    OperationItem(operation)
+                item {
+                    CATSTextGradient(
+                        text = data.balance,
+                        style = MaterialTheme.typography.displayLarge,
+                    )
+                }
+                items(data.operations) { operation ->
+                    OperationItem(
+                        operation = operation,
+                        modifier = Modifier
+                            .background(
+                                brush = Gradient.default,
+                                shape = MaterialTheme.shapes.medium
+                            )
+                            .padding(spacingDefault)
+                    )
                 }
             }
         }
@@ -64,39 +67,21 @@ fun AccountSheet(
 }
 
 @Composable
-private fun CATSSheetUnder(
+private fun CATSSheetTopBar(
     label: String,
-    balance: String,
     modifier: Modifier = Modifier,
 ) {
-    Box(
-        contentAlignment = Alignment.Center,
+    CATSTextGradient(
+        text = label,
+        style = MaterialTheme.typography.headlineLarge,
         modifier = modifier
-    ) {
-        CATSIconGradient(
-            painter = painterResource(com.r4dixx.cats.design.R.drawable.ic_cats),
-            contentDescription = null, // Not necessary here
-            modifier = Modifier
-                .size(iconExtraLarge)
-                .align (Alignment.TopCenter)
-        )
-        Column {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.displaySmall.copy(color = Color.White)
-            )
-            CATSTextGradient(
-                text = balance,
-                style = MaterialTheme.typography.displayLarge
-            )
-        }
-    }
+    )
 }
 
 @Composable
 private fun OperationItem(
     operation: OperationUI,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,

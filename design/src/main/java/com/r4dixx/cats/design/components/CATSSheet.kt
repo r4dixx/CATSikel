@@ -10,6 +10,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.r4dixx.cats.design.theme.Dimension.spacingDefault
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,7 +31,11 @@ fun CATSSheet(
         properties = sheetProperties,
         sheetState = sheetState,
         onDismissRequest = onDismiss,
-        containerColor = Color.White,
+        dragHandle = {},
+        containerColor = Color.Black,
+        scrimColor = Color.Transparent,
+        contentColor = Color.Black,
+        tonalElevation = 0.dp,
         modifier = Modifier
             .fillMaxWidth()
             .then(modifier)

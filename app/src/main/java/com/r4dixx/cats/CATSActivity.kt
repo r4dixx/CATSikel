@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.ui.Modifier
@@ -44,7 +45,10 @@ class CATSActivity : ComponentActivity() {
                                 AccountSheet(
                                     account = account,
                                     onDismiss = { navController.popBackStack() },
-                                    modifier = Modifier.statusBarsPadding().padding(top = spacingLarge)
+                                    modifier = Modifier
+                                        .statusBarsPadding()
+                                        .navigationBarsPadding()
+                                        .padding(vertical = spacingLarge)
                                 )
                             }
                         }
