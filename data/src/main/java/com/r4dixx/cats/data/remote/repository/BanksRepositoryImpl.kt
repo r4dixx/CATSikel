@@ -8,14 +8,12 @@ import com.r4dixx.cats.domain.repository.BanksRepository
 
 class BanksRepositoryImpl(
     private val remoteService: BanksRemoteService,
-    private val localService: BanksLocalService
+    private val localService: BanksLocalService,
 ) : BanksRepository {
     override suspend fun getBanks(): Result<List<Bank>> {
-//       return remoteService.getBanks().mapCatching { response ->
-//            response.banks.map { it.toDomain() }
-//        }
-        return localService.getBanks().mapCatching { response ->
-            response.map { it.toDomain() }
-        }
+        return remoteService
+            .getBanks()
+            .mapCatching { banks -> banks.map { it.toDomain() } }
+            .recoverCatching { localService.getBanks().getOrThrow().map { it.toDomain() } }
     }
 }
