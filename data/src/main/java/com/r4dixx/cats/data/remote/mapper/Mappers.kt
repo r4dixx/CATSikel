@@ -1,12 +1,12 @@
-package com.r4dixx.cats.data.api.mapper
+package com.r4dixx.cats.data.remote.mapper
 
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.model.Operation
 import kotlin.time.ExperimentalTime
-import com.r4dixx.cats.data.api.model.Account as APIAccount
-import com.r4dixx.cats.data.api.model.Bank as APIBank
-import com.r4dixx.cats.data.api.model.Operation as APIOperation
+import com.r4dixx.cats.data.remote.model.Account as APIAccount
+import com.r4dixx.cats.data.remote.model.Bank as APIBank
+import com.r4dixx.cats.data.remote.model.Operation as APIOperation
 
 fun APIBank.toDomain() = Bank(
     name = name,

@@ -1,7 +1,7 @@
 package com.r4dixx.cats.data
 
-import com.r4dixx.cats.data.api.repository.BanksRepositoryImpl
-import com.r4dixx.cats.data.api.service.BanksService
+import com.r4dixx.cats.data.remote.repository.BanksRepositoryImpl
+import com.r4dixx.cats.data.local.service.BanksLocalService
 import com.r4dixx.cats.domain.repository.BanksRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
@@ -16,7 +16,7 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
 val dataModule = module {
-    single { BanksService(androidApplication().applicationContext) }
+    single { BanksLocalService(androidApplication().applicationContext) }
     single<BanksRepository> { BanksRepositoryImpl(get()) }
 
     single {
