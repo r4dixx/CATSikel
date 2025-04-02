@@ -18,7 +18,7 @@ fun CATSCard(
     Card(
         onClick = onClick,
         colors = CardDefaults.cardColors(containerColor = Color.Transparent),
-        border = BorderStroke(Dimension.borderStrokeDefault, Gradient.default),
+        border = BorderStroke(Dimension.strokeDefault, Gradient.default),
         modifier = modifier
     ) {
         content()

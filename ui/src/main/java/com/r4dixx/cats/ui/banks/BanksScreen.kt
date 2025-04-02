@@ -25,7 +25,7 @@ import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.components.CATSIconGradient
 import com.r4dixx.cats.design.components.CATSTextGradient
-import com.r4dixx.cats.design.theme.Dimension.iconSizeLarge
+import com.r4dixx.cats.design.theme.Dimension.iconMedium
 import com.r4dixx.cats.design.theme.Dimension.spacingDefault
 import com.r4dixx.cats.design.theme.Dimension.spacingSmall
 import com.r4dixx.cats.domain.model.Account
@@ -115,7 +115,7 @@ private fun BanksScreenTopBar(modifier: Modifier = Modifier) {
                 CATSIconGradient(
                     painter = painterResource(com.r4dixx.cats.design.R.drawable.ic_cats),
                     contentDescription = null, // Not necessary here
-                    modifier = Modifier.size(iconSizeLarge)
+                    modifier = Modifier.size(iconMedium)
                 )
                 CATSTextGradient(
                     text = stringResource(R.string.banks_top_bar_text),
