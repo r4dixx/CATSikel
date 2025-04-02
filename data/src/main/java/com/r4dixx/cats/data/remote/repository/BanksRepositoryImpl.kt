@@ -6,6 +6,11 @@ import com.r4dixx.cats.data.remote.service.BanksRemoteService
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.repository.BanksRepository
 
+/**
+ * A repository for retrieving banks.
+ * It first tries to retrieve banks from the remote service,
+ * and if it fails, it tries to retrieve banks from the local service.
+ */
 class BanksRepositoryImpl(
     private val remoteService: BanksRemoteService,
     private val localService: BanksLocalService,

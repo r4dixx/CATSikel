@@ -47,10 +47,7 @@ fun CATSExpandable(
             header()
             Spacer(modifier = Modifier.weight(1f))
 
-            val rotationAngle by animateFloatAsState(
-                targetValue = if (expanded) 180f else 0f,
-                label = "Icon Rotation"
-            )
+            val rotationAngle by animateFloatAsState(if (expanded) 180f else 0f)
 
             Icon(
                 imageVector = Icons.Default.KeyboardArrowDown,

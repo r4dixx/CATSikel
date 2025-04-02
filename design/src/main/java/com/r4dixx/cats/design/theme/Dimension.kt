@@ -9,7 +9,6 @@ object Dimension {
 
     val iconDefault = 24.dp
     val iconLarge = iconDefault * 2
-    val iconExtraLarge = iconLarge * 2
 
     val cardDefault = 32.dp
 }

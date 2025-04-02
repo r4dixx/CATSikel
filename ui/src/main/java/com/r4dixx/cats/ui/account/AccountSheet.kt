@@ -95,7 +95,7 @@ private fun OperationItem(
             )
             Text(
                 text = operation.date,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.labelSmall
             )
         }
 

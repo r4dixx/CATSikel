@@ -27,6 +27,12 @@ class AccountViewModel(
         updateState(newState)
     }
 
+    /**
+     * Map [Operation] to [OperationUI]
+     * Converts amount to formatted [String]
+     * Converts [Operation.date] to [SimpleDateFormat.FULL]
+     * @return List of [OperationUI]
+     */
     @OptIn(ExperimentalTime::class)
     private fun List<Operation>.toOperationsUI() = map {
         OperationUI(
@@ -36,6 +42,10 @@ class AccountViewModel(
         )
     }
 
+    /**
+     * Sort by date descending.
+     * If date is the same, sort by title
+     */
     @OptIn(ExperimentalTime::class)
     private fun List<Operation>.sorted() = sortedWith(
         compareByDescending<Operation> { it.date }.thenBy { it.title }
