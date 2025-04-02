@@ -64,7 +64,7 @@ fun BanksScreen(
                 onAccountClick = onAccountClick,
                 modifier = Modifier
                     .padding(paddingValues)
-                    .padding(horizontal = spacingLarge)
+                    .padding(horizontal = spacingDefault)
                     .padding(bottom = spacingLarge)
             )
         }
