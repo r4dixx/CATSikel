@@ -11,5 +11,5 @@ object Dimension {
     val iconLarge = iconDefault * 2
     val iconExtraLarge = iconLarge * 2
 
-    val strokeDefault = 1.dp
+    val cardDefault = 32.dp
 }
