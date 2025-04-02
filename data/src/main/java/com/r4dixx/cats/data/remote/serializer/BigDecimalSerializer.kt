@@ -14,6 +14,10 @@ import java.math.RoundingMode
 object BigDecimalSerializer : KSerializer<BigDecimal> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Currency", PrimitiveKind.STRING)
 
+    /**
+     * Deserialize a BigDecimal from a string.
+     * Replaces the comma with a dot and trims the string.
+     */
     override fun deserialize(decoder: Decoder): BigDecimal {
         return try {
             val stringValue = decoder.decodeString().replace(",", ".").trim()

@@ -31,7 +31,7 @@ class :data android-library
 ```
 # About
 
-CATS - Technical Test 2025
+CATS - 2025
 
 - Case study can be found in the repository: [docs/test_mobile_CA.pdf](test_mobile_CA.pdf)
 - Project planning can be found too: [docs/project_planning.png](project_planning.png)

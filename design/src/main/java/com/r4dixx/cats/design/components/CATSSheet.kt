@@ -36,9 +36,7 @@ fun CATSSheet(
         scrimColor = Color.Transparent,
         contentColor = Color.Black,
         tonalElevation = 0.dp,
-        modifier = Modifier
-            .fillMaxWidth()
-            .then(modifier)
+        modifier = Modifier.fillMaxWidth().then(modifier)
     ) {
         Box(
             modifier = Modifier

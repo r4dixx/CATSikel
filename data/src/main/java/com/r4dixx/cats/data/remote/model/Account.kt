@@ -1,10 +1,12 @@
 package com.r4dixx.cats.data.remote.model
 
+import android.annotation.SuppressLint
 import com.r4dixx.cats.data.remote.serializer.BigDecimalSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 
+@SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class Account(
     val order: Int,
