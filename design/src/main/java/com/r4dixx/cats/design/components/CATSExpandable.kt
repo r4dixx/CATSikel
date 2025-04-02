@@ -19,7 +19,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import com.r4dixx.cats.design.theme.spacingDefault
+import androidx.compose.ui.res.stringResource
+import com.r4dixx.cats.design.R
+import com.r4dixx.cats.design.theme.Dimension
 
 @Composable
 fun CATSExpandable(
@@ -40,7 +42,7 @@ fun CATSExpandable(
                     onClick()
                 },
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(spacingDefault)
+            horizontalArrangement = Arrangement.spacedBy(Dimension.spacingDefault)
         ) {
             header()
             Spacer(modifier = Modifier.weight(1f))
@@ -52,7 +54,7 @@ fun CATSExpandable(
 
             Icon(
                 imageVector = Icons.Default.KeyboardArrowDown,
-                contentDescription = if (expanded) "Show less" else "Show more",
+                contentDescription = if (expanded) stringResource(R.string.cd_collapse) else stringResource(R.string.cd_expand),
                 modifier = Modifier.rotate(rotationAngle)
             )
         }

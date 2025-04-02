@@ -33,6 +33,7 @@ android {
 dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.core.splashscreen)
 
     implementation(project(":core"))
     implementation(project(":data"))

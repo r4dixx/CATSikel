@@ -18,7 +18,7 @@ class AccountViewModel(
     override val data = Data()
 
     init {
-        val newData = Data(
+        val newData = data.copy(
             label = account.label,
             balance = account.balance.toFormattedAmount(locale),
             operations = account.operations.toOperationsUI().sorted()
@@ -32,7 +32,7 @@ class AccountViewModel(
         OperationUI(
             title = it.title,
             amount = it.amount.toFormattedAmount(locale),
-            date = it.date.toFormattedDate(SimpleDateFormat.SHORT, locale)
+            date = it.date.toFormattedDate(SimpleDateFormat.FULL, locale)
         )
     }
 

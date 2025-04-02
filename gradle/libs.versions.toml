@@ -20,6 +20,8 @@ composeNavigation = "2.8.9"
 
 ktor = "3.1.1"
 
+splashscreen = "1.0.1"
+
 modulegraph = "0.12.0"
 
 ##########################################################################################################################################
@@ -28,6 +30,7 @@ modulegraph = "0.12.0"
 
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "composeActitivy" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -75,9 +78,9 @@ ktor = [
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 
-modulegraph = { id = "dev.iurysouza.modulegraph", version.ref = "modulegraph" }
-
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-parcelize = { id = "kotlin-parcelize" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+modulegraph = { id = "dev.iurysouza.modulegraph", version.ref = "modulegraph" }
