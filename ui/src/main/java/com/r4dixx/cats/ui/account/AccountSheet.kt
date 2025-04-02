@@ -1,12 +1,16 @@
 package com.r4dixx.cats.ui.account
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +27,7 @@ import com.r4dixx.cats.design.components.CATSSheet
 import com.r4dixx.cats.design.components.CATSTextGradient
 import com.r4dixx.cats.design.theme.Dimension.iconLarge
 import com.r4dixx.cats.design.theme.Dimension.spacingDefault
+import com.r4dixx.cats.design.theme.Dimension.spacingSmall
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.ui.account.model.OperationUI
 import org.koin.androidx.compose.koinViewModel
@@ -41,7 +46,7 @@ fun AccountSheet(
     val data = (state.value as Success<AccountViewModel.Data>).data
 
     Box(modifier) {
-        CATSSheetBehind(
+        CATSSheetUnder(
             label = data.label,
             balance = data.balance,
             modifier = Modifier
@@ -50,13 +55,17 @@ fun AccountSheet(
                 .align(Alignment.TopCenter)
         )
         CATSSheet(onDismiss = onDismiss) {
-            CATSSheetInside(data.operations)
+            LazyColumn(verticalArrangement = Arrangement.spacedBy(spacingDefault)) {
+                items(data.operations) {operation ->
+                    OperationItem(operation)
+                }
+            }
         }
     }
 }
 
 @Composable
-private fun CATSSheetBehind(
+private fun CATSSheetUnder(
     label: String,
     balance: String,
     modifier: Modifier = Modifier,
@@ -87,16 +96,31 @@ private fun CATSSheetBehind(
 }
 
 @Composable
-private fun CATSSheetInside(
-    operations: List<OperationUI>,
+private fun OperationItem(
+    operation: OperationUI,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier) {
-        operations.forEach { operation ->
-            Text(operation.title)
-            Text(operation.amount)
-            Text(operation.date)
-            Spacer(Modifier.height(spacingDefault))
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(spacingSmall),
+        modifier = modifier
+    ) {
+        Column {
+            Text(
+                text = operation.title,
+                style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                text = operation.date,
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
+
+        Spacer(Modifier.weight(1f))
+
+        Text(
+            text = operation.amount,
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
 }

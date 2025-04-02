@@ -32,7 +32,7 @@ class AccountViewModel(
         OperationUI(
             title = it.title,
             amount = it.amount.toFormattedAmount(locale),
-            date = it.date.toFormattedDate(SimpleDateFormat.SHORT, locale)
+            date = it.date.toFormattedDate(SimpleDateFormat.FULL, locale)
         )
     }
 
