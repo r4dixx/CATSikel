@@ -1,22 +1,26 @@
 package com.r4dixx.cats.ui.banks
 
+import androidx.lifecycle.viewModelScope
 import com.r4dixx.cats.core.ui.CATSViewModel
 import com.r4dixx.cats.core.utils.sanitized
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.usecase.GetBanksUseCase
+import kotlinx.coroutines.launch
 
 class BanksViewModel(getBanks: GetBanksUseCase) : CATSViewModel<BanksViewModel.Data>() {
 
     override val data = Data()
 
     init {
-        getBanks().onSuccess { banks ->
-            val newData = banks
-                .sanitized()
-                .withAccountsSanitized()
-                .toData()
-            val newState = State.Success(newData)
-            updateState(newState)
+        viewModelScope.launch {
+            getBanks().onSuccess { banks ->
+                val newData = banks
+                    .sanitized()
+                    .withAccountsSanitized()
+                    .toData()
+                val newState = State.Success(newData)
+                updateState(newState)
+            }
         }
     }
 
