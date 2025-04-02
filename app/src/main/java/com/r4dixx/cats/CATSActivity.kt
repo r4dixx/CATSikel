@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.r4dixx.cats.design.theme.CATSTheme
+import com.r4dixx.cats.design.theme.SystemBarStyle
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.ui.account.AccountSheet
 import com.r4dixx.cats.ui.banks.BanksScreen
@@ -17,7 +18,7 @@ class CATSActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         actionBar?.hide()
-        enableEdgeToEdge()
+        enableEdgeToEdge(SystemBarStyle.status, SystemBarStyle.navigation)
         setContent {
             KoinContext {
                 CATSTheme {

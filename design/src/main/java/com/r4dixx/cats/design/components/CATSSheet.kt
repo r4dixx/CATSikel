@@ -8,11 +8,11 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.r4dixx.cats.design.theme.spacingDefault
+import com.r4dixx.cats.design.theme.Dimension.spacingDefault
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CATSBottomSheet(
+fun CATSSheet(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
     content: @Composable () -> Unit,

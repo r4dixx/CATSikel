@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
-import com.r4dixx.cats.design.components.CATSBottomSheet
-import com.r4dixx.cats.design.theme.spacingDefault
+import com.r4dixx.cats.design.components.CATSSheet
+import com.r4dixx.cats.design.theme.Dimension.spacingDefault
 import com.r4dixx.cats.domain.model.Account
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -28,7 +28,7 @@ fun AccountSheet(
 
     Text(data.balance)
 
-    CATSBottomSheet(
+    CATSSheet(
         onDismiss = onDismiss,
         modifier = modifier
     ) {
