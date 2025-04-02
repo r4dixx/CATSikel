@@ -40,7 +40,7 @@ class CATSActivity : ComponentActivity() {
                             if (account != null) {
                                 AccountSheet(
                                     account = account,
-                                    onDismiss = { navController.popBackStack() }
+                                    onDismiss = { navController.popBackStack() },
                                 )
                             }
                         }
