@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -27,7 +26,6 @@ import com.r4dixx.cats.design.components.CATSSheet
 import com.r4dixx.cats.design.components.CATSTextGradient
 import com.r4dixx.cats.design.theme.Dimension.iconExtraLarge
 import com.r4dixx.cats.design.theme.Dimension.spacingDefault
-import com.r4dixx.cats.design.theme.Dimension.spacingLarge
 import com.r4dixx.cats.design.theme.Dimension.spacingSmall
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.ui.account.model.OperationUI

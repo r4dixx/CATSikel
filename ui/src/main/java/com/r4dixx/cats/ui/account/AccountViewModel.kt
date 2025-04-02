@@ -21,7 +21,7 @@ class AccountViewModel(
         val newData = data.copy(
             label = account.label,
             balance = account.balance.toFormattedAmount(locale),
-            operations = account.operations.toOperationsUI().sorted()
+            operations = account.operations.sorted().toOperationsUI()
         )
         val newState = State.Success(newData)
         updateState(newState)
@@ -32,12 +32,13 @@ class AccountViewModel(
         OperationUI(
             title = it.title,
             amount = it.amount.toFormattedAmount(locale),
-            date = it.date.toFormattedDate(SimpleDateFormat.FULL, locale)
+            date = it.date.toFormattedDate(SimpleDateFormat.FULL, locale),
         )
     }
 
-    private fun List<OperationUI>.sorted() = sortedWith(
-        compareByDescending<OperationUI> { it.date }.thenBy { it.title }
+    @OptIn(ExperimentalTime::class)
+    private fun List<Operation>.sorted() = sortedWith(
+        compareByDescending<Operation> { it.date }.thenBy { it.title }
     )
 
     data class Data(
