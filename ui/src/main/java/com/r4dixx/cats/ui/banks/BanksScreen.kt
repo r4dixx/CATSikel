@@ -14,12 +14,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.theme.spacingDefault
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
+import com.r4dixx.cats.ui.R
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -95,7 +97,11 @@ private fun LazyListScope.stickyItems(
 @Composable
 private fun MasterTopBar(modifier: Modifier = Modifier) {
     TopAppBar(
-        title = { Text(text = "Mes Comptes") },
+        title = {
+            Text(
+                text = stringResource(R.string.banks_top_bar_text)
+            )
+        },
         modifier = modifier
     )
 }
