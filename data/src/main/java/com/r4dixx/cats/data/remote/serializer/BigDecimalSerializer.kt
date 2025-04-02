@@ -1,4 +1,4 @@
-package com.r4dixx.cats.data.api.serializer
+package com.r4dixx.cats.data.remote.serializer
 
 
 import kotlinx.serialization.KSerializer

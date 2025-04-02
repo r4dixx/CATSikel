@@ -1,11 +1,13 @@
 package com.r4dixx.cats.data
 
-import com.r4dixx.cats.data.api.repository.BanksRepositoryImpl
-import com.r4dixx.cats.data.api.service.BanksService
+import com.r4dixx.cats.data.local.service.BanksLocalService
+import com.r4dixx.cats.data.remote.repository.BanksRepositoryImpl
+import com.r4dixx.cats.data.remote.service.BanksRemoteService
 import com.r4dixx.cats.domain.repository.BanksRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.ANDROID
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
@@ -16,9 +18,6 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
 val dataModule = module {
-    single { BanksService(androidApplication().applicationContext) }
-    single<BanksRepository> { BanksRepositoryImpl(get()) }
-
     single {
         HttpClient(Android) {
             install(Logging) {
@@ -35,6 +34,13 @@ val dataModule = module {
                     }
                 )
             }
+            defaultRequest {
+                url("https://cdf-test-mobile-default-rtdb.europe-west1.firebasedatabase.app/")
+            }
         }
     }
+
+    single { BanksLocalService(androidApplication().applicationContext) }
+    single { BanksRemoteService(get()) }
+    single<BanksRepository> { BanksRepositoryImpl(get(), get()) }
 }
