@@ -30,7 +30,13 @@ class BanksViewModel(getBanks: GetBanksUseCase) : CATSViewModel<BanksViewModel.D
                 banksNotCA.add(bank)
             }
         }
-        return Data(banksCA, banksNotCA)
+
+        val newData = data.copy(
+            banksCA = banksCA,
+            banksNotCA = banksNotCA
+        )
+
+        return newData
     }
 
     private fun List<Bank>.withAccountsSanitized() = map { bank ->
