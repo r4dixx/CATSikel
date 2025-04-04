@@ -11,4 +11,6 @@ object Dimension {
     val iconLarge = iconDefault * 2
 
     val cardDefault = 32.dp
+
+    val sheetPaddingTop = 160.dp
 }

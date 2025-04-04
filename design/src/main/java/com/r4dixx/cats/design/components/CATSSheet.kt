@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.r4dixx.cats.design.theme.Dimension.sheetPaddingTop
 import com.r4dixx.cats.design.theme.Dimension.spacingDefault
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,15 +33,16 @@ fun CATSSheet(
         sheetState = sheetState,
         onDismissRequest = onDismiss,
         dragHandle = {},
-        containerColor = Color.Black,
+        containerColor = Color.Transparent,
         scrimColor = Color.Transparent,
         contentColor = Color.Black,
         tonalElevation = 0.dp,
-        modifier = Modifier.fillMaxWidth().then(modifier)
+        modifier = modifier
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(top = sheetPaddingTop)
                 .padding(spacingDefault),
         ) {
             content()
