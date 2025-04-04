@@ -35,8 +35,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
 
                     NavHost(navController, CATSRoute.Banks.route) {
-
-                        composable(CATSRoute.Banks.route) {
+                        composable(route = CATSRoute.Banks.route) {
                             BanksScreen(
                                 viewModel = koinViewModel(),
                                 onAccountClick = { account ->
