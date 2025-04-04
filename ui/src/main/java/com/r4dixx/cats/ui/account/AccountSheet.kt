@@ -1,31 +1,22 @@
 package com.r4dixx.cats.ui.account
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.unit.IntOffset
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
+import com.r4dixx.cats.design.components.CATSAnimatedTopBar
 import com.r4dixx.cats.design.components.CATSSheet
 import com.r4dixx.cats.design.components.CATSTextGradient
 import com.r4dixx.cats.design.theme.Dimension.spacingDefault
@@ -45,38 +36,11 @@ fun AccountSheet(
     val data = (state.value as Success<AccountViewModel.Data>).data
 
     Box(modifier) {
-        var topBarVisible by remember { mutableStateOf(false) }
-
-        LaunchedEffect(Unit) {
-            topBarVisible = true
-        }
-
-        val offsetY by animateFloatAsState(
-            targetValue = if (topBarVisible) 0f else -100f,
-            animationSpec = tween(),
-            label = "sheet_slide_animation"
+        CATSAnimatedTopBar(
+            text = data.label,
+            modifier = Modifier.padding(spacingDefault)
         )
-
-        val alpha by animateFloatAsState(
-            targetValue = if (topBarVisible) 1f else 0f,
-            animationSpec = tween(),
-            label = "sheet_fade_animation"
-        )
-
-        CATSSheetTopBar(
-            label = data.label,
-            modifier = Modifier
-                .offset { IntOffset(0, offsetY.toInt()) }
-                .alpha(alpha)
-                .padding(spacingDefault)
-        )
-
-        CATSSheet(
-            onDismiss = {
-                topBarVisible = false
-                onDismiss()
-            }
-        ) {
+        CATSSheet(onDismiss = onDismiss) {
             LazyColumn(verticalArrangement = Arrangement.spacedBy(spacingDefault)) {
                 item {
                     CATSTextGradient(
@@ -86,26 +50,15 @@ fun AccountSheet(
                 }
                 items(data.operations) { operation ->
                     OperationItem(
-                        operation = operation, modifier = Modifier
-                            .background(
-                                brush = Gradient.default, shape = MaterialTheme.shapes.medium
-                            )
+                        operation = operation,
+                        modifier = Modifier
+                            .background(brush = Gradient.default, shape = MaterialTheme.shapes.medium)
                             .padding(spacingDefault)
                     )
                 }
             }
         }
     }
-}
-
-@Composable
-private fun CATSSheetTopBar(
-    label: String,
-    modifier: Modifier = Modifier,
-) {
-    CATSTextGradient(
-        text = label, style = MaterialTheme.typography.headlineLarge, modifier = modifier
-    )
 }
 
 @Composable
