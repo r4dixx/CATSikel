@@ -18,21 +18,22 @@ import androidx.compose.ui.unit.IntOffset
 fun CATSAnimatedTopBar(
     text: String,
     modifier: Modifier = Modifier,
+    visible: Boolean = true,
 ) {
-    var visible by remember { mutableStateOf(false) }
+    var isVisible by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
-        visible = true
+    LaunchedEffect(visible) { 
+        isVisible = visible
     }
 
     val offsetY by animateFloatAsState(
-        targetValue = if (visible) 0f else -100f,
+        targetValue = if (isVisible) 0f else -100f,
         animationSpec = tween(),
         label = "slide_animation"
     )
 
     val alpha by animateFloatAsState(
-        targetValue = if (visible) 1f else 0f,
+        targetValue = if (isVisible) 1f else 0f,
         animationSpec = tween(),
         label = "fade_animation"
     )

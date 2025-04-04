@@ -17,7 +17,7 @@ import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.design.theme.Dimension.spacingLarge
 import com.r4dixx.cats.design.theme.SystemBarStyle
 import com.r4dixx.cats.navigation.CATSRoute
-import com.r4dixx.cats.ui.account.AccountSheet
+import com.r4dixx.cats.ui.account.AccountScreen
 import com.r4dixx.cats.ui.banks.BanksScreen
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.androidx.compose.koinViewModel
@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
                         composable(CATSRoute.Account.route) {
                             val selectedAccount by viewModel.selectedAccount.collectAsStateWithLifecycle()
                             selectedAccount?.let {
-                                AccountSheet(
+                                AccountScreen(
                                     viewModel = koinViewModel(parameters = { parametersOf(it) }),
                                     onDismiss = { navController.popBackStack() },
                                     modifier = Modifier
