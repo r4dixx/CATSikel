@@ -20,17 +20,13 @@ import com.r4dixx.cats.design.components.CATSTextGradient
 import com.r4dixx.cats.design.theme.Dimension.spacingDefault
 import com.r4dixx.cats.design.theme.Dimension.spacingSmall
 import com.r4dixx.cats.design.theme.Gradient
-import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.ui.account.model.OperationUI
-import org.koin.androidx.compose.koinViewModel
-import org.koin.core.parameter.parametersOf
 
 @Composable
 fun AccountSheet(
-    account: Account,
+    viewModel: AccountViewModel,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: AccountViewModel = koinViewModel(parameters = { parametersOf(account) }),
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     // TODO - Handle error and loading

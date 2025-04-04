@@ -1,9 +1,7 @@
-package com.r4dixx.cats.data.remote.model
+package com.r4dixx.cats.data.model
 
-import android.annotation.SuppressLint
 import kotlinx.serialization.Serializable
 
-@SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class Bank(
     val name: String,

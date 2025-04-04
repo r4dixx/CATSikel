@@ -1,8 +1,8 @@
-package com.r4dixx.cats.data.local.service
+package com.r4dixx.cats.data.service
 
 import android.content.Context
 import com.r4dixx.cats.data.R
-import com.r4dixx.cats.data.remote.model.Bank
+import com.r4dixx.cats.data.model.Bank
 import kotlinx.serialization.json.Json
 
 /**

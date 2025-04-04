@@ -1,8 +1,8 @@
-package com.r4dixx.cats.data.remote.repository
+package com.r4dixx.cats.data.repository
 
-import com.r4dixx.cats.data.local.service.BanksLocalService
-import com.r4dixx.cats.data.remote.mapper.toDomain
-import com.r4dixx.cats.data.remote.service.BanksRemoteService
+import com.r4dixx.cats.data.service.BanksLocalService
+import com.r4dixx.cats.data.mapper.toDomain
+import com.r4dixx.cats.data.service.BanksRemoteService
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.repository.BanksRepository
 

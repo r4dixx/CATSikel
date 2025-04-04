@@ -1,6 +1,6 @@
-package com.r4dixx.cats.data.remote.service
+package com.r4dixx.cats.data.service
 
-import com.r4dixx.cats.data.remote.model.Bank
+import com.r4dixx.cats.data.model.Bank
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

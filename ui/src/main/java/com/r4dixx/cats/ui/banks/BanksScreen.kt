@@ -39,13 +39,12 @@ import com.r4dixx.cats.design.theme.Dimension.spacingSmall
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.ui.R
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun BanksScreen(
+    viewModel: BanksViewModel,
     onAccountClick: (Account) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: BanksViewModel = koinViewModel(),
 ) {
     Scaffold(
         modifier = modifier,

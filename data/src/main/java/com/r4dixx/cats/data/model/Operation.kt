@@ -1,14 +1,12 @@
-package com.r4dixx.cats.data.remote.model
+package com.r4dixx.cats.data.model
 
-import android.annotation.SuppressLint
-import com.r4dixx.cats.data.remote.serializer.BigDecimalSerializer
-import com.r4dixx.cats.data.remote.serializer.InstantSerializer
+import com.r4dixx.cats.data.serializer.BigDecimalSerializer
+import com.r4dixx.cats.data.serializer.InstantSerializer
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
-@SuppressLint("UnsafeOptInUsageError")
 @OptIn(ExperimentalTime::class)
 @Serializable
 data class Operation(
