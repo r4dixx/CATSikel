@@ -7,25 +7,30 @@ import androidx.compose.ui.graphics.Color
 
 private val ColorScheme = darkColorScheme(
     primary = CATSColor.Mint,
-    onPrimary = Color.White,
-    primaryContainer = Color.Transparent,
+    onPrimary = CATSColor.LightGrey,
+    primaryContainer = CATSColor.DeepBlack,
     onPrimaryContainer = CATSColor.LightGrey,
 
     secondary = CATSColor.Coral,
-    onSecondary = Color.Black,
+    onSecondary = CATSColor.DeepBlack,
     secondaryContainer = Color.Transparent,
-    onSecondaryContainer = CATSColor.LightGrey,
+    onSecondaryContainer = CATSColor.DeepBlack,
 
     tertiary = CATSColor.Lavender,
-    onTertiary = Color.Black,
-    tertiaryContainer = Color.Transparent,
-    onTertiaryContainer = CATSColor.LightGrey,
+    onTertiary = CATSColor.DeepBlack,
+    tertiaryContainer = CATSColor.DeepBlack,
+    onTertiaryContainer = CATSColor.DeepBlack,
 
-    background = Color.Black,
+    background = CATSColor.DeepBlack,
     onBackground = CATSColor.LightGrey,
 
-    surface = Color.Black,
-    onSurface = Color.White,
+    surface = CATSColor.DeepBlack,
+    onSurface = CATSColor.LightGrey,
+    surfaceVariant = CATSColor.Mint,
+    onSurfaceVariant = CATSColor.DeepBlack,
+    outline = CATSColor.DeepBlack,
+
+    error = CATSColor.MediumRed,
 
     scrim = Color.Transparent
 )

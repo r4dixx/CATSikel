@@ -130,7 +130,7 @@ private fun BanksScreenItem(
                             overflow = TextOverflow.Ellipsis,
                             maxLines = 2,
                             textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.titleSmall
+                            style = MaterialTheme.typography.titleSmall,
                         )
                     }
                 }
