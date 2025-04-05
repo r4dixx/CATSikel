@@ -9,20 +9,20 @@ private val ColorScheme = darkColorScheme(
     primary = CATSColor.Mint,
     onPrimary = Color.White,
     primaryContainer = Color.Transparent,
-    onPrimaryContainer = Color.Black,
+    onPrimaryContainer = CATSColor.LightGrey,
 
     secondary = CATSColor.Coral,
-    onSecondary = Color.White,
+    onSecondary = Color.Black,
     secondaryContainer = Color.Transparent,
-    onSecondaryContainer = Color.White,
+    onSecondaryContainer = CATSColor.LightGrey,
 
     tertiary = CATSColor.Lavender,
-    onTertiary = Color.White,
+    onTertiary = Color.Black,
     tertiaryContainer = Color.Transparent,
-    onTertiaryContainer = Color.White,
+    onTertiaryContainer = CATSColor.LightGrey,
 
     background = Color.Black,
-    onBackground = Color.White,
+    onBackground = CATSColor.LightGrey,
 
     surface = Color.Black,
     onSurface = Color.White,
