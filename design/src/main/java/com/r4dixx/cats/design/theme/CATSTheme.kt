@@ -11,12 +11,12 @@ private val ColorScheme = darkColorScheme(
     primaryContainer = CATSColor.DeepBlack,
     onPrimaryContainer = CATSColor.LightGrey,
 
-    secondary = CATSColor.Coral,
+    secondary = CATSColor.Lavender,
     onSecondary = CATSColor.DeepBlack,
     secondaryContainer = Color.Transparent,
     onSecondaryContainer = CATSColor.DeepBlack,
 
-    tertiary = CATSColor.Lavender,
+    tertiary = CATSColor.Coral,
     onTertiary = CATSColor.DeepBlack,
     tertiaryContainer = CATSColor.DeepBlack,
     onTertiaryContainer = CATSColor.DeepBlack,

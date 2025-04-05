@@ -33,9 +33,9 @@ fun CATSSheet(
         sheetState = sheetState,
         onDismissRequest = onDismiss,
         dragHandle = {},
-        containerColor = MaterialTheme.colorScheme.onSecondaryContainer,
-        scrimColor = MaterialTheme.colorScheme.scrim,
+        containerColor = MaterialTheme.colorScheme.secondaryContainer,
         contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+        scrimColor = MaterialTheme.colorScheme.scrim,
         tonalElevation = 0.dp,
         modifier = modifier
     ) {
