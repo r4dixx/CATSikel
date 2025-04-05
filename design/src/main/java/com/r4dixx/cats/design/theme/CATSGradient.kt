@@ -6,7 +6,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 
-object Gradient {
+object CATSGradient {
     val default: Brush
         @Composable
         @ReadOnlyComposable

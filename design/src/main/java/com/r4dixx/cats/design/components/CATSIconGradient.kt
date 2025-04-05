@@ -7,7 +7,7 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
-import com.r4dixx.cats.design.theme.Gradient
+import com.r4dixx.cats.design.theme.CATSGradient
 
 @Composable
 fun CATSIconGradient(
@@ -15,7 +15,7 @@ fun CATSIconGradient(
     contentDescription: String?,
     modifier: Modifier = Modifier,
 ) {
-    val gradient = Gradient.default
+    val gradient = CATSGradient.default
     Icon(
         painter = painter,
         contentDescription = contentDescription,

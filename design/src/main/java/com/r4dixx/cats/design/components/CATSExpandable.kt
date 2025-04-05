@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.stringResource
 import com.r4dixx.cats.design.R
-import com.r4dixx.cats.design.theme.Dimension
+import com.r4dixx.cats.design.theme.CATSDimension
 
 @Composable
 fun CATSExpandable(
@@ -42,7 +42,7 @@ fun CATSExpandable(
                     onClick()
                 },
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Dimension.spacingDefault)
+            horizontalArrangement = Arrangement.spacedBy(CATSDimension.spacingDefault)
         ) {
             header()
             Spacer(modifier = Modifier.weight(1f))

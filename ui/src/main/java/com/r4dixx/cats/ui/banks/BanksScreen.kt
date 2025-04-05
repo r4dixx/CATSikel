@@ -2,7 +2,6 @@ package com.r4dixx.cats.ui.banks
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,8 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -21,7 +20,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -32,10 +30,10 @@ import com.r4dixx.cats.design.components.CATSCard
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.components.CATSIconGradient
 import com.r4dixx.cats.design.components.CATSTextGradient
-import com.r4dixx.cats.design.theme.Dimension.iconLarge
-import com.r4dixx.cats.design.theme.Dimension.spacingDefault
-import com.r4dixx.cats.design.theme.Dimension.spacingLarge
-import com.r4dixx.cats.design.theme.Dimension.spacingSmall
+import com.r4dixx.cats.design.theme.CATSDimension.iconLarge
+import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
+import com.r4dixx.cats.design.theme.CATSDimension.spacingLarge
+import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.ui.R
@@ -121,19 +119,18 @@ private fun BanksScreenItem(
             )
         },
         content = {
-            Row(
+            LazyRow(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(spacingDefault),
-                modifier = Modifier.horizontalScroll(rememberScrollState())
+                horizontalArrangement = Arrangement.spacedBy(spacingDefault)
             ) {
-                bank.accounts.forEach { account ->
+                items(bank.accounts) { account ->
                     CATSCard(onClick = { onAccountClick(account) }) {
                         Text(
                             text = account.label,
                             overflow = TextOverflow.Ellipsis,
                             maxLines = 2,
                             textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.titleSmall.copy(color = Color.Black),
+                            style = MaterialTheme.typography.titleSmall
                         )
                     }
                 }

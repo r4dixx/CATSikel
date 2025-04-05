@@ -5,7 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
-import com.r4dixx.cats.design.theme.Gradient
+import com.r4dixx.cats.design.theme.CATSGradient
 
 @Composable
 fun CATSTextGradient(
@@ -15,7 +15,7 @@ fun CATSTextGradient(
 ) {
     Text(
         text = text,
-        style = style.copy(Gradient.default),
+        style = style.copy(CATSGradient.default),
         modifier = modifier
     )
 }

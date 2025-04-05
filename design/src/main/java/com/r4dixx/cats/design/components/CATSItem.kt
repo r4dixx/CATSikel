@@ -9,9 +9,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.r4dixx.cats.design.theme.Dimension.spacingDefault
-import com.r4dixx.cats.design.theme.Dimension.spacingSmall
-import com.r4dixx.cats.design.theme.Gradient
+import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
+import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
+import com.r4dixx.cats.design.theme.CATSGradient
 
 @Composable
 fun CATSItem(
@@ -23,7 +23,7 @@ fun CATSItem(
         horizontalArrangement = Arrangement.spacedBy(spacingSmall),
         modifier = Modifier
             .padding(bottom = spacingDefault)
-            .background(brush = Gradient.default, shape = MaterialTheme.shapes.medium)
+            .background(brush = CATSGradient.default, shape = MaterialTheme.shapes.medium)
             .padding(spacingDefault)
             .then(modifier)
     ) {

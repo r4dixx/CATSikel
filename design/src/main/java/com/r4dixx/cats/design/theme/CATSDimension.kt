@@ -2,7 +2,7 @@ package com.r4dixx.cats.design.theme
 
 import androidx.compose.ui.unit.dp
 
-object Dimension {
+object CATSDimension {
     val spacingDefault = 16.dp
     val spacingSmall = spacingDefault / 2
     val spacingLarge = spacingDefault * 2

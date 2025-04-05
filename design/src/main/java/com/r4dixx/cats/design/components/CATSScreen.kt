@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.r4dixx.cats.design.theme.Dimension.spacingDefault
+import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 
 @Composable
 fun CATSScreen(
