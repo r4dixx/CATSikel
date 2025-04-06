@@ -4,18 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.r4dixx.cats.design.theme.CATSTheme
-import com.r4dixx.cats.design.theme.CATSDimension.spacingLarge
 import com.r4dixx.cats.design.theme.CATSSystemBarStyle
+import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.navigation.CATSRoute
 import com.r4dixx.cats.ui.account.AccountScreen
 import com.r4dixx.cats.ui.banks.BanksScreen
@@ -51,10 +46,6 @@ class MainActivity : ComponentActivity() {
                                 AccountScreen(
                                     viewModel = koinViewModel(parameters = { parametersOf(it) }),
                                     onDismiss = { navController.popBackStack() },
-                                    modifier = Modifier
-                                        .statusBarsPadding()
-                                        .navigationBarsPadding()
-                                        .padding(vertical = spacingLarge)
                                 )
                             }
                         }

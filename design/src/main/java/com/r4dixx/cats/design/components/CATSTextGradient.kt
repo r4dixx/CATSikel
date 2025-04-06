@@ -9,12 +9,14 @@ import com.r4dixx.cats.design.theme.CATSGradient
 
 @Composable
 fun CATSTextGradient(
-    modifier: Modifier = Modifier,
     text: String,
+    modifier: Modifier = Modifier,
+    maxLines: Int = Int.MAX_VALUE,
     style: TextStyle = LocalTextStyle.current,
 ) {
     Text(
         text = text,
+        maxLines = maxLines,
         style = style.copy(CATSGradient.default),
         modifier = modifier
     )

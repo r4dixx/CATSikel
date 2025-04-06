@@ -3,4 +3,5 @@
     <!-- Content descriptions -->
     <string name="cd_collapse">Afficher moins</string>
     <string name="cd_expand">Afficher plus</string>
+    <string name="cd_nav_back">Retour</string>
 </resources>

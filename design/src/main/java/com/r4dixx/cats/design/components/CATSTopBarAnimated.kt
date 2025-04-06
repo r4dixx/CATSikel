@@ -3,7 +3,6 @@ package com.r4dixx.cats.design.components
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.offset
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -12,17 +11,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.IntOffset
 
 @Composable
-fun CATSAnimatedTopBar(
+fun CATSTopBarAnimated(
     text: String,
     modifier: Modifier = Modifier,
-    visible: Boolean = true,
+    navIcon: Painter? = null,
+    navIconContentDesc: String? = null,
+    navOnClick: () -> Unit = {},
+    visible: Boolean = true
 ) {
     var isVisible by remember { mutableStateOf(false) }
 
-    LaunchedEffect(visible) { 
+    LaunchedEffect(visible) {
         isVisible = visible
     }
 
@@ -38,9 +41,11 @@ fun CATSAnimatedTopBar(
         label = "fade_animation"
     )
 
-    CATSTextGradient(
+    CATSTopBar(
         text = text,
-        style = MaterialTheme.typography.headlineLarge,
+        navIcon = navIcon,
+        navIconContentDesc = navIconContentDesc,
+        navOnClick = navOnClick,
         modifier = Modifier
             .offset { IntOffset(0, offsetY.toInt()) }
             .alpha(alpha)
