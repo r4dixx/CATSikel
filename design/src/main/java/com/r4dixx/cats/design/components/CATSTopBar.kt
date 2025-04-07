@@ -2,13 +2,17 @@ package com.r4dixx.cats.design.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.res.stringResource
+import com.r4dixx.cats.design.R
 import com.r4dixx.cats.design.theme.CATSDimension.iconDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 
@@ -17,31 +21,24 @@ import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 fun CATSTopBar(
     text: String,
     modifier: Modifier = Modifier,
-    navIcon: Painter? = null,
-    navIconContentDesc: String? = null,
-    navOnClick: () -> Unit = {}
+    onBackClick: (() -> Unit)?
 ) {
     TopAppBar(
         modifier = Modifier
             .padding(vertical = spacingDefault)
-            .then(modifier),
-        title = {
+            .then(modifier), title = {
             CATSTextGradient(
-                text = text,
-                style = MaterialTheme.typography.headlineLarge,
-                maxLines = 1
+                text = text, style = MaterialTheme.typography.headlineLarge, maxLines = 1
             )
-        },
-        navigationIcon = {
-            navIcon?.let {
-                IconButton(onClick = navOnClick) {
+        }, navigationIcon = {
+            onBackClick?.let {
+                IconButton(onClick = onBackClick) {
                     CATSIconGradient(
-                        painter = navIcon,
-                        contentDescription = navIconContentDesc,
+                        painter = rememberVectorPainter(Icons.AutoMirrored.Default.ArrowBack),
+                        contentDescription = stringResource(R.string.cd_nav_back),
                         modifier = Modifier.size(iconDefault)
                     )
                 }
             }
-        }
-    )
+        })
 }

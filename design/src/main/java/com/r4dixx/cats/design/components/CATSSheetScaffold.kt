@@ -1,55 +1,50 @@
 package com.r4dixx.cats.design.components
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.r4dixx.cats.design.R
-import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CATSSheetScaffold(
-    topBarTitle: String,
+    topBarText: String,
     onDismiss: () -> Unit,
+    onBackClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     sheetContent: @Composable () -> Unit,
     content: @Composable () -> Unit,
 ) {
-    val scaffoldState = rememberBottomSheetScaffoldState()
-
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
+    val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = sheetState)
     BottomSheetScaffold(
-        modifier = Modifier.systemBarsPadding().then(modifier),
         scaffoldState = scaffoldState,
+        modifier = Modifier.systemBarsPadding().then(modifier),
+        sheetDragHandle = {},
         sheetTonalElevation = 0.dp,
-        containerColor = MaterialTheme.colorScheme.primaryContainer,
-        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        sheetShadowElevation = 0.dp,
         sheetContainerColor = MaterialTheme.colorScheme.secondaryContainer,
         sheetContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-        sheetDragHandle = {},
-        sheetContent = {
-            Box(Modifier.padding(spacingDefault)) {
-                sheetContent()
+        containerColor = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        topBar = { CATSTopBarAnimated(text = topBarText, onBackClick = onBackClick) },
+        content = {
+            Column(Modifier.fillMaxSize()) {
+                content()
+                Spacer(Modifier.weight(1f))
+                CATSBottomBarAnimated()
             }
         },
-        content = { content() },
-        topBar = {
-            CATSTopBarAnimated(
-                text = topBarTitle,
-                navIcon = rememberVectorPainter(Icons.AutoMirrored.Filled.ArrowBack),
-                navIconContentDesc = stringResource(R.string.cd_nav_back),
-                navOnClick = onDismiss,
-            )
-        }
+        sheetContent = { sheetContent() },
     )
+    // onDismiss()
+
 }

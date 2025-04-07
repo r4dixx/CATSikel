@@ -30,14 +30,15 @@ import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.ui.R
 
 @Composable
-fun BanksScreen(
+fun BanksScaffold(
     viewModel: BanksViewModel,
     onAccountClick: (Account) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CATSScaffold(
+        topBarText = stringResource(R.string.banks_top_bar_text),
+        onBackClick = null,
         modifier = modifier,
-        topBarText = stringResource(R.string.banks_top_bar_text)
     ) { paddingValues ->
         val state = viewModel.state.collectAsStateWithLifecycle()
 

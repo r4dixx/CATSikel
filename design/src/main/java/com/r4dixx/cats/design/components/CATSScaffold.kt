@@ -10,12 +10,20 @@ import androidx.compose.ui.Modifier
 fun CATSScaffold(
     topBarText: String,
     modifier: Modifier = Modifier,
+    onBackClick: (() -> Unit)?,
     content: @Composable (paddingValues: PaddingValues) -> Unit
 ) {
     Scaffold(
-        modifier = Modifier.systemBarsPadding().then(modifier),
-        topBar = { CATSTopBar(text = topBarText) },
-        bottomBar = { CATSBottomBar() },
+        modifier = Modifier
+            .systemBarsPadding()
+            .then(modifier),
+        topBar = {
+            CATSTopBarAnimated(
+                text = topBarText,
+                onBackClick = onBackClick
+            )
+        },
+        bottomBar = { CATSBottomBarAnimated() },
         content = { paddingValues -> content(paddingValues) }
     )
 }

@@ -14,10 +14,8 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.IntOffset
 
 @Composable
-fun CATSTopBarAnimated(
-    text: String,
+fun CATSBottomBarAnimated(
     modifier: Modifier = Modifier,
-    onBackClick: (() -> Unit)? = null,
     visible: Boolean = true
 ) {
     var isVisible by remember { mutableStateOf(false) }
@@ -27,7 +25,7 @@ fun CATSTopBarAnimated(
     }
 
     val offsetY by animateFloatAsState(
-        targetValue = if (isVisible) 0f else -100f,
+        targetValue = if (isVisible) 0f else 100f,
         animationSpec = tween(),
         label = "slide_animation"
     )
@@ -38,10 +36,8 @@ fun CATSTopBarAnimated(
         label = "fade_animation"
     )
 
-    CATSTopBar(
-        text = text,
-        onBackClick = onBackClick,
-        modifier = Modifier
+    CATSBottomBar(
+        Modifier
             .offset { IntOffset(0, offsetY.toInt()) }
             .alpha(alpha)
             .then(modifier)

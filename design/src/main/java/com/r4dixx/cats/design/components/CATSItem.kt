@@ -22,7 +22,6 @@ fun CATSItem(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(spacingSmall),
         modifier = Modifier
-            .padding(bottom = spacingDefault)
             .background(brush = CATSGradient.default, shape = MaterialTheme.shapes.medium)
             .padding(spacingDefault)
             .then(modifier)
