@@ -11,7 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.r4dixx.cats.design.theme.CATSDimension.cardDefault
+import com.r4dixx.cats.design.theme.CATSDimension.cardHeightDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.design.theme.CATSGradient
 
@@ -38,8 +38,8 @@ fun CATSCard(
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .padding(spacingDefault)
-                .heightIn(cardDefault)
-                .widthIn(cardDefault)
+                .heightIn(cardHeightDefault)
+                .widthIn(cardHeightDefault)
         ) {
             content()
         }

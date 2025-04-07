@@ -21,7 +21,7 @@ import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AccountScaffold(
+fun AccountSheetScaffold(
     viewModel: AccountViewModel,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
@@ -35,7 +35,6 @@ fun AccountScaffold(
         topBarText = data.label,
         onDismiss = onDismiss,
         modifier = modifier,
-        onBackClick = onDismiss,
         content = { },
         sheetContent = {
             LazyColumn(verticalArrangement = Arrangement.spacedBy(spacingSmall)) {
@@ -43,32 +42,33 @@ fun AccountScaffold(
                     CATSTextGradient(
                         text = data.balance,
                         style = MaterialTheme.typography.displayLarge,
-                        modifier = Modifier.background(MaterialTheme.colorScheme.background).fillMaxWidth()
+                        modifier = Modifier
+                            .background(MaterialTheme.colorScheme.background)
+                            .fillMaxWidth()
                     )
                 }
-                repeat (20) {
-                    items(data.operations) { operation ->
-                        CATSItem {
-                            Column {
-                                Text(
-                                    text = operation.title,
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                                Text(
-                                    text = operation.date,
-                                    style = MaterialTheme.typography.labelSmall
-                                )
-                            }
-
-                            Spacer(Modifier.weight(1f))
-
+                items(data.operations) { operation ->
+                    CATSItem {
+                        Column {
                             Text(
-                                text = operation.amount,
-                                style = MaterialTheme.typography.bodyLarge
+                                text = operation.title,
+                                style = MaterialTheme.typography.titleMedium
+                            )
+                            Text(
+                                text = operation.date,
+                                style = MaterialTheme.typography.labelSmall
                             )
                         }
+
+                        Spacer(Modifier.weight(1f))
+
+                        Text(
+                            text = operation.amount,
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                     }
                 }
+
             }
         }
     )

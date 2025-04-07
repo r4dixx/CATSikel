@@ -31,8 +31,6 @@ private val ColorScheme = darkColorScheme(
     outline = CATSColor.DeepBlack,
 
     error = CATSColor.MediumRed,
-
-    scrim = Color.Transparent
 )
 
 @Composable

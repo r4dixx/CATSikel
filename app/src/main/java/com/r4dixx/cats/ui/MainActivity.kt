@@ -12,7 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.r4dixx.cats.design.theme.CATSSystemBarStyle
 import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.navigation.CATSRoute
-import com.r4dixx.cats.ui.account.AccountScaffold
+import com.r4dixx.cats.ui.account.AccountSheetScaffold
 import com.r4dixx.cats.ui.banks.BanksScaffold
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.androidx.compose.koinViewModel
@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
                         composable(CATSRoute.Account.route) {
                             val selectedAccount by viewModel.selectedAccount.collectAsStateWithLifecycle()
                             selectedAccount?.let {
-                                AccountScaffold(
+                                AccountSheetScaffold(
                                     viewModel = koinViewModel(parameters = { parametersOf(it) }),
                                     onDismiss = { navController.popBackStack() },
                                 )

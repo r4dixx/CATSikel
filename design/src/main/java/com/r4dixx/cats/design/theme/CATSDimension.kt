@@ -5,9 +5,5 @@ import androidx.compose.ui.unit.dp
 object CATSDimension {
     val spacingDefault = 24.dp
     val spacingSmall = spacingDefault / 2
-    val spacingLarge = spacingDefault * 2
-
-    val iconDefault = 36.dp
-
-    val cardDefault = 32.dp
+    val cardHeightDefault = 32.dp
 }
