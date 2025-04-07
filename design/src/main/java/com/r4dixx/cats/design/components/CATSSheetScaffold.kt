@@ -1,12 +1,8 @@
 package com.r4dixx.cats.design.components
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.BottomSheetScaffold
@@ -38,15 +34,19 @@ fun CATSSheetScaffold(
     onDismiss: (() -> Unit)?,
     modifier: Modifier = Modifier,
     sheetContent: @Composable () -> Unit,
-    content: @Composable () -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 
+    var isDismissCalled by remember { mutableStateOf(false) }
+
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
-        confirmValueChange = { newValue ->
-            if (newValue == SheetValue.Hidden) onDismiss?.invoke()
-            false
+        confirmValueChange = { sheetValue ->
+            if (sheetValue == SheetValue.Hidden && !isDismissCalled) {
+                isDismissCalled = true
+                onDismiss?.invoke()
+            }
+            true
         }
     )
 
@@ -56,6 +56,12 @@ fun CATSSheetScaffold(
         sheetState.expand()
     }
 
+    LaunchedEffect(sheetState.currentValue) {
+        if (sheetState.currentValue == SheetValue.Expanded) {
+            isDismissCalled = false
+        }
+    }
+
     BackHandler {
         coroutineScope.launch {
             sheetState.hide()
@@ -63,7 +69,7 @@ fun CATSSheetScaffold(
     }
 
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
-    var sheetMaxHeightInDp by remember { mutableStateOf(0.dp) }
+    var sheetHeightDp by remember { mutableStateOf(0.dp) }
 
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
@@ -79,27 +85,19 @@ fun CATSSheetScaffold(
         topBar = {
             CATSTopBarAnimated(
                 text = topBarText,
-                onBackClick = onDismiss,
+                onBackClick = { coroutineScope.launch { sheetState.hide() } },
                 modifier = Modifier.onGloballyPositioned { coordinates ->
-                    sheetMaxHeightInDp = screenHeightDp.dp - coordinates.size.center.y.dp - spacingDefault * 2
+                    sheetHeightDp =
+                        screenHeightDp.dp - coordinates.size.center.y.dp - spacingDefault * 2
                 }
             )
         },
-        content = {
-            Column(
-                modifier = Modifier.navigationBarsPadding(),
-                verticalArrangement = Arrangement.spacedBy(spacingDefault)
-            ) {
-                content()
-                Spacer(modifier = Modifier.weight(1f))
-                CATSBottomBarAnimated()
-            }
-        },
+        content = {},
         sheetContent = {
             Box(
                 Modifier
                     .systemBarsPadding()
-                    .heightIn(max = sheetMaxHeightInDp)
+                    .height(sheetHeightDp)
                     .padding(horizontal = spacingDefault)
             ) {
                 sheetContent()

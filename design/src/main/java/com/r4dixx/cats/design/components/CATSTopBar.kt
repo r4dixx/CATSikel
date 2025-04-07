@@ -1,6 +1,7 @@
 package com.r4dixx.cats.design.components
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -12,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import com.r4dixx.cats.design.R
+import com.r4dixx.cats.design.theme.CATSDimension.iconSizeDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 
@@ -39,8 +41,9 @@ fun CATSTopBar(
                     onClick = onBackClick
                 ) {
                     CATSIconGradient(
+                        modifier = Modifier.size(iconSizeDefault),
                         painter = rememberVectorPainter(Icons.AutoMirrored.Default.ArrowBack),
-                        contentDescription = stringResource(R.string.cd_nav_back),
+                        contentDescription = stringResource(R.string.cd_nav_back)
                     )
                 }
             }

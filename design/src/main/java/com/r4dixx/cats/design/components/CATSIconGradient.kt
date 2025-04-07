@@ -19,13 +19,13 @@ fun CATSIconGradient(
     Icon(
         painter = painter,
         contentDescription = contentDescription,
-        modifier = modifier
+        modifier = Modifier
             .graphicsLayer(alpha = 0.99f)
             .drawWithCache {
                 onDrawWithContent {
                     drawContent()
                     drawRect(gradient, blendMode = BlendMode.SrcAtop)
                 }
-            }
+            }.then(modifier)
     )
 }
