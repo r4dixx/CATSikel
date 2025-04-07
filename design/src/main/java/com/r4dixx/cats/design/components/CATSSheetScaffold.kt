@@ -1,6 +1,5 @@
 package com.r4dixx.cats.design.components
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,13 +42,6 @@ fun CATSSheetScaffold(
     LaunchedEffect(Unit) {
         coroutineScope.launch {
             scaffoldState.bottomSheetState.expand()
-        }
-    }
-
-    BackHandler {
-        coroutineScope.launch {
-            scaffoldState.bottomSheetState.hide()
-            onDismiss()
         }
     }
 

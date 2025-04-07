@@ -1,6 +1,5 @@
 package com.r4dixx.cats.design.components
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.offset
@@ -25,11 +24,6 @@ fun CATSTopBarAnimated(
 
     LaunchedEffect(visible) {
         isVisible = visible
-    }
-
-    BackHandler {
-        isVisible = false
-        onBackClick?.invoke()
     }
 
     val offsetY by animateFloatAsState(
