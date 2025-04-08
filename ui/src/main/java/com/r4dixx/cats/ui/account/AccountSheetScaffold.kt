@@ -12,13 +12,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.r4dixx.cats.core.ui.CATSViewModel
 import com.r4dixx.cats.design.components.CATSItem
 import com.r4dixx.cats.design.components.CATSSheetScaffold
 import com.r4dixx.cats.design.components.CATSTextGradient
+import com.r4dixx.cats.design.components.CATSUIState
 import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -28,58 +26,55 @@ fun AccountSheetScaffold(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-    // TODO - Handle error and loading
-    if (state !is CATSViewModel.State.Success) return
-    val data = (state as CATSViewModel.State.Success<AccountViewModel.Data>).data
+    CATSUIState(viewModel.state) { data ->
+        CATSSheetScaffold(
+            topBarText = data.accountLabel,
+            onDismiss = onDismiss,
+            modifier = modifier,
+            sheetContent = {
+                LazyColumn(verticalArrangement = Arrangement.spacedBy(spacingSmall)) {
+                    stickyHeader {
+                        CATSTextGradient(
+                            text = data.bankName,
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier
+                                .background(MaterialTheme.colorScheme.background)
+                                .fillMaxWidth()
+                        )
+                    }
+                    stickyHeader {
+                        CATSTextGradient(
+                            text = data.accountBalance,
+                            style = MaterialTheme.typography.displayLarge,
+                            modifier = Modifier
+                                .background(MaterialTheme.colorScheme.background)
+                                .fillMaxWidth()
+                                .padding(bottom = spacingSmall)
+                        )
+                    }
+                    items(data.accountOperations) { operation ->
+                        CATSItem {
+                            Column {
+                                Text(
+                                    text = operation.title,
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                                Text(
+                                    text = operation.date,
+                                    style = MaterialTheme.typography.labelSmall
+                                )
+                            }
 
-    CATSSheetScaffold(
-        topBarText = data.accountLabel,
-        onDismiss = onDismiss,
-        modifier = modifier,
-        sheetContent = {
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(spacingSmall)) {
-                stickyHeader {
-                    CATSTextGradient(
-                        text = data.bankName,
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier
-                            .background(MaterialTheme.colorScheme.background)
-                            .fillMaxWidth()
-                    )
-                }
-                stickyHeader {
-                    CATSTextGradient(
-                        text = data.accountBalance,
-                        style = MaterialTheme.typography.displayLarge,
-                        modifier = Modifier
-                            .background(MaterialTheme.colorScheme.background)
-                            .fillMaxWidth()
-                            .padding(bottom = spacingSmall)
-                    )
-                }
-                items(data.accountOperations) { operation ->
-                    CATSItem {
-                        Column {
+                            Spacer(Modifier.weight(1f))
+
                             Text(
-                                text = operation.title,
-                                style = MaterialTheme.typography.titleMedium
-                            )
-                            Text(
-                                text = operation.date,
-                                style = MaterialTheme.typography.labelSmall
+                                text = operation.amount,
+                                style = MaterialTheme.typography.bodyLarge
                             )
                         }
-
-                        Spacer(Modifier.weight(1f))
-
-                        Text(
-                            text = operation.amount,
-                            style = MaterialTheme.typography.bodyLarge
-                        )
                     }
                 }
             }
-        }
-    )
+        )
+    }
 }

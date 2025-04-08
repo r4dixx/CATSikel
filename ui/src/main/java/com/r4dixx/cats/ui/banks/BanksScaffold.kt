@@ -13,17 +13,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
 import com.r4dixx.cats.design.components.CATSCard
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.components.CATSScaffold
+import com.r4dixx.cats.design.components.CATSUIState
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 import com.r4dixx.cats.domain.model.Account
@@ -41,20 +39,17 @@ fun BanksScaffold(
         onBackClick = null,
         modifier = modifier,
     ) { paddingValues ->
-        val state by viewModel.state.collectAsStateWithLifecycle()
-        // TODO - Handle error and loading
-        if (state !is Success) return@CATSScaffold
-        val data = (state as Success<BanksViewModel.Data>).data
-
-        BanksScreenContent(
-            banksCA = data.banksCA,
-            banksNotCA = data.banksNotCA,
-            onAccountClick = onAccountClick,
-            modifier = Modifier
-                .padding(paddingValues)
-                .padding(horizontal = spacingDefault)
-                .padding(bottom = spacingDefault)
-        )
+        CATSUIState(viewModel.state) { data ->
+            BanksScreenContent(
+                banksCA = data.banksCA,
+                banksNotCA = data.banksNotCA,
+                onAccountClick = onAccountClick,
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .padding(horizontal = spacingDefault)
+                    .padding(bottom = spacingDefault)
+            )
+        }
     }
 }
 

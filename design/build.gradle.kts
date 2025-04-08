@@ -32,4 +32,6 @@ dependencies {
     api(platform(libs.androidx.compose.bom))
     api(libs.bundles.compose)
     debugApi(libs.bundles.compose.debug)
+
+    implementation(project(":core"))
 }

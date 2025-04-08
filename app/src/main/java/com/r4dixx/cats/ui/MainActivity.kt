@@ -4,12 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
+import com.r4dixx.cats.design.components.CATSUIState
 import com.r4dixx.cats.design.theme.CATSSystemBarStyle
 import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.navigation.CATSRoute
@@ -40,17 +38,13 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
-
                         composable(CATSRoute.Account.route) {
-                            val state by viewModel.state.collectAsStateWithLifecycle()
-                            // TODO Handle error / loading
-                            if (state !is Success) return@composable
-                            val data = (state as Success<MainViewModel.Data>).data
-
-                            AccountSheetScaffold(
-                                viewModel = koinViewModel(parameters = { parametersOf(data.bank, data.account) }),
-                                onDismiss = { navController.popBackStack() },
-                            )
+                            CATSUIState(viewModel.state) { data ->
+                                AccountSheetScaffold(
+                                    viewModel = koinViewModel(parameters = { parametersOf(data.bank, data.account) }),
+                                    onDismiss = { navController.popBackStack() },
+                                )
+                            }
                         }
                     }
                 }
