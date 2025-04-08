@@ -3,8 +3,8 @@ package com.r4dixx.cats.design.components
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -65,7 +65,7 @@ fun CATSSheetScaffold(
                     val topBarHeightPx = coordinates.size.height
                     val topBarHeightDp = with(density) { topBarHeightPx.toDp() }
                     val availableHeight = (screenHeightDp - topBarHeightDp).coerceAtLeast(0.dp)
-                    sheetHeightDp = availableHeight + spacingDefault
+                    sheetHeightDp = availableHeight - spacingDefault
                 }
             )
         },
@@ -74,7 +74,7 @@ fun CATSSheetScaffold(
             Box(
                 Modifier
                     .height(sheetHeightDp) // Apply the calculated height
-                    .systemBarsPadding()
+                    .navigationBarsPadding()
                     .padding(horizontal = spacingDefault)
             ) {
                 sheetContent()

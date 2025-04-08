@@ -33,21 +33,19 @@ fun <T> CATSUIState(
 ) {
     val uiState by state.collectAsStateWithLifecycle()
 
-    Box(modifier) {
-        when {
-            uiState.isLoading -> loadingContent()
-            uiState.isSuccess -> {
-                val data = uiState.dataOrNull
-                if (data == null || (data is Collection<*> && data.isEmpty()) || (data is Map<*, *> && data.isEmpty())) {
-                    emptyContent()
-                } else {
-                    content(data)
-                }
+    when {
+        uiState.isLoading -> loadingContent()
+        uiState.isSuccess -> {
+            val data = uiState.dataOrNull
+            if (data == null || (data is Collection<*> && data.isEmpty()) || (data is Map<*, *> && data.isEmpty())) {
+                emptyContent()
+            } else {
+                Box(modifier) { content(data) }
             }
-            uiState.isError -> {
-                val errorState = uiState as? CATSViewModel.State.Error
-                errorContent(errorState?.message)
-            }
+        }
+        uiState.isError -> {
+            val errorState = uiState as? CATSViewModel.State.Error
+            errorContent(errorState?.message)
         }
     }
 }
