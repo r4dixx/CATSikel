@@ -26,29 +26,28 @@ import kotlinx.coroutines.flow.StateFlow
 fun <T> CATSUIState(
     state: StateFlow<CATSViewModel.State<T>>,
     modifier: Modifier = Modifier,
-    loadingContent: @Composable () -> Unit = { CATSProgress(modifier) },
-    errorContent: @Composable (message: String?) -> Unit = { message -> CATSError(modifier, message) },
-    emptyContent: @Composable () -> Unit = { CATSEmpty(modifier) },
+    loadingContent: @Composable () -> Unit = { CATSProgress() },
+    errorContent: @Composable (message: String?) -> Unit = { message -> CATSError(message = message) },
+    emptyContent: @Composable () -> Unit = { CATSEmpty() },
     content: @Composable (data: T) -> Unit
 ) {
     val uiState by state.collectAsStateWithLifecycle()
 
-    when {
-        uiState.isLoading -> loadingContent()
-        uiState.isSuccess -> {
-            val data = uiState.dataOrNull
-            if (data != null) {
-                if ((data is Collection<*> && data.isEmpty()) || (data is Map<*, *> && data.isEmpty())) {
+    Box(modifier) {
+        when {
+            uiState.isLoading -> loadingContent()
+            uiState.isSuccess -> {
+                val data = uiState.dataOrNull
+                if (data == null || (data is Collection<*> && data.isEmpty()) || (data is Map<*, *> && data.isEmpty())) {
                     emptyContent()
                 } else {
                     content(data)
                 }
             }
-        }
-
-        uiState.isError -> {
-            val errorState = uiState as CATSViewModel.State.Error
-            errorContent(errorState.message)
+            uiState.isError -> {
+                val errorState = uiState as? CATSViewModel.State.Error
+                errorContent(errorState?.message)
+            }
         }
     }
 }
@@ -80,7 +79,7 @@ private fun CATSError(modifier: Modifier = Modifier, message: String?) {
             textAlign = TextAlign.Center
         )
         Text(
-            text = message ?: stringResource(R.string.state_error_desc_fallback),
+            text = message?.takeIf { it.isNotBlank() } ?: stringResource(R.string.state_error_desc_fallback),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.error,
             textAlign = TextAlign.Center
