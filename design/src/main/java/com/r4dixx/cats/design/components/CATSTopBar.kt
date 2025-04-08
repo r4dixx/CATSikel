@@ -1,6 +1,5 @@
 package com.r4dixx.cats.design.components
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -14,8 +13,6 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import com.r4dixx.cats.design.R
 import com.r4dixx.cats.design.theme.CATSDimension.iconSizeDefault
-import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
-import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,9 +22,7 @@ fun CATSTopBar(
     onBackClick: (() -> Unit)?
 ) {
     TopAppBar(
-        modifier = Modifier
-            .padding(vertical = spacingDefault)
-            .then(modifier),
+        modifier = Modifier.then(modifier),
         title = {
             CATSTextGradient(
                 text = text,
@@ -37,7 +32,6 @@ fun CATSTopBar(
         }, navigationIcon = {
             onBackClick?.let {
                 IconButton(
-                    modifier = Modifier.padding(start = spacingSmall),
                     onClick = onBackClick
                 ) {
                     CATSIconGradient(

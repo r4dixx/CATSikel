@@ -2,22 +2,19 @@ package com.r4dixx.cats.ui.account
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.r4dixx.cats.design.components.CATSItem
+import com.r4dixx.cats.design.components.CATSRowItem
 import com.r4dixx.cats.design.components.CATSSheetScaffold
 import com.r4dixx.cats.design.components.CATSTextGradient
 import com.r4dixx.cats.design.components.CATSUIState
-import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -26,13 +23,12 @@ fun AccountSheetScaffold(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    CATSUIState(viewModel.state) { data ->
+    CATSUIState(modifier = modifier, state = viewModel.state) { data ->
         CATSSheetScaffold(
             topBarText = data.accountLabel,
             onDismiss = onDismiss,
-            modifier = modifier,
             sheetContent = {
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(spacingSmall)) {
+                LazyColumn() {
                     stickyHeader {
                         CATSTextGradient(
                             text = data.bankName,
@@ -49,11 +45,10 @@ fun AccountSheetScaffold(
                             modifier = Modifier
                                 .background(MaterialTheme.colorScheme.background)
                                 .fillMaxWidth()
-                                .padding(bottom = spacingSmall)
                         )
                     }
                     items(data.accountOperations) { operation ->
-                        CATSItem {
+                        CATSRowItem {
                             Column {
                                 Text(
                                     text = operation.title,

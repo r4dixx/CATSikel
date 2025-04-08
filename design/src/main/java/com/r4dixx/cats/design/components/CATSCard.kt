@@ -37,7 +37,6 @@ fun CATSCard(
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
-                .padding(spacingDefault)
                 .heightIn(cardHeightDefault)
                 .widthIn(cardHeightDefault)
         ) {

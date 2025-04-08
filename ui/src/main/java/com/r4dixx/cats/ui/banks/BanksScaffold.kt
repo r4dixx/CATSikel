@@ -2,9 +2,6 @@ package com.r4dixx.cats.ui.banks
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -22,8 +19,6 @@ import com.r4dixx.cats.design.components.CATSCard
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.components.CATSScaffold
 import com.r4dixx.cats.design.components.CATSUIState
-import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
-import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.ui.R
@@ -39,15 +34,12 @@ fun BanksScaffold(
         onBackClick = null,
         modifier = modifier,
     ) { paddingValues ->
-        CATSUIState(viewModel.state) { data ->
+        CATSUIState(state = viewModel.state) { data ->
             BanksScreenContent(
                 banksCA = data.banksCA,
                 banksNotCA = data.banksNotCA,
                 onAccountClick = onAccountClick,
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .padding(horizontal = spacingDefault)
-                    .padding(bottom = spacingDefault)
+                modifier = Modifier.padding(paddingValues)
             )
         }
     }
@@ -62,7 +54,6 @@ private fun BanksScreenContent(
 ) {
     LazyColumn(modifier) {
         stickyItems(R.string.header_bank_type_ca, banksCA, onAccountClick)
-        item { Spacer(Modifier.height(spacingDefault)) }
         stickyItems(R.string.header_bank_type_not_ca, banksNotCA, onAccountClick)
     }
 }
@@ -78,7 +69,6 @@ private fun LazyListScope.stickyItems(
             text = stringResource(labelRes), style = MaterialTheme.typography.titleLarge
         )
     }
-    item { Spacer(Modifier.height(spacingSmall)) }
     items(banks) { bank ->
         BanksScreenItem(
             bank = bank,
@@ -97,12 +87,10 @@ private fun BanksScreenItem(
         Text(
             text = bank.name,
             style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(vertical = spacingSmall)
         )
     }, content = {
         LazyRow(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(spacingDefault)
         ) {
             items(bank.accounts) { account ->
                 CATSCard(onClick = { onAccountClick(bank, account) }) {

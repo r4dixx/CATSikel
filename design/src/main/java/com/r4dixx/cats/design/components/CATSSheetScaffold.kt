@@ -3,7 +3,6 @@ package com.r4dixx.cats.design.components
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -98,7 +97,6 @@ fun CATSSheetScaffold(
                 Modifier
                     .systemBarsPadding()
                     .height(sheetHeightDp)
-                    .padding(horizontal = spacingDefault)
             ) {
                 sheetContent()
             }

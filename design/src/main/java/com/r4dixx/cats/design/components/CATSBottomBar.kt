@@ -17,7 +17,6 @@ fun CATSBottomBar(modifier: Modifier = Modifier) {
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = spacingDefault)
             .then(modifier)
     ) {
         CATSIconGradient(

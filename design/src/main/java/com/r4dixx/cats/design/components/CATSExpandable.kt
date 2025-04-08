@@ -42,7 +42,6 @@ fun CATSExpandable(
                     onClick()
                 },
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(CATSDimension.spacingDefault)
         ) {
             header()
             Spacer(modifier = Modifier.weight(1f))
