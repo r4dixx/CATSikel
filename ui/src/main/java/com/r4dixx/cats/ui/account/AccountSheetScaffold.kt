@@ -34,11 +34,20 @@ fun AccountSheetScaffold(
     val data = (state as CATSViewModel.State.Success<AccountViewModel.Data>).data
 
     CATSSheetScaffold(
-        topBarText = data.bankName + "\n" + data.accountLabel,
+        topBarText = data.accountLabel,
         onDismiss = onDismiss,
         modifier = modifier,
         sheetContent = {
             LazyColumn(verticalArrangement = Arrangement.spacedBy(spacingSmall)) {
+                stickyHeader {
+                    CATSTextGradient(
+                        text = data.bankName,
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier
+                            .background(MaterialTheme.colorScheme.background)
+                            .fillMaxWidth()
+                    )
+                }
                 stickyHeader {
                     CATSTextGradient(
                         text = data.accountBalance,
