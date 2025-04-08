@@ -1,6 +1,5 @@
 package com.r4dixx.cats.design.components
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
@@ -9,7 +8,6 @@ import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SheetValue
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -33,31 +31,20 @@ fun CATSSheetScaffold(
     topBarText: String,
     onDismiss: (() -> Unit)?,
     modifier: Modifier = Modifier,
+    initialShow: Boolean = false,
     sheetContent: @Composable () -> Unit,
     content: @Composable (PaddingValues) -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
 
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true,
-        confirmValueChange = { sheetValue ->
-            if (sheetValue == SheetValue.Hidden) onDismiss?.invoke()
-            true
-        }
-    )
-
-    BackHandler {
-        coroutineScope.launch {
-            sheetState.hide()
-        }
-    }
-
-    LaunchedEffect(Unit) {
-        sheetState.expand()
-    }
-
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
-    var sheetHeightDp by remember{ mutableStateOf(sheetHeightDefault) }
+    var sheetHeightDp by remember { mutableStateOf(sheetHeightDefault) }
+
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+    LaunchedEffect(initialShow) {
+        if (initialShow) sheetState.show()
+    }
 
     BottomSheetScaffold(
         scaffoldState = rememberBottomSheetScaffoldState(sheetState),
@@ -66,10 +53,7 @@ fun CATSSheetScaffold(
         sheetDragHandle = {},
         sheetPeekHeight = 0.dp,
         sheetShape = BottomSheetDefaults.ExpandedShape,
-        sheetContainerColor = MaterialTheme.colorScheme.tertiaryContainer,
-        sheetContentColor = MaterialTheme.colorScheme.onTertiaryContainer,
-        containerColor = MaterialTheme.colorScheme.primaryContainer,
-        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        sheetContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
         topBar = {
             CATSTopBarAnimated(
                 text = topBarText,

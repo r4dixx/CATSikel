@@ -16,9 +16,12 @@ import com.r4dixx.cats.ui.account.AccountSheetScaffold
 import com.r4dixx.cats.ui.banks.BanksScaffold
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.androidx.compose.koinViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class MainActivity : ComponentActivity() {
+
+    private val viewModel : MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +29,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             KoinAndroidContext {
                 CATSTheme {
-                    val viewModel: MainViewModel = koinViewModel()
                     val navController = rememberNavController()
 
                     NavHost(navController, CATSRoute.Banks.route) {
@@ -39,6 +41,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
+
                         composable(CATSRoute.Account.route) {
                             val uiState by viewModel.state.collectAsStateWithLifecycle()
                             uiState.dataOrNull?.let { data ->

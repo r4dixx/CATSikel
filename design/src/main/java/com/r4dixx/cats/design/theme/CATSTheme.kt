@@ -25,10 +25,11 @@ private val ColorScheme = darkColorScheme(
     onBackground = CATSColor.LightGrey,
 
     surface = CATSColor.DeepBlack,
+    surfaceContainer = CATSColor.DeepBlack,
+    surfaceContainerLow = CATSColor.DeepBlack,
     onSurface = CATSColor.LightGrey,
     surfaceVariant = CATSColor.Mint,
     onSurfaceVariant = CATSColor.DeepBlack,
-    outline = CATSColor.DeepBlack,
 
     error = CATSColor.MediumRed,
 )

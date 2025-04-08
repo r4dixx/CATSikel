@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,31 +26,29 @@ import kotlinx.coroutines.flow.StateFlow
 fun <T> CATSUIState(
     state: StateFlow<CATSViewModel.State<T>>,
     modifier: Modifier = Modifier,
-    loadingContent: @Composable () -> Unit = { CATSProgress() },
-    errorContent: @Composable (message: String?) -> Unit = { message -> CATSError(message = message) },
-    emptyContent: @Composable () -> Unit = { CATSEmpty() },
+    loadingContent: @Composable () -> Unit = { CATSProgress(modifier) },
+    errorContent: @Composable (message: String?) -> Unit = { message -> CATSError(modifier, message) },
+    emptyContent: @Composable () -> Unit = { CATSEmpty(modifier) },
     content: @Composable (data: T) -> Unit
 ) {
     val uiState by state.collectAsStateWithLifecycle()
 
-    Box(Modifier.systemBarsPadding() then modifier) {
-        when {
-            uiState.isLoading -> loadingContent()
-            uiState.isSuccess -> {
-                val data = uiState.dataOrNull
-                if (data != null) {
-                    if ((data is Collection<*> && data.isEmpty()) || (data is Map<*, *> && data.isEmpty())) {
-                        emptyContent()
-                    } else {
-                        content(data)
-                    }
+    when {
+        uiState.isLoading -> loadingContent()
+        uiState.isSuccess -> {
+            val data = uiState.dataOrNull
+            if (data != null) {
+                if ((data is Collection<*> && data.isEmpty()) || (data is Map<*, *> && data.isEmpty())) {
+                    emptyContent()
+                } else {
+                    content(data)
                 }
             }
+        }
 
-            uiState.isError -> {
-                val errorState = uiState as CATSViewModel.State.Error
-                errorContent(errorState.message)
-            }
+        uiState.isError -> {
+            val errorState = uiState as CATSViewModel.State.Error
+            errorContent(errorState.message)
         }
     }
 }

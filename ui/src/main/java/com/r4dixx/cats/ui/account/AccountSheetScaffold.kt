@@ -27,8 +27,9 @@ fun AccountSheetScaffold(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    CATSUIState(modifier = modifier, state = viewModel.state) { data ->
+    CATSUIState(viewModel.state, modifier) { data ->
         CATSSheetScaffold(
+            initialShow = true,
             topBarText = data.accountLabel,
             onDismiss = onDismiss,
             content = {},

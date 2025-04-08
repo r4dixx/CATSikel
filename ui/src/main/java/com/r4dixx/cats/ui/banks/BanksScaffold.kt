@@ -36,11 +36,10 @@ fun BanksScaffold(
     onAccountClick: (Bank, Account) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    CATSUIState(viewModel.state) { data ->
+    CATSUIState(viewModel.state, modifier) { data ->
         CATSScaffold(
             topBarText = stringResource(R.string.banks_top_bar_text),
             onBackClick = null,
-            modifier = modifier,
         ) { paddingValues ->
             BanksScreenContent(
                 banksCA = data.banksCA,
