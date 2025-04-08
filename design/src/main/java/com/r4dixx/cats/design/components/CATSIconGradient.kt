@@ -26,6 +26,6 @@ fun CATSIconGradient(
                     drawContent()
                     drawRect(gradient, blendMode = BlendMode.SrcAtop)
                 }
-            }.then(modifier)
+            } then modifier
     )
 }

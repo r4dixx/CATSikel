@@ -2,8 +2,8 @@ package com.r4dixx.cats.design.components
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -33,6 +33,7 @@ fun CATSSheetScaffold(
     onDismiss: (() -> Unit)?,
     modifier: Modifier = Modifier,
     sheetContent: @Composable () -> Unit,
+    content: @Composable (PaddingValues) -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -91,12 +92,10 @@ fun CATSSheetScaffold(
                 }
             )
         },
-        content = {},
+        content = { paddingValues -> content(paddingValues)  },
         sheetContent = {
             Box(
-                Modifier
-                    .systemBarsPadding()
-                    .height(sheetHeightDp)
+                Modifier.height(sheetHeightDp)
             ) {
                 sheetContent()
             }

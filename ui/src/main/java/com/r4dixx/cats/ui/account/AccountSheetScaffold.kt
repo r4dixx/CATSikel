@@ -27,6 +27,7 @@ fun AccountSheetScaffold(
         CATSSheetScaffold(
             topBarText = data.accountLabel,
             onDismiss = onDismiss,
+            content = {},
             sheetContent = {
                 LazyColumn() {
                     stickyHeader {

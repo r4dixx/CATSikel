@@ -44,6 +44,6 @@ fun CATSTopBarAnimated(
         modifier = Modifier
             .offset { IntOffset(0, offsetY.toInt()) }
             .alpha(alpha)
-            .then(modifier)
+             then modifier
     )
 }

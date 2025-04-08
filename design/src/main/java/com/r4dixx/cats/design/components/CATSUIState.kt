@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,29 +27,31 @@ import kotlinx.coroutines.flow.StateFlow
 fun <T> CATSUIState(
     state: StateFlow<CATSViewModel.State<T>>,
     modifier: Modifier = Modifier,
-    loadingContent: @Composable () -> Unit = { CATSProgress(modifier) },
-    errorContent: @Composable (message: String?) -> Unit = { message -> CATSError(modifier, message = message) },
-    emptyContent: @Composable () -> Unit = { CATSEmpty(modifier) },
+    loadingContent: @Composable () -> Unit = { CATSProgress() },
+    errorContent: @Composable (message: String?) -> Unit = { message -> CATSError(message = message) },
+    emptyContent: @Composable () -> Unit = { CATSEmpty() },
     content: @Composable (data: T) -> Unit
 ) {
     val uiState by state.collectAsStateWithLifecycle()
 
-    when {
-        uiState.isLoading -> loadingContent()
-        uiState.isSuccess -> {
-            val data = uiState.dataOrNull
-            if (data != null) {
-                if ((data is Collection<*> && data.isEmpty()) || (data is Map<*, *> && data.isEmpty())) {
-                    emptyContent()
-                } else {
-                    content(data)
+    Box(Modifier.systemBarsPadding() then modifier) {
+        when {
+            uiState.isLoading -> loadingContent()
+            uiState.isSuccess -> {
+                val data = uiState.dataOrNull
+                if (data != null) {
+                    if ((data is Collection<*> && data.isEmpty()) || (data is Map<*, *> && data.isEmpty())) {
+                        emptyContent()
+                    } else {
+                        content(data)
+                    }
                 }
             }
-        }
 
-        uiState.isError -> {
-            val errorState = uiState as CATSViewModel.State.Error
-            errorContent(errorState.message)
+            uiState.isError -> {
+                val errorState = uiState as CATSViewModel.State.Error
+                errorContent(errorState.message)
+            }
         }
     }
 }
@@ -58,7 +61,7 @@ private fun CATSEmpty(modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .then(modifier),
+             then modifier,
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -73,7 +76,7 @@ private fun CATSError(modifier: Modifier = Modifier, message: String?) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .then(modifier),
+             then modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -98,7 +101,7 @@ private fun CATSProgress(modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .then(modifier),
+             then modifier,
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(
@@ -110,7 +113,7 @@ private fun CATSProgress(modifier: Modifier = Modifier) {
                         drawRect(gradient, blendMode = BlendMode.SrcAtop)
                     }
                 }
-                .then(modifier)
+                 then modifier
         )
     }
 }

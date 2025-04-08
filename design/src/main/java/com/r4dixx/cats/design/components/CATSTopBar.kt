@@ -22,7 +22,7 @@ fun CATSTopBar(
     onBackClick: (() -> Unit)?
 ) {
     TopAppBar(
-        modifier = Modifier.then(modifier),
+        modifier = modifier,
         title = {
             CATSTextGradient(
                 text = text,

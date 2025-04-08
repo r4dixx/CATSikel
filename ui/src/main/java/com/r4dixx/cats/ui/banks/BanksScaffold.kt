@@ -2,6 +2,11 @@ package com.r4dixx.cats.ui.banks
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -19,6 +24,9 @@ import com.r4dixx.cats.design.components.CATSCard
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.components.CATSScaffold
 import com.r4dixx.cats.design.components.CATSUIState
+import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
+import com.r4dixx.cats.design.theme.CATSDimension.spacingExtraSmall
+import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.ui.R
@@ -29,17 +37,19 @@ fun BanksScaffold(
     onAccountClick: (Bank, Account) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    CATSScaffold(
-        topBarText = stringResource(R.string.banks_top_bar_text),
-        onBackClick = null,
-        modifier = modifier,
-    ) { paddingValues ->
-        CATSUIState(state = viewModel.state) { data ->
+    CATSUIState(viewModel.state) { data ->
+        CATSScaffold(
+            topBarText = stringResource(R.string.banks_top_bar_text),
+            onBackClick = null,
+            modifier = modifier,
+        ) { paddingValues ->
             BanksScreenContent(
                 banksCA = data.banksCA,
                 banksNotCA = data.banksNotCA,
                 onAccountClick = onAccountClick,
-                modifier = Modifier.padding(paddingValues)
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .padding(spacingDefault)
             )
         }
     }
@@ -54,7 +64,8 @@ private fun BanksScreenContent(
 ) {
     LazyColumn(modifier) {
         stickyItems(R.string.header_bank_type_ca, banksCA, onAccountClick)
-        stickyItems(R.string.header_bank_type_not_ca, banksNotCA, onAccountClick)
+        item { Spacer(modifier = Modifier.height(spacingDefault)) }
+        stickyItems(R.string.header_bank_type_not_ca, banksNotCA , onAccountClick)
     }
 }
 
@@ -66,13 +77,19 @@ private fun LazyListScope.stickyItems(
 ) {
     stickyHeader {
         Text(
-            text = stringResource(labelRes), style = MaterialTheme.typography.titleLarge
+            text = stringResource(labelRes),
+            style = MaterialTheme.typography.titleLarge,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.background)
         )
     }
+    item { Spacer(Modifier.height(spacingSmall)) }
     items(banks) { bank ->
         BanksScreenItem(
             bank = bank,
-            onAccountClick = onAccountClick
+            onAccountClick = onAccountClick,
+            modifier = Modifier.padding(vertical = spacingExtraSmall)
         )
     }
 }
@@ -83,26 +100,33 @@ private fun BanksScreenItem(
     onAccountClick: (Bank, Account) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    CATSExpandable(modifier = modifier, header = {
-        Text(
-            text = bank.name,
-            style = MaterialTheme.typography.titleMedium,
-        )
-    }, content = {
-        LazyRow(
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            items(bank.accounts) { account ->
-                CATSCard(onClick = { onAccountClick(bank, account) }) {
-                    Text(
-                        text = account.label,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 2,
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.titleSmall,
-                    )
+    CATSExpandable(
+        modifier = modifier,
+        header = {
+            Text(
+                text = bank.name,
+                style = MaterialTheme.typography.titleMedium,
+
+            )
+        },
+        content = {
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy (spacingSmall),
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(top = spacingExtraSmall)
+            ) {
+                items(bank.accounts) { account ->
+                    CATSCard(onClick = { onAccountClick(bank, account) }) {
+                        Text(
+                            text = account.label,
+                            overflow = TextOverflow.Ellipsis,
+                            maxLines = 2,
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.titleSmall,
+                            modifier = modifier.padding(spacingDefault)
+                        )
+                    }
                 }
             }
-        }
-    })
+        })
 }

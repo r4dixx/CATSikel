@@ -32,7 +32,7 @@ fun CATSCard(
                 brush = CATSGradient.default,
                 shape = MaterialTheme.shapes.medium
             )
-            .then(modifier)
+             then modifier
     ) {
         Box(
             contentAlignment = Alignment.Center,

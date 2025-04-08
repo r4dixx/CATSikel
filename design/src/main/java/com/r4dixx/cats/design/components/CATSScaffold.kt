@@ -1,7 +1,6 @@
 package com.r4dixx.cats.design.components
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,9 +13,7 @@ fun CATSScaffold(
     content: @Composable (paddingValues: PaddingValues) -> Unit
 ) {
     Scaffold(
-        modifier = Modifier
-            .systemBarsPadding()
-            .then(modifier),
+        modifier = modifier,
         topBar = {
             CATSTopBarAnimated(
                 text = topBarText,

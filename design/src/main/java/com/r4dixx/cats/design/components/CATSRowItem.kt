@@ -18,7 +18,7 @@ fun CATSRowItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .background(brush = CATSGradient.default, shape = MaterialTheme.shapes.medium)
-            .then(modifier)
+             then modifier
     ) {
         content()
     }
