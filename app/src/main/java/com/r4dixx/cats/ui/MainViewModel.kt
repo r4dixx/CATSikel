@@ -1,16 +1,18 @@
 package com.r4dixx.cats.ui
 
-import androidx.lifecycle.ViewModel
+import com.r4dixx.cats.core.ui.CATSViewModel
 import com.r4dixx.cats.domain.model.Account
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import com.r4dixx.cats.domain.model.Bank
 
-class MainViewModel : ViewModel() {
-    private val _selectedAccount = MutableStateFlow<Account?>(null)
-    val selectedAccount: StateFlow<Account?> = _selectedAccount.asStateFlow()
-
-    fun setSelectedAccount(account: Account) {
-        _selectedAccount.value = account
+class MainViewModel: CATSViewModel<MainViewModel.Data>() {
+    
+    fun saveBankAndAccount(bank: Bank, account: Account) {
+        val data = Data(bank = bank, account = account)
+        setSuccess(data)
     }
+
+    data class Data(
+        val bank: Bank,
+        val account: Account
+    )
 }

@@ -9,6 +9,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
 import com.r4dixx.cats.design.theme.CATSSystemBarStyle
 import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.navigation.CATSRoute
@@ -33,21 +34,23 @@ class MainActivity : ComponentActivity() {
                         composable(route = CATSRoute.Banks.route) {
                             BanksScaffold(
                                 viewModel = koinViewModel(),
-                                onAccountClick = { account ->
-                                    viewModel.setSelectedAccount(account)
+                                onAccountClick = { bank, account ->
+                                    viewModel.saveBankAndAccount(bank, account)
                                     navController.navigate(CATSRoute.Account.route)
                                 }
                             )
                         }
 
                         composable(CATSRoute.Account.route) {
-                            val selectedAccount by viewModel.selectedAccount.collectAsStateWithLifecycle()
-                            selectedAccount?.let {
-                                AccountSheetScaffold(
-                                    viewModel = koinViewModel(parameters = { parametersOf(it) }),
-                                    onDismiss = { navController.popBackStack() },
-                                )
-                            }
+                            val state by viewModel.state.collectAsStateWithLifecycle()
+                            // TODO Handle error / loading
+                            if (state !is Success) return@composable
+                            val data = (state as Success<MainViewModel.Data>).data
+
+                            AccountSheetScaffold(
+                                viewModel = koinViewModel(parameters = { parametersOf(data.bank, data.account) }),
+                                onDismiss = { navController.popBackStack() },
+                            )
                         }
                     }
                 }

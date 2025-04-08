@@ -12,9 +12,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.r4dixx.cats.core.ui.CATSViewModel.State.Success
+import com.r4dixx.cats.core.ui.CATSViewModel
 import com.r4dixx.cats.design.components.CATSItem
 import com.r4dixx.cats.design.components.CATSSheetScaffold
 import com.r4dixx.cats.design.components.CATSTextGradient
@@ -27,20 +28,20 @@ fun AccountSheetScaffold(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val state = viewModel.state.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     // TODO - Handle error and loading
-    if (state.value !is Success) return
-    val data = (state.value as Success<AccountViewModel.Data>).data
+    if (state !is CATSViewModel.State.Success) return
+    val data = (state as CATSViewModel.State.Success<AccountViewModel.Data>).data
 
     CATSSheetScaffold(
-        topBarText = data.label,
+        topBarText = data.bankName + "\n" + data.accountLabel,
         onDismiss = onDismiss,
         modifier = modifier,
         sheetContent = {
             LazyColumn(verticalArrangement = Arrangement.spacedBy(spacingSmall)) {
                 stickyHeader {
                     CATSTextGradient(
-                        text = data.balance,
+                        text = data.accountBalance,
                         style = MaterialTheme.typography.displayLarge,
                         modifier = Modifier
                             .background(MaterialTheme.colorScheme.background)
@@ -48,7 +49,7 @@ fun AccountSheetScaffold(
                             .padding(bottom = spacingSmall)
                     )
                 }
-                items(data.operations) { operation ->
+                items(data.accountOperations) { operation ->
                     CATSItem {
                         Column {
                             Text(

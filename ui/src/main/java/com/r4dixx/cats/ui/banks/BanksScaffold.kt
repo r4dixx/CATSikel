@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -32,7 +33,7 @@ import com.r4dixx.cats.ui.R
 @Composable
 fun BanksScaffold(
     viewModel: BanksViewModel,
-    onAccountClick: (Account) -> Unit,
+    onAccountClick: (Bank, Account) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CATSScaffold(
@@ -40,12 +41,10 @@ fun BanksScaffold(
         onBackClick = null,
         modifier = modifier,
     ) { paddingValues ->
-        val state = viewModel.state.collectAsStateWithLifecycle()
-
+        val state by viewModel.state.collectAsStateWithLifecycle()
         // TODO - Handle error and loading
-        if (state.value !is Success) return@CATSScaffold
-
-        val data = (state.value as Success<BanksViewModel.Data>).data
+        if (state !is Success) return@CATSScaffold
+        val data = (state as Success<BanksViewModel.Data>).data
 
         BanksScreenContent(
             banksCA = data.banksCA,
@@ -64,7 +63,7 @@ private fun BanksScreenContent(
     banksCA: List<Bank>,
     banksNotCA: List<Bank>,
     modifier: Modifier = Modifier,
-    onAccountClick: (Account) -> Unit,
+    onAccountClick: (Bank, Account) -> Unit,
 ) {
     LazyColumn(modifier) {
         stickyItems(R.string.header_bank_type_ca, banksCA, onAccountClick)
@@ -77,7 +76,7 @@ private fun BanksScreenContent(
 private fun LazyListScope.stickyItems(
     @StringRes labelRes: Int,
     banks: List<Bank>,
-    onAccountClick: (Account) -> Unit,
+    onAccountClick: (Bank, Account) -> Unit,
 ) {
     stickyHeader {
         Text(
@@ -87,7 +86,8 @@ private fun LazyListScope.stickyItems(
     item { Spacer(Modifier.height(spacingSmall)) }
     items(banks) { bank ->
         BanksScreenItem(
-            bank = bank, onAccountClick = onAccountClick
+            bank = bank,
+            onAccountClick = onAccountClick
         )
     }
 }
@@ -95,7 +95,7 @@ private fun LazyListScope.stickyItems(
 @Composable
 private fun BanksScreenItem(
     bank: Bank,
-    onAccountClick: (Account) -> Unit,
+    onAccountClick: (Bank, Account) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CATSExpandable(modifier = modifier, header = {
@@ -110,7 +110,7 @@ private fun BanksScreenItem(
             horizontalArrangement = Arrangement.spacedBy(spacingDefault)
         ) {
             items(bank.accounts) { account ->
-                CATSCard(onClick = { onAccountClick(account) }) {
+                CATSCard(onClick = { onAccountClick(bank, account) }) {
                     Text(
                         text = account.label,
                         overflow = TextOverflow.Ellipsis,

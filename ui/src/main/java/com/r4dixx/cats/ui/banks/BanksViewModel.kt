@@ -5,21 +5,21 @@ import com.r4dixx.cats.core.ui.CATSViewModel
 import com.r4dixx.cats.core.utils.sanitized
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.usecase.GetBanksUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class BanksViewModel(getBanks: GetBanksUseCase) : CATSViewModel<BanksViewModel.Data>() {
 
-    override val data = Data()
-
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             getBanks().onSuccess { banks ->
-                val newData = banks
+                banks
                     .sanitized()
                     .withAccountsSanitized()
                     .toData()
-                val newState = State.Success(newData)
-                updateState(newState)
+                    .also { data ->
+                        setSuccess(data)
+                    }
             }
         }
     }
@@ -38,12 +38,12 @@ class BanksViewModel(getBanks: GetBanksUseCase) : CATSViewModel<BanksViewModel.D
             }
         }
 
-        val newData = data.copy(
+        val data = Data (
             banksCA = banksCA,
             banksNotCA = banksNotCA
         )
 
-        return newData
+        return data
     }
 
     /**
