@@ -24,9 +24,8 @@ import com.r4dixx.cats.design.components.CATSCard
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.components.CATSScaffold
 import com.r4dixx.cats.design.components.CATSUIState
+import com.r4dixx.cats.design.theme.CATSDimension
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
-import com.r4dixx.cats.design.theme.CATSDimension.spacingExtraSmall
-import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.ui.R
@@ -84,12 +83,12 @@ private fun LazyListScope.stickyItems(
                 .background(MaterialTheme.colorScheme.background)
         )
     }
-    item { Spacer(Modifier.height(spacingSmall)) }
+    item { Spacer(Modifier.height(CATSDimension.spacingSmall)) }
     items(banks) { bank ->
         BanksScreenItem(
             bank = bank,
             onAccountClick = onAccountClick,
-            modifier = Modifier.padding(vertical = spacingExtraSmall)
+            modifier = Modifier.padding(top = CATSDimension.spacingSmall)
         )
     }
 }
@@ -111,9 +110,9 @@ private fun BanksScreenItem(
         },
         content = {
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy (spacingSmall),
+                horizontalArrangement = Arrangement.spacedBy (CATSDimension.spacingSmall),
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(top = spacingExtraSmall)
+                modifier = Modifier.padding(top = CATSDimension.spacingSmall)
             ) {
                 items(bank.accounts) { account ->
                     CATSCard(onClick = { onAccountClick(bank, account) }) {
@@ -123,7 +122,7 @@ private fun BanksScreenItem(
                             maxLines = 2,
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.titleSmall,
-                            modifier = modifier.padding(spacingDefault)
+                            modifier = Modifier.padding(spacingDefault)
                         )
                     }
                 }

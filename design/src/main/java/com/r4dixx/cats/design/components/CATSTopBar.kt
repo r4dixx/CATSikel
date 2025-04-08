@@ -31,9 +31,7 @@ fun CATSTopBar(
             )
         }, navigationIcon = {
             onBackClick?.let {
-                IconButton(
-                    onClick = onBackClick
-                ) {
+                IconButton(onClick = onBackClick) {
                     CATSIconGradient(
                         modifier = Modifier.size(iconSizeDefault),
                         painter = rememberVectorPainter(Icons.AutoMirrored.Default.ArrowBack),

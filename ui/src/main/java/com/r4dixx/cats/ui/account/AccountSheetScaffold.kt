@@ -5,6 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
@@ -15,6 +17,8 @@ import com.r4dixx.cats.design.components.CATSRowItem
 import com.r4dixx.cats.design.components.CATSSheetScaffold
 import com.r4dixx.cats.design.components.CATSTextGradient
 import com.r4dixx.cats.design.components.CATSUIState
+import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
+import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -29,14 +33,14 @@ fun AccountSheetScaffold(
             onDismiss = onDismiss,
             content = {},
             sheetContent = {
-                LazyColumn() {
+                LazyColumn {
                     stickyHeader {
                         CATSTextGradient(
                             text = data.bankName,
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier
-                                .background(MaterialTheme.colorScheme.background)
                                 .fillMaxWidth()
+                                .background(MaterialTheme.colorScheme.background)
                         )
                     }
                     stickyHeader {
@@ -44,12 +48,13 @@ fun AccountSheetScaffold(
                             text = data.accountBalance,
                             style = MaterialTheme.typography.displayLarge,
                             modifier = Modifier
-                                .background(MaterialTheme.colorScheme.background)
                                 .fillMaxWidth()
+                                .background(MaterialTheme.colorScheme.background)
+                                .padding(bottom = spacingSmall)
                         )
                     }
                     items(data.accountOperations) { operation ->
-                        CATSRowItem {
+                        CATSRowItem(modifier = Modifier.padding(spacingDefault)) {
                             Column {
                                 Text(
                                     text = operation.title,
@@ -68,6 +73,7 @@ fun AccountSheetScaffold(
                                 style = MaterialTheme.typography.bodyLarge
                             )
                         }
+                        Spacer(Modifier.height(spacingSmall))
                     }
                 }
             }

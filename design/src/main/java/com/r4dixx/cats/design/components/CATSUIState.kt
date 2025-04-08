@@ -59,9 +59,7 @@ fun <T> CATSUIState(
 @Composable
 private fun CATSEmpty(modifier: Modifier = Modifier) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-             then modifier,
+        modifier = Modifier.fillMaxSize() then modifier,
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -74,9 +72,7 @@ private fun CATSEmpty(modifier: Modifier = Modifier) {
 @Composable
 private fun CATSError(modifier: Modifier = Modifier, message: String?) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-             then modifier,
+        modifier = Modifier.fillMaxSize() then modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -99,9 +95,7 @@ private fun CATSError(modifier: Modifier = Modifier, message: String?) {
 private fun CATSProgress(modifier: Modifier = Modifier) {
     val gradient = CATSGradient.default
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-             then modifier,
+        modifier = Modifier.fillMaxSize() then modifier,
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(
@@ -113,7 +107,6 @@ private fun CATSProgress(modifier: Modifier = Modifier) {
                         drawRect(gradient, blendMode = BlendMode.SrcAtop)
                     }
                 }
-                 then modifier
         )
     }
 }
