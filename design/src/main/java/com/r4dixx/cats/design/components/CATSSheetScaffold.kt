@@ -1,5 +1,6 @@
 package com.r4dixx.cats.design.components
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
@@ -47,6 +48,20 @@ fun CATSSheetScaffold(
 
     LaunchedEffect(initialShow) {
         if (initialShow) sheetState.show()
+    }
+
+    var hasBeenShown by remember { mutableStateOf(false) }
+
+    LaunchedEffect(sheetState.isVisible) {
+        if (!sheetState.isVisible && hasBeenShown) {
+            onDismiss?.invoke()
+        } else if (sheetState.isVisible) {
+            hasBeenShown = true
+        }
+    }
+
+    BackHandler {
+        coroutineScope.launch { sheetState.hide() }
     }
 
     BottomSheetScaffold(
