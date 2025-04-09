@@ -4,6 +4,7 @@ import com.r4dixx.cats.core.ui.CATSViewModel
 import com.r4dixx.cats.core.utils.toFormattedAmount
 import com.r4dixx.cats.core.utils.toFormattedDate
 import com.r4dixx.cats.domain.model.Account
+import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.model.Operation
 import com.r4dixx.cats.ui.account.model.OperationUI
 import java.text.SimpleDateFormat
@@ -11,20 +12,19 @@ import java.util.Locale
 import kotlin.time.ExperimentalTime
 
 class AccountViewModel(
+    bank: Bank,
     account: Account,
     private val locale: Locale
 ) : CATSViewModel<AccountViewModel.Data>() {
 
-    override val data = Data()
-
     init {
-        val newData = data.copy(
-            label = account.label,
-            balance = account.balance.toFormattedAmount(locale),
-            operations = account.operations.sorted().toOperationsUI()
+        val data = Data(
+            bankName = bank.name,
+            accountLabel = account.label,
+            accountBalance = account.balance.toFormattedAmount(locale),
+            accountOperations = account.operations.sorted().toOperationsUI()
         )
-        val newState = State.Success(newData)
-        updateState(newState)
+        setSuccess(data)
     }
 
     /**
@@ -52,8 +52,9 @@ class AccountViewModel(
     )
 
     data class Data(
-        val label: String = "",
-        val balance: String = "",
-        val operations: List<OperationUI> = emptyList(),
+        val bankName: String = "",
+        val accountLabel: String = "",
+        val accountBalance: String = "",
+        val accountOperations: List<OperationUI> = emptyList(),
     )
 }
