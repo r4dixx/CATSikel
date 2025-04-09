@@ -19,7 +19,7 @@ import com.r4dixx.cats.design.theme.CATSDimension.iconSizeDefault
 fun CATSTopBar(
     text: String,
     modifier: Modifier = Modifier,
-    onBackClick: (() -> Unit)?
+    onBack: (() -> Unit)? = null
 ) {
     TopAppBar(
         modifier = modifier,
@@ -30,8 +30,8 @@ fun CATSTopBar(
                 maxLines = 1
             )
         }, navigationIcon = {
-            onBackClick?.let {
-                IconButton(onClick = onBackClick) {
+            onBack?.let {
+                IconButton(onClick = onBack) {
                     CATSIconGradient(
                         modifier = Modifier.size(iconSizeDefault),
                         painter = rememberVectorPainter(Icons.AutoMirrored.Default.ArrowBack),

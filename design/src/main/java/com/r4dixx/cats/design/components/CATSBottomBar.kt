@@ -2,14 +2,14 @@ package com.r4dixx.cats.design.components
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -22,10 +22,10 @@ import com.r4dixx.cats.design.theme.CATSDimension.iconSizeLarge
 
 @Composable
 fun CATSBottomBar(modifier: Modifier = Modifier) {
-    var rotationState by remember { mutableStateOf(0f) }
+    var rotationState by remember { mutableFloatStateOf(0f) }
     val rotationAngle by animateFloatAsState(
         targetValue = rotationState,
-        animationSpec = tween(durationMillis = 1000) 
+        animationSpec = tween(1000)
     )
 
     val haptic = LocalHapticFeedback.current
@@ -35,17 +35,20 @@ fun CATSBottomBar(modifier: Modifier = Modifier) {
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxWidth()
         ) {
-            CATSIconGradient(
-                painterResource(com.r4dixx.cats.design.R.drawable.ic_cats),
-                contentDescription = null, 
-                modifier = Modifier
-                    .size(iconSizeLarge)
-                    .rotate(rotationAngle)
-                    .clickable {
-                        rotationState += 360f
-                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                    }
-            )
+            IconButton(
+                modifier = Modifier.size(iconSizeLarge),
+                onClick = {
+                    rotationState += 360f
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                }
+            ) {
+                CATSIconGradient(
+                    painterResource(com.r4dixx.cats.design.R.drawable.ic_cats),
+                    contentDescription = null,
+                    modifier = Modifier.size(iconSizeLarge).rotate(rotationAngle)
+
+                )
+            }
         }
     }
 }

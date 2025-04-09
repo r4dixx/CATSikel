@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.IntOffset
 @Composable
 fun CATSBottomBarAnimated(
     modifier: Modifier = Modifier,
-    visible: Boolean = true
+    visible: Boolean = true,
 ) {
     var isVisible by remember { mutableStateOf(false) }
 

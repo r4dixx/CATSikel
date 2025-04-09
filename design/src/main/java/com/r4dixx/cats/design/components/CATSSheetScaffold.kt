@@ -1,17 +1,16 @@
 package com.r4dixx.cats.design.components
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.rememberBottomSheetScaffoldState
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -34,7 +33,7 @@ fun CATSSheetScaffold(
     topBarText: String,
     onDismiss: (() -> Unit)?,
     modifier: Modifier = Modifier,
-    initialShow: Boolean = false,
+    initialSheetValue: SheetValue = SheetValue.Hidden,
     sheetContent: @Composable () -> Unit,
     content: @Composable (PaddingValues) -> Unit
 ) {
@@ -44,24 +43,21 @@ fun CATSSheetScaffold(
     val screenHeightDp = LocalConfiguration.current.screenHeightDp.dp
     var sheetHeightDp by remember { mutableStateOf(sheetHeightDefault) }
 
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val sheetState = rememberStandardBottomSheetState(
+        initialValue = initialSheetValue,
+        skipHiddenState = false
+    )
 
-    LaunchedEffect(initialShow) {
-        if (initialShow) sheetState.show()
-    }
-
-    var hasBeenShown by remember { mutableStateOf(false) }
-
-    LaunchedEffect(sheetState.isVisible) {
-        if (!sheetState.isVisible && hasBeenShown) {
-            onDismiss?.invoke()
-        } else if (sheetState.isVisible) {
-            hasBeenShown = true
+    LaunchedEffect(Unit) {
+        if (initialSheetValue == SheetValue.Expanded) {
+            sheetState.show()
         }
     }
 
-    BackHandler {
-        coroutineScope.launch { sheetState.hide() }
+    LaunchedEffect(sheetState.currentValue) {
+        if (sheetState.currentValue == SheetValue.Hidden) {
+            onDismiss?.invoke()
+        }
     }
 
     BottomSheetScaffold(
@@ -69,18 +65,23 @@ fun CATSSheetScaffold(
         modifier = modifier,
         sheetSwipeEnabled = true,
         sheetDragHandle = {},
-        sheetPeekHeight = 0.dp,
+        sheetPeekHeight = sheetHeightDp,
         sheetShape = BottomSheetDefaults.ExpandedShape,
         sheetContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
         topBar = {
             CATSTopBarAnimated(
                 text = topBarText,
-                onBackClick = { coroutineScope.launch { sheetState.hide() } },
+                onBack = onDismiss?.let {
+                    {
+                        coroutineScope.launch {
+                            sheetState.hide()
+                        }
+                    }
+                },
                 modifier = Modifier.onGloballyPositioned { coordinates ->
-                    val topBarHeightPx = coordinates.size.height
-                    val topBarHeightDp = with(density) { topBarHeightPx.toDp() }
+                    val topBarHeightDp = with(density) { coordinates.size.height.toDp() }
                     val availableHeight = (screenHeightDp - topBarHeightDp).coerceAtLeast(0.dp)
-                    sheetHeightDp = availableHeight - spacingDefault
+                    sheetHeightDp = availableHeight.coerceAtLeast(BottomSheetDefaults.SheetPeekHeight) - spacingDefault
                 }
             )
         },
@@ -88,7 +89,6 @@ fun CATSSheetScaffold(
         sheetContent = {
             Box(
                 Modifier
-                    .height(sheetHeightDp) // Apply the calculated height
                     .navigationBarsPadding()
                     .padding(horizontal = spacingDefault)
             ) {

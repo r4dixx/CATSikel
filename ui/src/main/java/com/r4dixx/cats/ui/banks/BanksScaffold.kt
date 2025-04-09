@@ -37,10 +37,7 @@ fun BanksScaffold(
     modifier: Modifier = Modifier,
 ) {
     CATSUIState(viewModel.state, modifier) { data ->
-        CATSScaffold(
-            topBarText = stringResource(R.string.banks_top_bar_text),
-            onBackClick = null,
-        ) { paddingValues ->
+        CATSScaffold(stringResource(R.string.banks_top_bar_text)) { paddingValues ->
             BanksScreenContent(
                 banksCA = data.banksCA,
                 banksNotCA = data.banksNotCA,
@@ -63,7 +60,7 @@ private fun BanksScreenContent(
     LazyColumn(modifier) {
         stickyItems(R.string.header_bank_type_ca, banksCA, onAccountClick)
         item { Spacer(modifier = Modifier.height(spacingDefault)) }
-        stickyItems(R.string.header_bank_type_not_ca, banksNotCA , onAccountClick)
+        stickyItems(R.string.header_bank_type_not_ca, banksNotCA, onAccountClick)
     }
 }
 
@@ -105,11 +102,11 @@ private fun BanksScreenItem(
                 text = bank.name,
                 style = MaterialTheme.typography.titleMedium,
 
-            )
+                )
         },
         content = {
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy (CATSDimension.spacingSmall),
+                horizontalArrangement = Arrangement.spacedBy(CATSDimension.spacingSmall),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(top = CATSDimension.spacingSmall)
             ) {

@@ -17,13 +17,12 @@ import androidx.compose.ui.unit.IntOffset
 fun CATSTopBarAnimated(
     text: String,
     modifier: Modifier = Modifier,
-    onBackClick: (() -> Unit)? = null,
-    visible: Boolean = true
+    onBack: (() -> Unit)? = null,
 ) {
     var isVisible by remember { mutableStateOf(false) }
 
-    LaunchedEffect(visible) {
-        isVisible = visible
+    LaunchedEffect(isVisible) {
+        isVisible = true
     }
 
     val offsetY by animateFloatAsState(
@@ -40,10 +39,10 @@ fun CATSTopBarAnimated(
 
     CATSTopBar(
         text = text,
-        onBackClick = onBackClick,
+        onBack = onBack,
         modifier = Modifier
             .offset { IntOffset(0, offsetY.toInt()) }
             .alpha(alpha)
-             then modifier
+                then modifier
     )
 }

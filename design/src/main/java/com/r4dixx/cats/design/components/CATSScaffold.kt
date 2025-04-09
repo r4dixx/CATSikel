@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 fun CATSScaffold(
     topBarText: String,
     modifier: Modifier = Modifier,
-    onBackClick: (() -> Unit)?,
+    onBack: (() -> Unit)? = null,
     content: @Composable (paddingValues: PaddingValues) -> Unit
 ) {
     Scaffold(
@@ -17,7 +17,7 @@ fun CATSScaffold(
         topBar = {
             CATSTopBarAnimated(
                 text = topBarText,
-                onBackClick = onBackClick
+                onBack = onBack
             )
         },
         bottomBar = { CATSBottomBarAnimated() },
