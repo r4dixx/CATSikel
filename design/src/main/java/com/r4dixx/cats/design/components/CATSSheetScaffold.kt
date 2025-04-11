@@ -3,8 +3,8 @@ package com.r4dixx.cats.design.components
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -78,7 +78,7 @@ fun CATSSheetScaffold(
         scaffoldState = rememberBottomSheetScaffoldState(sheetState),
         modifier = modifier,
         sheetSwipeEnabled = true,
-        sheetDragHandle = {},
+        sheetDragHandle = null,
         sheetPeekHeight = sheetHeightDp,
         sheetShape = BottomSheetDefaults.ExpandedShape,
         sheetContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -98,7 +98,7 @@ fun CATSSheetScaffold(
         sheetContent = {
             Box(
                 Modifier
-                    .navigationBarsPadding()
+                    .systemBarsPadding()
                     .padding(horizontal = spacingDefault)
             ) {
                 sheetContent()
