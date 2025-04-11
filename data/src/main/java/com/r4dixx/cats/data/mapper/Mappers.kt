@@ -1,5 +1,6 @@
 package com.r4dixx.cats.data.mapper
 
+import com.r4dixx.cats.core.utils.sanitized
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.model.Operation
@@ -11,14 +12,14 @@ import com.r4dixx.cats.data.model.Operation as APIOperation
 fun APIBank.toDomain() = Bank(
     name = name,
     isCA = isCA == 1,
-    accounts = accounts.map { it.toDomain() }
+    accounts = accounts.distinct().map { it.toDomain() }
 )
 
 fun APIAccount.toDomain() = Account(
     id = id,
-    label = label,
+    label = label.sanitized(),
     balance = balance,
-    operations = operations.map { it.toDomain() }
+    operations = operations.distinct().map { it.toDomain() }
 )
 
 @OptIn(ExperimentalTime::class)
