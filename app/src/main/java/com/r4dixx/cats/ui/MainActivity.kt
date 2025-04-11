@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
                             uiState.dataOrNull?.let { data ->
                                 AccountSheetScaffold(
                                     viewModel = koinViewModel(parameters = { parametersOf(data.bank, data.account) }),
-                                    onDismiss = { navController.popBackStack() },
+                                    onBack = { navController.popBackStack() },
                                 )
                             }
                         }

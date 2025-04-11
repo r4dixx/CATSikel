@@ -26,14 +26,14 @@ import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 @Composable
 fun AccountSheetScaffold(
     viewModel: AccountViewModel,
-    onDismiss: () -> Unit,
+    onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CATSUIState(viewModel.state, modifier) { data ->
         CATSSheetScaffold(
             initialSheetValue = SheetValue.Expanded,
             topBarText = data.accountLabel,
-            onDismiss = onDismiss,
+            onBack = onBack,
             content = {},
             sheetContent = {
                 LazyColumn {

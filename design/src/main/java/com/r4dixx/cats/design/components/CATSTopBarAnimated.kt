@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.IntOffset
 fun CATSTopBarAnimated(
     text: String,
     modifier: Modifier = Modifier,
-    onBack: (() -> Unit)? = null,
+    onBack: (() -> Unit)?,
 ) {
     var isVisible by remember { mutableStateOf(false) }
 

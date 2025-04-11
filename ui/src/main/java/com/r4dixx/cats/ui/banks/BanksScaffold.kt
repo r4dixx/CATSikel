@@ -37,7 +37,10 @@ fun BanksScaffold(
     modifier: Modifier = Modifier,
 ) {
     CATSUIState(viewModel.state, modifier) { data ->
-        CATSScaffold(stringResource(R.string.banks_top_bar_text)) { paddingValues ->
+        CATSScaffold(
+            topBarText = stringResource(R.string.banks_top_bar_text),
+            onBack = null
+        ) { paddingValues ->
             BanksScreenContent(
                 banksCA = data.banksCA,
                 banksNotCA = data.banksNotCA,

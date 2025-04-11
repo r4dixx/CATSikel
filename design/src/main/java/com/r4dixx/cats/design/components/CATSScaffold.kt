@@ -1,5 +1,6 @@
 package com.r4dixx.cats.design.components
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -9,17 +10,18 @@ import androidx.compose.ui.Modifier
 fun CATSScaffold(
     topBarText: String,
     modifier: Modifier = Modifier,
-    onBack: (() -> Unit)? = null,
-    content: @Composable (paddingValues: PaddingValues) -> Unit
+    onBack: (() -> Unit)?,
+    content: @Composable ((PaddingValues) -> Unit)
 ) {
+    onBack?.let {
+        BackHandler {
+            it.invoke()
+        }
+    }
+
     Scaffold(
         modifier = modifier,
-        topBar = {
-            CATSTopBarAnimated(
-                text = topBarText,
-                onBack = onBack
-            )
-        },
+        topBar = { CATSTopBarAnimated(text = topBarText, onBack = onBack) },
         bottomBar = { CATSBottomBarAnimated() },
         content = { paddingValues -> content(paddingValues) }
     )

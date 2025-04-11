@@ -1,5 +1,6 @@
 package com.r4dixx.cats.design.components
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -31,7 +32,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun CATSSheetScaffold(
     topBarText: String,
-    onDismiss: (() -> Unit)?,
+    onBack: (() -> Unit)?,
     modifier: Modifier = Modifier,
     initialSheetValue: SheetValue = SheetValue.Hidden,
     sheetContent: @Composable () -> Unit,
@@ -48,16 +49,20 @@ fun CATSSheetScaffold(
         skipHiddenState = false
     )
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(initialSheetValue) {
         if (initialSheetValue == SheetValue.Expanded) {
             sheetState.show()
         }
     }
 
-    LaunchedEffect(sheetState.currentValue) {
-        if (sheetState.currentValue == SheetValue.Hidden) {
-            onDismiss?.invoke()
+    onBack?.let {
+        LaunchedEffect(sheetState.isVisible) {
+            if (!sheetState.isVisible) it.invoke()
         }
+    }
+
+    BackHandler {
+        coroutineScope.launch { sheetState.hide() }
     }
 
     BottomSheetScaffold(
@@ -71,17 +76,12 @@ fun CATSSheetScaffold(
         topBar = {
             CATSTopBarAnimated(
                 text = topBarText,
-                onBack = onDismiss?.let {
-                    {
-                        coroutineScope.launch {
-                            sheetState.hide()
-                        }
-                    }
-                },
+                onBack = { coroutineScope.launch { sheetState.hide() } },
                 modifier = Modifier.onGloballyPositioned { coordinates ->
                     val topBarHeightDp = with(density) { coordinates.size.height.toDp() }
                     val availableHeight = (screenHeightDp - topBarHeightDp).coerceAtLeast(0.dp)
-                    sheetHeightDp = availableHeight.coerceAtLeast(BottomSheetDefaults.SheetPeekHeight) - spacingDefault
+                    sheetHeightDp =
+                        availableHeight.coerceAtLeast(BottomSheetDefaults.SheetPeekHeight) - spacingDefault
                 }
             )
         },
