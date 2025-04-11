@@ -10,22 +10,6 @@ abstract class CATSViewModel<T> : ViewModel() {
     private val _state = MutableStateFlow<State<T>>(State.Loading)
     val state: StateFlow<State<T>> = _state.asStateFlow()
 
-    protected fun setLoading() {
-        _state.value = State.Loading
-    }
-
-    protected fun setSuccess(data: T) {
-        _state.value = State.Success(data)
-    }
-
-    protected fun setError(errorMessage: String) {
-        _state.value = State.Error(errorMessage)
-    }
-
-    protected fun setError(throwable: Throwable) {
-        _state.value = State.Error(throwable)
-    }
-
     protected fun updateState(transform: (State<T>) -> State<T>) {
         _state.value = transform(_state.value)
     }
@@ -33,6 +17,16 @@ abstract class CATSViewModel<T> : ViewModel() {
     protected suspend fun emitState(newState: State<T>) {
         _state.emit(newState)
     }
+
+    protected fun setLoading() { _state.value = State.Loading }
+    protected fun setSuccess(data: T) { _state.value = State.Success(data) }
+    protected fun setError(message: String) { _state.value = State.Error(message) }
+    protected fun setError(throwable: Throwable) { _state.value = State.Error(throwable) }
+
+    protected suspend fun emitLoading() { _state.emit(State.Loading) }
+    protected suspend fun emitSuccess(data: T) { _state.emit(State.Success(data)) }
+    protected suspend fun emitError(message: String) { _state.emit(State.Error(message)) }
+    protected suspend fun emitError(throwable: Throwable) { _state.emit(State.Error(throwable)) }
 
     sealed class State<out T> {
         data object Loading : State<Nothing>()
