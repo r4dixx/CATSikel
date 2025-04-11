@@ -44,10 +44,17 @@ fun CATSSheetScaffold(
     val screenHeightDp = LocalConfiguration.current.screenHeightDp.dp
     var sheetHeightDp by remember { mutableStateOf(sheetHeightDefault) }
 
+
     val sheetState = rememberStandardBottomSheetState(
         initialValue = initialSheetValue,
         skipHiddenState = false
     )
+
+    var topBarVisible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        topBarVisible = true
+    }
 
     LaunchedEffect(initialSheetValue) {
         if (initialSheetValue == SheetValue.Expanded) {
@@ -57,7 +64,10 @@ fun CATSSheetScaffold(
 
     onBack?.let {
         LaunchedEffect(sheetState.isVisible) {
-            if (!sheetState.isVisible) it.invoke()
+            if (!sheetState.isVisible) {
+                topBarVisible = false
+                it.invoke()
+            }
         }
     }
 
@@ -75,6 +85,7 @@ fun CATSSheetScaffold(
         sheetContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
         topBar = {
             CATSTopBarAnimated(
+                isVisible = topBarVisible,
                 text = topBarText,
                 onBack = { coroutineScope.launch { sheetState.hide() } },
                 modifier = Modifier.onGloballyPositioned { coordinates ->
