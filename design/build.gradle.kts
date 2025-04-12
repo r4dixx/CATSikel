@@ -32,6 +32,7 @@ dependencies {
     api(platform(libs.androidx.compose.bom))
     api(libs.bundles.compose)
     debugApi(libs.bundles.compose.debug)
+    lintChecks(libs.bundles.compose.lint)
 
     implementation(project(":core"))
 }

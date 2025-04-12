@@ -29,6 +29,8 @@ android {
 
 
 dependencies {
+    lintChecks(libs.bundles.compose.lint)
+
     implementation(project(":core"))
     implementation(project(":design"))
     implementation(project(":domain"))

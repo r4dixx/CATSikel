@@ -15,7 +15,8 @@ agp = "8.9.1"
 koin = "4.0.3"
 
 composeActitivy = "1.10.1"
-composeBom = "2025.03.01"
+composeBom = "2025.04.00"
+composeLintChecks = "1.4.2"
 composeNavigation = "2.8.9"
 
 ktor = "3.1.1"
@@ -38,6 +39,8 @@ androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+
+compose-lint-checks = { module = "com.slack.lint.compose:compose-lint-checks", version.ref = "composeLintChecks" }
 
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
@@ -63,6 +66,10 @@ compose = [
 
 compose-debug = [
     "androidx-ui-tooling"
+]
+
+compose-lint = [
+    "compose-lint-checks"
 ]
 
 ktor = [

@@ -32,8 +32,9 @@ android {
 
 dependencies {
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.navigation.compose)
+    lintChecks(libs.bundles.compose.lint)
 
     implementation(project(":core"))
     implementation(project(":data"))
