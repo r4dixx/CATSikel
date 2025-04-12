@@ -64,7 +64,7 @@ private fun CATSEmpty(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun CATSError(modifier: Modifier = Modifier, message: String?) {
+private fun CATSError(message: String?, modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier.fillMaxSize() then modifier,
         verticalArrangement = Arrangement.Center,

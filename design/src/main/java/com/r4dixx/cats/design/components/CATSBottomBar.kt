@@ -44,9 +44,8 @@ fun CATSBottomBar(modifier: Modifier = Modifier) {
             ) {
                 CATSIconGradient(
                     painterResource(com.r4dixx.cats.design.R.drawable.ic_cats),
-                    contentDescription = null,
+                    contentDescription = null, // Decorative icon
                     modifier = Modifier.size(iconSizeLarge).rotate(rotationAngle)
-
                 )
             }
         }

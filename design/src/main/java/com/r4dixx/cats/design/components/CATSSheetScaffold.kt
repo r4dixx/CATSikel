@@ -32,11 +32,11 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CATSSheetScaffold(
-    topBarText: String,
+    sheetContent: @Composable () -> Unit,
     onBack: (() -> Unit)?,
+    topBarText: String,
     modifier: Modifier = Modifier,
     initialSheetValue: SheetValue = SheetValue.Hidden,
-    sheetContent: @Composable () -> Unit,
     content: @Composable (PaddingValues) -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()

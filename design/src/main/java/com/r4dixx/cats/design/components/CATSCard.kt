@@ -15,9 +15,9 @@ import com.r4dixx.cats.design.theme.CATSGradient
 
 @Composable
 fun CATSCard(
-    modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    content: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
 ) {
     Card(
         onClick = onClick,

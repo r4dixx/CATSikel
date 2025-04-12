@@ -40,6 +40,7 @@ import com.r4dixx.cats.design.components.CATSUIState
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 import com.r4dixx.cats.ui.R
+import com.r4dixx.cats.ui.account.AccountViewModel.OpeFormatted
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,7 +61,9 @@ fun AccountSheetScaffold(
                 Box(Modifier.padding(bottom = spacingSmall)) {
                     AccountSheetContent(
                         listState = listState,
-                        data = data
+                        bankName = data.bankName,
+                        accountBalance = data.accountBalance,
+                        accountOperations = data.accountOperations
                     )
                     AccountSheetAnimatedFAB(
                         listState = listState,
@@ -78,7 +81,9 @@ fun AccountSheetScaffold(
 @Composable
 private fun AccountSheetContent(
     listState: LazyListState,
-    data: AccountViewModel.Data,
+    bankName: String,
+    accountBalance: String,
+    accountOperations: List<OpeFormatted>,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -87,7 +92,7 @@ private fun AccountSheetContent(
     ) {
         stickyHeader {
             CATSTextGradient(
-                text = data.bankName,
+                text = bankName,
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -97,7 +102,7 @@ private fun AccountSheetContent(
         
         stickyHeader {
             CATSTextGradient(
-                text = data.accountBalance,
+                text = accountBalance,
                 style = MaterialTheme.typography.displayLarge,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -106,7 +111,7 @@ private fun AccountSheetContent(
             )
         }
 
-        items(data.accountOperations) { operation ->
+        items(accountOperations) { operation ->
             CATSRowItem(modifier = Modifier.padding(spacingDefault)) {
                 Column {
                     Text(

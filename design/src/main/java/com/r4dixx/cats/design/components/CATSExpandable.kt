@@ -3,7 +3,6 @@ package com.r4dixx.cats.design.components
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,14 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.stringResource
 import com.r4dixx.cats.design.R
-import com.r4dixx.cats.design.theme.CATSDimension
 
 @Composable
 fun CATSExpandable(
+    header: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     initiallyExpanded: Boolean = false,
     onClick: () -> Unit = {},
-    header: @Composable () -> Unit,
     content: @Composable () -> Unit,
 ) {
     var expanded by rememberSaveable { mutableStateOf(initiallyExpanded) }

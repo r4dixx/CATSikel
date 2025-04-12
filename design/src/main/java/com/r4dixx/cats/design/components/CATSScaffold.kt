@@ -8,9 +8,9 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun CATSScaffold(
+    onBack: (() -> Unit)?,
     topBarText: String,
     modifier: Modifier = Modifier,
-    onBack: (() -> Unit)?,
     content: @Composable ((PaddingValues) -> Unit)
 ) {
     onBack?.let {
