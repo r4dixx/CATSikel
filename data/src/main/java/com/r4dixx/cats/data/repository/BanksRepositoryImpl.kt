@@ -1,6 +1,6 @@
 package com.r4dixx.cats.data.repository
 
-import com.r4dixx.cats.data.mapper.toDomain
+import com.r4dixx.cats.data.mapper.toDomainBank
 import com.r4dixx.cats.data.service.BanksLocalService
 import com.r4dixx.cats.data.service.BanksRemoteService
 import com.r4dixx.cats.domain.model.Bank
@@ -18,7 +18,7 @@ class BanksRepositoryImpl(
     override suspend fun getBanks(): Result<List<Bank>> {
         return remoteService
             .getBanks()
-            .mapCatching { banks -> banks.distinct().map { it.toDomain() } }
-            .recoverCatching { localService.getBanks().getOrThrow().distinct().map { it.toDomain() } }
+            .mapCatching { banks -> banks.distinct().map { it.toDomainBank() } }
+            .recoverCatching { localService.getBanks().getOrThrow().distinct().map { it.toDomainBank() } }
     }
 }

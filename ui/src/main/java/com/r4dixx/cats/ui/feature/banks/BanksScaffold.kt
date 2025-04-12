@@ -1,4 +1,4 @@
-package com.r4dixx.cats.ui.banks
+package com.r4dixx.cats.ui.feature.banks
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -29,6 +29,9 @@ import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.ui.R
+import com.r4dixx.cats.ui.mappers.toDomainBank
+import com.r4dixx.cats.ui.model.UIBank
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun BanksScaffold(
@@ -55,8 +58,8 @@ fun BanksScaffold(
 
 @Composable
 private fun BanksScreenContent(
-    banksCA: List<Bank>,
-    banksNotCA: List<Bank>,
+    banksCA: ImmutableList<UIBank>,
+    banksNotCA: ImmutableList<UIBank>,
     modifier: Modifier = Modifier,
     onAccountClick: (Bank, Account) -> Unit,
 ) {
@@ -70,7 +73,7 @@ private fun BanksScreenContent(
 @OptIn(ExperimentalFoundationApi::class)
 private fun LazyListScope.stickyItems(
     @StringRes labelRes: Int,
-    banks: List<Bank>,
+    banks: ImmutableList<UIBank>,
     onAccountClick: (Bank, Account) -> Unit,
 ) {
     stickyHeader {
@@ -94,7 +97,7 @@ private fun LazyListScope.stickyItems(
 
 @Composable
 private fun BanksScreenItem(
-    bank: Bank,
+    bank: UIBank,
     onAccountClick: (Bank, Account) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -114,7 +117,7 @@ private fun BanksScreenItem(
                 modifier = Modifier.padding(top = CATSDimension.spacingSmall)
             ) {
                 items(bank.accounts) { account ->
-                    CATSCard(onClick = { onAccountClick(bank, account) }) {
+                    CATSCard(onClick = { onAccountClick(bank.toDomainBank(), account) }) {
                         Text(
                             text = account.label,
                             overflow = TextOverflow.Ellipsis,

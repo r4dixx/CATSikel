@@ -9,7 +9,7 @@ import kotlin.time.Instant
 
 @OptIn(ExperimentalTime::class)
 @Serializable
-data class Operation(
+data class APIOperation(
     val id: Long,
     val title: String,
 

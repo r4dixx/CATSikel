@@ -1,4 +1,4 @@
-package com.r4dixx.cats.ui.account
+package com.r4dixx.cats.ui.feature.account
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -40,7 +40,8 @@ import com.r4dixx.cats.design.components.CATSUIState
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 import com.r4dixx.cats.ui.R
-import com.r4dixx.cats.ui.account.AccountViewModel.OpeFormatted
+import com.r4dixx.cats.ui.model.UIOperation
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -83,7 +84,7 @@ private fun AccountSheetContent(
     listState: LazyListState,
     bankName: String,
     accountBalance: String,
-    accountOperations: List<OpeFormatted>,
+    accountOperations: ImmutableList<UIOperation>,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(

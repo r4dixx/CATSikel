@@ -1,7 +1,7 @@
 package com.r4dixx.cats.ui
 
-import com.r4dixx.cats.ui.account.AccountViewModel
-import com.r4dixx.cats.ui.banks.BanksViewModel
+import com.r4dixx.cats.ui.feature.account.AccountViewModel
+import com.r4dixx.cats.ui.feature.banks.BanksViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 

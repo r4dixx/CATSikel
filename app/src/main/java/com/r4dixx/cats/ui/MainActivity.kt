@@ -12,8 +12,8 @@ import androidx.navigation.compose.rememberNavController
 import com.r4dixx.cats.design.theme.CATSSystemBarStyle
 import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.navigation.CATSRoute
-import com.r4dixx.cats.ui.account.AccountSheetScaffold
-import com.r4dixx.cats.ui.banks.BanksScaffold
+import com.r4dixx.cats.ui.feature.account.AccountSheetScaffold
+import com.r4dixx.cats.ui.feature.banks.BanksScaffold
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.androidx.compose.koinViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel

@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 
 @Serializable
-data class Account(
+data class APIAccount(
     val order: Int,
     val id: Long,
     val holder: String,
@@ -23,5 +23,5 @@ data class Account(
     @Serializable(BigDecimalSerializer::class)
     val balance: BigDecimal,
     
-    val operations: List<Operation>
+    val operations: List<APIOperation>
 )

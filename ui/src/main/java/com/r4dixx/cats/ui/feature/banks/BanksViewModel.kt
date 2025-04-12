@@ -1,9 +1,13 @@
-package com.r4dixx.cats.ui.banks
+package com.r4dixx.cats.ui.feature.banks
 
 import androidx.lifecycle.viewModelScope
 import com.r4dixx.cats.core.ui.CATSViewModel
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.usecase.GetBanksUseCase
+import com.r4dixx.cats.ui.mappers.toUIBanks
+import com.r4dixx.cats.ui.model.UIBank
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -21,6 +25,13 @@ class BanksViewModel(getBanks: GetBanksUseCase) : CATSViewModel<BanksViewModel.D
         }
     }
 
+    private fun List<Bank>.sorted() = sortedBy { bank -> bank.name }
+
+    private fun List<Bank>.withAccounts() = map { bank ->
+        val accounts = bank.accounts.sortedBy { account -> account.label.lowercase() }
+        bank.copy(accounts = accounts)
+    }
+
     private fun List<Bank>.toData(): Data {
         val banksCA = mutableListOf<Bank>()
         val banksNotCA = mutableListOf<Bank>()
@@ -33,22 +44,15 @@ class BanksViewModel(getBanks: GetBanksUseCase) : CATSViewModel<BanksViewModel.D
         }
 
         val data = Data (
-            banksCA = banksCA,
-            banksNotCA = banksNotCA
+            banksCA = banksCA.toUIBanks(),
+            banksNotCA = banksNotCA.toUIBanks()
         )
 
         return data
     }
 
-    private fun List<Bank>.withAccounts() = map { bank ->
-        val accounts = bank.accounts.sortedBy { account -> account.label.lowercase() }
-        bank.copy(accounts = accounts)
-    }
-
-    private fun List<Bank>.sorted() = sortedBy { bank -> bank.name }
-
     data class Data(
-        val banksCA: List<Bank> = emptyList(),
-        val banksNotCA: List<Bank> = emptyList(),
+        val banksCA: ImmutableList<UIBank> = persistentListOf(),
+        val banksNotCA: ImmutableList<UIBank> = persistentListOf()
     )
 }

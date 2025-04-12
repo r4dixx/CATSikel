@@ -29,6 +29,7 @@ android {
 
 
 dependencies {
+    implementation(libs.kotlinx.collections.immutable)
     lintChecks(libs.bundles.compose.lint)
 
     implementation(project(":core"))
