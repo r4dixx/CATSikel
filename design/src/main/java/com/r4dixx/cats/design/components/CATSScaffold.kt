@@ -28,7 +28,6 @@ fun CATSScaffold(
                 onBack = onBack
             )
         },
-        bottomBar = { CATSBottomBarAnimated() },
         content = { paddingValues -> content(paddingValues) }
     )
 }
