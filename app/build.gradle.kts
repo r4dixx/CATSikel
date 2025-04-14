@@ -62,5 +62,6 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":design"))
     implementation(project(":domain"))
-    implementation(project(":ui"))
+    implementation(project(":feature:banks"))
+    implementation(project(":feature:account"))
 }

@@ -1,4 +1,4 @@
-package com.r4dixx.cats.ui.model
+package com.r4dixx.cats.feature.account.model
 
 data class UIOperation(
     val title: String,

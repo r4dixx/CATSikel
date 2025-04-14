@@ -11,9 +11,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.r4dixx.cats.design.theme.CATSSystemBarStyle
 import com.r4dixx.cats.design.theme.CATSTheme
+import com.r4dixx.cats.feature.account.ui.AccountSheetScaffold
 import com.r4dixx.cats.navigation.CATSRoute
-import com.r4dixx.cats.ui.feature.account.AccountSheetScaffold
-import com.r4dixx.cats.ui.feature.banks.BanksScaffold
+import com.r4dixx.cats.feature.banks.ui.BanksScaffold
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.androidx.compose.koinViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,11 +32,11 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
 
                     NavHost(navController, CATSRoute.Banks.route) {
-                        composable(route = CATSRoute.Banks.route) {
+                        composable(CATSRoute.Banks.route) {
                             BanksScaffold(
                                 viewModel = koinViewModel(),
                                 onAccountClick = { bank, account ->
-                                    viewModel.saveBankAndAccount(bank, account)
+                                    viewModel.setBankAndAccount(bank, account)
                                     navController.navigate(CATSRoute.Account.route)
                                 }
                             )

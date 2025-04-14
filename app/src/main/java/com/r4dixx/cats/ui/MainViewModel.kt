@@ -6,8 +6,8 @@ import com.r4dixx.cats.domain.model.Bank
 
 class MainViewModel: CATSViewModel<MainViewModel.Data>() {
     
-    fun saveBankAndAccount(bank: Bank, account: Account) {
-        val data = Data(bank = bank, account = account)
+    fun setBankAndAccount(bank: Bank, account: Account) {
+        val data = Data(bank, account)
         setSuccess(data)
     }
 

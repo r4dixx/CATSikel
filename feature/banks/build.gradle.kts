@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.r4dixx.cats.ui"
+    namespace = "com.r4dixx.cats.feature.banks"
     compileSdk = libs.versions.sdkCompile.get().toInt()
 
     defaultConfig {

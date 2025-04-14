@@ -1,4 +1,4 @@
-package com.r4dixx.cats.ui.feature.banks
+package com.r4dixx.cats.feature.banks.ui
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -28,9 +28,10 @@ import com.r4dixx.cats.design.theme.CATSDimension
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
-import com.r4dixx.cats.ui.R
-import com.r4dixx.cats.ui.mappers.toDomainBank
-import com.r4dixx.cats.ui.model.UIBank
+import com.r4dixx.cats.feature.banks.R
+import com.r4dixx.cats.feature.banks.mappers.toDomainBank
+import com.r4dixx.cats.feature.banks.model.UIBank
+import com.r4dixx.cats.ui.feature.banks.BanksViewModel
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable

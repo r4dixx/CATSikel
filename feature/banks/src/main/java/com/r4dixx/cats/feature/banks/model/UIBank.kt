@@ -1,4 +1,4 @@
-package com.r4dixx.cats.ui.model
+package com.r4dixx.cats.feature.banks.model
 
 import com.r4dixx.cats.domain.model.Account
 import kotlinx.collections.immutable.ImmutableList

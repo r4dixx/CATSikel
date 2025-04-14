@@ -1,11 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = "com.r4dixx.cats.data"
+    namespace = "com.r4dixx.cats.feature.account"
     compileSdk = libs.versions.sdkCompile.get().toInt()
 
     defaultConfig {
@@ -21,12 +21,18 @@ android {
     kotlinOptions {
         jvmTarget = libs.versions.java.get()
     }
+
+    buildFeatures {
+        compose = true
+    }
 }
 
+
 dependencies {
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.ktor.client.android)
+    implementation(libs.kotlinx.collections.immutable)
+    lintChecks(libs.bundles.compose.lint)
 
     implementation(project(":core"))
+    implementation(project(":design"))
     implementation(project(":domain"))
 }

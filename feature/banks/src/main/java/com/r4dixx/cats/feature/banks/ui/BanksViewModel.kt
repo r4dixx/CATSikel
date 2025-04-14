@@ -4,8 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.r4dixx.cats.core.ui.CATSViewModel
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.usecase.GetBanksUseCase
-import com.r4dixx.cats.ui.mappers.toUIBanks
-import com.r4dixx.cats.ui.model.UIBank
+import com.r4dixx.cats.feature.banks.mappers.toUIBanks
+import com.r4dixx.cats.feature.banks.model.UIBank
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.Dispatchers
