@@ -22,9 +22,9 @@ dependencyResolutionManagement {
 rootProject.name = "CATS_Test_SIKEL"
 
 include(":app")
+include(":common:data")
+include(":common:ui")
 include(":core")
-include(":data")
 include(":design")
-include(":domain")
 include(":feature:banks")
 include(":feature:account")

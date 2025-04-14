@@ -9,10 +9,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.r4dixx.cats.CATSRoute
 import com.r4dixx.cats.design.theme.CATSSystemBarStyle
 import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.feature.account.ui.AccountSheetScaffold
-import com.r4dixx.cats.navigation.CATSRoute
 import com.r4dixx.cats.feature.banks.ui.BanksScaffold
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.androidx.compose.koinViewModel

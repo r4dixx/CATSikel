@@ -33,6 +33,4 @@ dependencies {
     api(libs.bundles.compose)
     debugApi(libs.bundles.compose.debug)
     lintChecks(libs.bundles.compose.lint)
-
-    implementation(project(":core"))
 }

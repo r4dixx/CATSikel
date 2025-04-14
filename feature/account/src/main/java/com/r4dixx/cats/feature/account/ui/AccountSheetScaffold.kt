@@ -34,13 +34,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.r4dixx.cats.design.components.CATSRowItem
-import com.r4dixx.cats.design.components.CATSSheetScaffold
+import com.r4dixx.cats.design.components.scaffold.CATSSheetScaffold
 import com.r4dixx.cats.design.components.CATSTextGradient
-import com.r4dixx.cats.design.components.CATSUIState
+import com.r4dixx.cats.common.ui.state.CATSUIState
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 import com.r4dixx.cats.feature.account.R
-import com.r4dixx.cats.feature.account.model.UIOperation
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
 

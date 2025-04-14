@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -26,5 +25,4 @@ android {
 dependencies {
     api(libs.koin.android)
     implementation(libs.bundles.ktor)
-    testImplementation(libs.kotlin.test)
 }

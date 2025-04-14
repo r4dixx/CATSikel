@@ -1,12 +1,10 @@
 package com.r4dixx.cats.feature.account.ui
 
+import com.r4dixx.cats.common.data.model.Bank
+import com.r4dixx.cats.common.ui.utils.toFormattedAmount
+import com.r4dixx.cats.common.data.model.Account
+import com.r4dixx.cats.common.data.model.Operation
 import com.r4dixx.cats.core.ui.CATSViewModel
-import com.r4dixx.cats.core.utils.toFormattedAmount
-import com.r4dixx.cats.domain.model.Account
-import com.r4dixx.cats.domain.model.Bank
-import com.r4dixx.cats.domain.model.Operation
-import com.r4dixx.cats.feature.account.model.UIOperation
-import com.r4dixx.cats.feature.account.mappers.toUIOperations
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlin.time.ExperimentalTime

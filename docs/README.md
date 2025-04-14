@@ -8,25 +8,40 @@
 }%%
 
 graph LR
-  :ui --> :core
-  :ui --> :design
-  :ui --> :domain
+  subgraph :common
+    :common:data["data"]
+    :common:ui["ui"]
+  end
+  subgraph :feature
+    :feature:banks["banks"]
+    :feature:account["account"]
+  end
+  :feature:banks --> :core
+  :feature:banks --> :design
+  :feature:banks --> :common:data
+  :feature:banks --> :common:ui
+  :feature:account --> :core
+  :feature:account --> :design
+  :feature:account --> :common:data
+  :feature:account --> :common:ui
+  :common:data --> :core
+  :common:ui --> :core
+  :common:ui --> :design
+  :app --> :common:data
   :app --> :core
-  :app --> :data
   :app --> :design
-  :app --> :domain
-  :app --> :ui
-  :data --> :core
-  :data --> :domain
+  :app --> :feature:account
+  :app --> :feature:banks
 
 classDef android-library fill:#3BD482,stroke:#fff,stroke-width:2px,color:#fff;
 classDef android-application fill:#2C4162,stroke:#fff,stroke-width:2px,color:#fff;
-class :ui android-library
+class :feature:banks android-library
 class :core android-library
 class :design android-library
-class :domain android-library
+class :common:data android-library
+class :common:ui android-library
+class :feature:account android-library
 class :app android-application
-class :data android-library
 
 ```
 # About

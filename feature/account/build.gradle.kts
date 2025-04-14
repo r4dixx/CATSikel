@@ -34,5 +34,6 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":design"))
-    implementation(project(":domain"))
+    implementation(project(":common:data"))
+    implementation(project(":common:ui"))
 }
