@@ -16,6 +16,28 @@ android {
         versionName = "${libs.versions.appMajor}.${libs.versions.appMinor}.${libs.versions.appPatch}"
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(findProperty("CATSIKEL_KEYSTORE_FILE") as? String ?: "")
+            storePassword = findProperty("CATSIKEL_KEYSTORE_PASSWORD") as? String ?: ""
+            keyAlias = findProperty("CATSIKEL_KEYSTORE_KEY_ALIAS") as? String ?: ""
+            keyPassword = findProperty("CATSIKEL_KEYSTORE_KEY_PASSWORD") as? String ?: ""
+        }
+    }
+
+    buildTypes {
+        debug {
+            isMinifyEnabled = false
+            applicationIdSuffix = ".debug"
+        }
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
+            signingConfig = signingConfigs.getByName("release")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
