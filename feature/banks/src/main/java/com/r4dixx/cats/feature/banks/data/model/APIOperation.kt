@@ -1,7 +1,8 @@
 package com.r4dixx.cats.feature.banks.data.model
 
-import com.r4dixx.cats.common.data.serializer.InstantSerializer
-import com.r4dixx.cats.common.data.serializer.BigDecimalSerializer
+import com.r4dixx.cats.common.data.model.Operation
+import com.r4dixx.cats.feature.banks.data.serializer.BigDecimalSerializer
+import com.r4dixx.cats.feature.banks.data.serializer.InstantSerializer
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 import kotlin.time.ExperimentalTime
@@ -20,4 +21,11 @@ data class APIOperation(
 
     @Serializable(InstantSerializer::class)
     val date: Instant
+)
+
+@OptIn(ExperimentalTime::class)
+fun APIOperation.toDomainOperation() = Operation(
+    title = title,
+    amount = amount,
+    date = date
 )

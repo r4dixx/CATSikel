@@ -31,8 +31,6 @@ import com.r4dixx.cats.design.components.scaffold.CATSScaffold
 import com.r4dixx.cats.design.theme.CATSDimension
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.feature.banks.R
-import com.r4dixx.cats.feature.banks.ui.model.UIBank
-import com.r4dixx.cats.feature.banks.ui.model.toDomainBank
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable

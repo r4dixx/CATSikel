@@ -41,7 +41,6 @@ import com.r4dixx.cats.design.components.scaffold.CATSSheetScaffold
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 import com.r4dixx.cats.feature.account.R
-import com.r4dixx.cats.feature.account.ui.model.UIOperation
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
 

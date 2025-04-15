@@ -6,5 +6,5 @@ import java.util.Locale
 
 val coreModule = module {
     single { Locale.FRANCE }
-    single { CATSHttpClient().android }
+    single { CATSHttpClient() }
 }

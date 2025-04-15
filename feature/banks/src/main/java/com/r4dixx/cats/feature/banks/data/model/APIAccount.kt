@@ -1,6 +1,8 @@
 package com.r4dixx.cats.feature.banks.data.model
 
-import com.r4dixx.cats.common.data.serializer.BigDecimalSerializer
+import com.r4dixx.cats.common.data.model.Account
+import com.r4dixx.cats.core.utils.sanitized
+import com.r4dixx.cats.feature.banks.data.serializer.BigDecimalSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
@@ -24,4 +26,11 @@ data class APIAccount(
     val balance: BigDecimal,
     
     val operations: List<APIOperation>
+)
+
+fun APIAccount.toDomainAccount() = Account(
+    id = id,
+    label = label.sanitized(),
+    balance = balance,
+    operations = operations.distinct().map { it.toDomainOperation() }
 )

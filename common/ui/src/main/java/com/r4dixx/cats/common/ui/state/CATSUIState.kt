@@ -15,8 +15,8 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import com.r4dixx.cats.common.ui.R
 import com.r4dixx.cats.core.ui.CATSViewModel
-import com.r4dixx.cats.design.R
 import com.r4dixx.cats.design.theme.CATSGradient
 
 @Composable

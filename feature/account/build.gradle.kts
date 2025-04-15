@@ -33,7 +33,7 @@ dependencies {
     lintChecks(libs.bundles.compose.lint)
 
     implementation(project(":core"))
-    implementation(project(":design"))
-    implementation(project(":common:data"))
     implementation(project(":common:ui"))
+    implementation(project(":common:data"))
+    implementation(project(":design"))
 }

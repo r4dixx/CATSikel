@@ -12,23 +12,25 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 class CATSHttpClient {
-    val android = HttpClient(Android) {
-        install(Logging) {
-            logger = Logger.ANDROID
-            level = LogLevel.ALL
-        }
-        install(ContentNegotiation) {
-            json(
-                Json {
-                    prettyPrint = true
-                    isLenient = true
-                    ignoreUnknownKeys = true
-                    explicitNulls = false
-                }
-            )
-        }
-        defaultRequest {
-            url("https://cdf-test-mobile-default-rtdb.europe-west1.firebasedatabase.app/")
+    fun invoke(): HttpClient {
+        return HttpClient(Android) {
+            install(Logging) {
+                logger = Logger.ANDROID
+                level = LogLevel.ALL
+            }
+            install(ContentNegotiation) {
+                json(
+                    Json {
+                        prettyPrint = true
+                        isLenient = true
+                        ignoreUnknownKeys = true
+                        explicitNulls = false
+                    }
+                )
+            }
+            defaultRequest {
+                url("https://cdf-test-mobile-default-rtdb.europe-west1.firebasedatabase.app/")
+            }
         }
     }
 }

@@ -4,10 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.r4dixx.cats.common.data.model.Bank
 import com.r4dixx.cats.core.ui.CATSViewModel
 import com.r4dixx.cats.feature.banks.domain.GetBanksUseCase
-import com.r4dixx.cats.feature.banks.ui.model.UIBank
-import com.r4dixx.cats.feature.banks.ui.model.toUIBanks
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -52,7 +49,7 @@ class BanksViewModel(getBanks: GetBanksUseCase) : CATSViewModel<BanksViewModel.D
     }
 
     data class Data(
-        val banksCA: ImmutableList<UIBank> = persistentListOf(),
-        val banksNotCA: ImmutableList<UIBank> = persistentListOf()
+        val banksCA: ImmutableList<UIBank>,
+        val banksNotCA: ImmutableList<UIBank>
     )
 }

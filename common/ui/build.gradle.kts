@@ -28,8 +28,6 @@ android {
 }
 
 dependencies {
-    testImplementation(libs.kotlin.test)
-
     implementation(project(":core"))
     implementation(project(":design"))
 }

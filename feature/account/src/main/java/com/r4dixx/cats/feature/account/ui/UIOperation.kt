@@ -1,8 +1,8 @@
-package com.r4dixx.cats.feature.account.ui.model
+package com.r4dixx.cats.feature.account.ui
 
 import com.r4dixx.cats.common.data.model.Operation
-import com.r4dixx.cats.common.ui.utils.toFormattedAmount
-import com.r4dixx.cats.common.ui.utils.toFormattedDate
+import com.r4dixx.cats.core.utils.toFormattedAmount
+import com.r4dixx.cats.core.utils.toFormattedDate
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import java.text.SimpleDateFormat

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  States-->
+    <string name="state_error_title">Oups ! Une erreur s\'est produite :O</string>
+    <string name="state_error_desc_fallback">Erreur inconnue</string>
+    <string name="state_empty_text">Aucune donnée disponible :(</string>
+</resources>

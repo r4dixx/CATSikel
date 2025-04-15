@@ -1,4 +1,4 @@
-package com.r4dixx.cats.feature.banks.ui.model
+package com.r4dixx.cats.feature.banks.ui
 
 import com.r4dixx.cats.common.data.model.Account
 import com.r4dixx.cats.common.data.model.Bank

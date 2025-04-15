@@ -3,12 +3,9 @@ package com.r4dixx.cats.feature.account.ui
 import com.r4dixx.cats.common.data.model.Account
 import com.r4dixx.cats.common.data.model.Bank
 import com.r4dixx.cats.common.data.model.Operation
-import com.r4dixx.cats.common.ui.utils.toFormattedAmount
 import com.r4dixx.cats.core.ui.CATSViewModel
-import com.r4dixx.cats.feature.account.ui.model.UIOperation
-import com.r4dixx.cats.feature.account.ui.model.toUIOperations
+import com.r4dixx.cats.core.utils.toFormattedAmount
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import kotlin.time.ExperimentalTime
 
 class AccountViewModel(
@@ -30,9 +27,9 @@ class AccountViewModel(
     private fun List<Operation>.sorted() = sortedWith(compareByDescending<Operation> { it.date }.thenBy { it.title })
 
     data class Data(
-        val bankName: String = "",
-        val accountLabel: String = "",
-        val accountBalance: String = "",
-        val accountOperations: ImmutableList<UIOperation> = persistentListOf(),
+        val bankName: String,
+        val accountLabel: String,
+        val accountBalance: String,
+        val accountOperations: ImmutableList<UIOperation>,
     )
 }

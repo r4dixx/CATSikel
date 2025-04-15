@@ -3,8 +3,8 @@ package com.r4dixx.cats.feature.banks.data
 import com.r4dixx.cats.common.data.model.Bank
 import com.r4dixx.cats.feature.banks.data.datasource.BanksLocalDataSource
 import com.r4dixx.cats.feature.banks.data.datasource.BanksRemoteDataSource
+import com.r4dixx.cats.feature.banks.data.model.toDomainBank
 import com.r4dixx.cats.feature.banks.domain.BanksRepository
-import com.r4dixx.cats.feature.banks.domain.toDomainBank
 
 /**
  * A repository for retrieving banks.
@@ -12,13 +12,13 @@ import com.r4dixx.cats.feature.banks.domain.toDomainBank
  * and if it fails, it tries to retrieve banks from the local service.
  */
 class BanksRepositoryImpl(
-    private val remoteService: BanksRemoteDataSource,
-    private val localService: BanksLocalDataSource,
+    private val remote: BanksRemoteDataSource,
+    private val local: BanksLocalDataSource,
 ) : BanksRepository {
     override suspend fun getBanks(): Result<List<Bank>> {
-        return remoteService
+        return remote
             .getBanks()
             .mapCatching { banks -> banks.distinct().map { it.toDomainBank() } }
-            .recoverCatching { localService.getBanks().getOrThrow().distinct().map { it.toDomainBank() } }
+            .recoverCatching { local.getBanks().getOrThrow().distinct().map { it.toDomainBank() } }
     }
 }

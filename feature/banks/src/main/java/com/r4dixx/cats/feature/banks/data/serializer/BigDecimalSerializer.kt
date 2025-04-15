@@ -1,4 +1,4 @@
-package com.r4dixx.cats.common.data.serializer
+package com.r4dixx.cats.feature.banks.data.serializer
 
 
 import kotlinx.serialization.KSerializer

@@ -1,4 +1,4 @@
-package com.r4dixx.cats.common.ui.utils
+package com.r4dixx.cats.core.utils
 
 import org.koin.java.KoinJavaComponent.inject
 import java.math.BigDecimal

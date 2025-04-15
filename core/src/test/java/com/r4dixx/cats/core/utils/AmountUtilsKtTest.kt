@@ -1,6 +1,6 @@
-package com.r4dixx.cats.core
+package com.r4dixx.cats.core.utils
 
-import com.r4dixx.cats.common.ui.utils.toFormattedAmount
+import com.r4dixx.cats.core.utils.toFormattedAmount
 import junit.framework.TestCase.assertEquals
 import org.junit.After
 import org.junit.Before
