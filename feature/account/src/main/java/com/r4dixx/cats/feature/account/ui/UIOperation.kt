@@ -1,5 +1,6 @@
 package com.r4dixx.cats.feature.account.ui
 
+import androidx.compose.runtime.Stable
 import com.r4dixx.cats.common.data.model.Operation
 import com.r4dixx.cats.core.utils.toFormattedAmount
 import com.r4dixx.cats.core.utils.toFormattedDate
@@ -8,6 +9,7 @@ import kotlinx.collections.immutable.toImmutableList
 import java.text.SimpleDateFormat
 import kotlin.time.ExperimentalTime
 
+@Stable
 data class UIOperation(
     val title: String,
     val amount: String,

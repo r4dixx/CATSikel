@@ -1,10 +1,12 @@
 package com.r4dixx.cats.feature.banks.ui
 
+import androidx.compose.runtime.Stable
 import com.r4dixx.cats.common.data.model.Account
 import com.r4dixx.cats.common.data.model.Bank
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
+@Stable
 data class UIBank(
     val name: String,
     val isCA: Boolean,
