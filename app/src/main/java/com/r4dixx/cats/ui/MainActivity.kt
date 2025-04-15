@@ -43,8 +43,8 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(CATSRoute.Account.route) {
-                            val uiState by viewModel.state.collectAsStateWithLifecycle()
-                            uiState.dataOrNull?.let { data ->
+                            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+                            uiState?.let { data ->
                                 AccountSheetScaffold(
                                     viewModel = koinViewModel(parameters = { parametersOf(data.bank, data.account) }),
                                     onBack = { navController.popBackStack() },
