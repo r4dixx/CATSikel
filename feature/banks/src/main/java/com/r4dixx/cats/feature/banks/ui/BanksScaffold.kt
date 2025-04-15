@@ -20,15 +20,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import com.r4dixx.cats.common.data.model.Bank
 import com.r4dixx.cats.common.data.model.Account
+import com.r4dixx.cats.common.data.model.Bank
+import com.r4dixx.cats.common.ui.state.CATSUIState
 import com.r4dixx.cats.design.components.CATSCard
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.components.scaffold.CATSScaffold
-import com.r4dixx.cats.common.ui.state.CATSUIState
 import com.r4dixx.cats.design.theme.CATSDimension
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.feature.banks.R
+import com.r4dixx.cats.feature.banks.ui.model.UIBank
+import com.r4dixx.cats.feature.banks.ui.model.toDomainBank
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable

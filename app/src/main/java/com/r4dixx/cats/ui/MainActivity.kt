@@ -36,15 +36,15 @@ class MainActivity : ComponentActivity() {
                             BanksScaffold(
                                 viewModel = koinViewModel(),
                                 onAccountClick = { bank, account ->
-                                    viewModel.setBankAndAccount(bank, account)
+                                    viewModel.onNavigateToAccount(bank, account)
                                     navController.navigate(CATSRoute.Account.route)
                                 }
                             )
                         }
 
                         composable(CATSRoute.Account.route) {
-                            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-                            uiState?.let { data ->
+                            val uiState by viewModel.state.collectAsStateWithLifecycle()
+                            uiState.dataOrNull?.let { data ->
                                 AccountSheetScaffold(
                                     viewModel = koinViewModel(parameters = { parametersOf(data.bank, data.account) }),
                                     onBack = { navController.popBackStack() },

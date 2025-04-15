@@ -2,7 +2,7 @@ package com.r4dixx.cats
 
 import android.app.Application
 import com.r4dixx.cats.core.coreModule
-import com.r4dixx.cats.feature.account.ui.featureAccountModule
+import com.r4dixx.cats.feature.account.featureAccountModule
 import com.r4dixx.cats.feature.banks.featureBanksModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
