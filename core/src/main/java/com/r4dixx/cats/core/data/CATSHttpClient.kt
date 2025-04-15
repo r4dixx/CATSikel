@@ -12,7 +12,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 class CATSHttpClient {
-    fun invoke(): HttpClient {
+    fun create(): HttpClient {
         return HttpClient(Android) {
             install(Logging) {
                 logger = Logger.ANDROID
