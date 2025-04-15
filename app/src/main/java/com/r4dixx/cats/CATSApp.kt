@@ -15,7 +15,6 @@ class CATSApp : Application() {
             androidLogger()
             androidContext(this@CATSApp)
             modules(
-                appModule,
                 coreModule,
                 featureAccountModule,
                 featureBanksModule

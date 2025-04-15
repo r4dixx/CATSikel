@@ -22,8 +22,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.r4dixx.cats.common.data.model.Account
-import com.r4dixx.cats.common.data.model.Bank
 import com.r4dixx.cats.common.ui.state.CATSUIState
 import com.r4dixx.cats.design.components.CATSCard
 import com.r4dixx.cats.design.components.CATSExpandable
@@ -36,7 +34,7 @@ import kotlinx.collections.immutable.ImmutableList
 @Composable
 fun BanksScaffold(
     viewModel: BanksViewModel,
-    onAccountClick: (Bank, Account) -> Unit,
+    onAccountClick: (String, Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -63,7 +61,7 @@ private fun BanksScreenContent(
     banksCA: ImmutableList<UIBank>,
     banksNotCA: ImmutableList<UIBank>,
     modifier: Modifier = Modifier,
-    onAccountClick: (Bank, Account) -> Unit,
+    onAccountClick: (String, Long) -> Unit,
 ) {
     LazyColumn(modifier) {
         stickyItems(R.string.header_bank_type_ca, banksCA, onAccountClick)
@@ -76,7 +74,7 @@ private fun BanksScreenContent(
 private fun LazyListScope.stickyItems(
     @StringRes labelRes: Int,
     banks: ImmutableList<UIBank>,
-    onAccountClick: (Bank, Account) -> Unit,
+    onAccountClick: (String, Long) -> Unit,
 ) {
     stickyHeader {
         Text(
@@ -100,7 +98,7 @@ private fun LazyListScope.stickyItems(
 @Composable
 private fun BanksScreenItem(
     bank: UIBank,
-    onAccountClick: (Bank, Account) -> Unit,
+    onAccountClick: (String, Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CATSExpandable(
@@ -118,7 +116,7 @@ private fun BanksScreenItem(
                 modifier = Modifier.padding(top = CATSDimension.spacingSmall)
             ) {
                 items(bank.accounts) { account ->
-                    CATSCard(onClick = { onAccountClick(bank.toDomainBank(), account) }) {
+                    CATSCard(onClick = { onAccountClick(bank.name, account.id) }) {
                         Text(
                             text = account.label,
                             overflow = TextOverflow.Ellipsis,

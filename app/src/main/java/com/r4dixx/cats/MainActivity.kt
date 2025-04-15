@@ -1,27 +1,21 @@
-package com.r4dixx.cats.ui
+package com.r4dixx.cats
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.r4dixx.cats.CATSRoute
 import com.r4dixx.cats.design.theme.CATSSystemBarStyle
 import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.feature.account.ui.AccountSheetScaffold
 import com.r4dixx.cats.feature.banks.ui.BanksScaffold
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.androidx.compose.koinViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class MainActivity : ComponentActivity() {
-
-    private val viewModel : MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,22 +25,33 @@ class MainActivity : ComponentActivity() {
                 CATSTheme {
                     val navController = rememberNavController()
 
-                    NavHost(navController, CATSRoute.Banks.route) {
-                        composable(CATSRoute.Banks.route) {
+                    NavHost(navController, CATSRoute.Banks.ROUTE) {
+                        composable(CATSRoute.Banks.ROUTE) {
                             BanksScaffold(
                                 viewModel = koinViewModel(),
-                                onAccountClick = { bank, account ->
-                                    viewModel.onNavigateToAccount(bank, account)
-                                    navController.navigate(CATSRoute.Account.route)
+                                onAccountClick = { bankName, accountId ->
+                                    navController.navigate(
+                                        CATSRoute.Account.createRoute(bankName, accountId)
+                                    )
                                 }
                             )
                         }
 
-                        composable(CATSRoute.Account.route) {
-                            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-                            uiState.dataOrNull?.let { data ->
+                        composable(
+                            route = CATSRoute.Account.ROUTE,
+                            arguments = CATSRoute.Account.arguments
+                        ) { backStackEntry ->
+                            val bankName = backStackEntry.arguments?.getString(CATSRoute.Account.ARG_BANK_NAME)
+                            val accountId = backStackEntry.arguments?.getLong(CATSRoute.Account.ARG_ACCOUNT_ID)
+
+                            if (bankName != null && accountId != null) {
                                 AccountSheetScaffold(
-                                    viewModel = koinViewModel(parameters = { parametersOf(data.bank, data.account) }),
+                                    viewModel = koinViewModel(parameters = {
+                                        parametersOf(
+                                            bankName,
+                                            accountId
+                                        )
+                                    }),
                                     onBack = { navController.popBackStack() },
                                 )
                             }

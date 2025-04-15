@@ -17,17 +17,16 @@ graph LR
     :feature:account["account"]
   end
   :feature:banks --> :core
-  :feature:banks --> :design
   :feature:banks --> :common:data
   :feature:banks --> :common:ui
+  :feature:banks --> :design
   :feature:account --> :core
-  :feature:account --> :design
-  :feature:account --> :common:data
   :feature:account --> :common:ui
+  :feature:account --> :common:data
+  :feature:account --> :design
   :common:data --> :core
   :common:ui --> :core
   :common:ui --> :design
-  :app --> :common:data
   :app --> :core
   :app --> :design
   :app --> :feature:account
@@ -37,9 +36,9 @@ classDef android-library fill:#3BD482,stroke:#fff,stroke-width:2px,color:#fff;
 classDef android-application fill:#2C4162,stroke:#fff,stroke-width:2px,color:#fff;
 class :feature:banks android-library
 class :core android-library
-class :design android-library
 class :common:data android-library
 class :common:ui android-library
+class :design android-library
 class :feature:account android-library
 class :app android-application
 

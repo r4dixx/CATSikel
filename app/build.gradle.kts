@@ -58,7 +58,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     lintChecks(libs.bundles.compose.lint)
 
-    implementation(project(":common:data"))
     implementation(project(":core"))
     implementation(project(":design"))
     implementation(project(":feature:account"))

@@ -11,12 +11,6 @@ data class UIBank(
     val accounts: ImmutableList<Account>
 )
 
-fun UIBank.toDomainBank(): Bank = Bank(
-    name = name,
-    isCA = isCA,
-    accounts = accounts
-)
-
 fun Bank.toUIBank(): UIBank = UIBank(
     name = name,
     isCA = isCA,

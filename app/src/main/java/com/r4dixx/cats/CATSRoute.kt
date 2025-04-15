@@ -1,6 +1,26 @@
 package com.r4dixx.cats
 
-sealed class CATSRoute(val route: String) {
-    data object Banks : CATSRoute("route_banks")
-    data object Account : CATSRoute("route_account")
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+
+sealed class CATSRoute {
+    data object Banks : CATSRoute() {
+        const val ROUTE = "route_banks"
+    }
+
+    data object Account : CATSRoute() {
+        const val ARG_BANK_NAME = "bankName"
+        const val ARG_ACCOUNT_ID = "accountId"
+        private const val ROUTE_NAME = "route_account"
+        const val ROUTE = "$ROUTE_NAME/{$ARG_BANK_NAME}/{$ARG_ACCOUNT_ID}"
+
+        val arguments = listOf(
+            navArgument(ARG_BANK_NAME) { type = NavType.StringType },
+            navArgument(ARG_ACCOUNT_ID) { type = NavType.LongType }
+        )
+
+        fun createRoute(bankName: String, accountId: Long): String {
+            return "$ROUTE_NAME/$bankName/$accountId"
+        }
+    }
 }
