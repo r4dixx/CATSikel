@@ -1,52 +1,66 @@
 package com.r4dixx.cats.core.utils
 
-import com.r4dixx.cats.core.utils.toFormattedAmount
 import junit.framework.TestCase.assertEquals
 import org.junit.After
 import org.junit.Before
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
+import org.koin.dsl.module
 import java.math.BigDecimal
 import java.util.Locale
 import kotlin.test.Test
 
 class AmountUtilsKtTest {
 
-    private val originalLocale = Locale.getDefault()
-
     @Before
     fun setUp() {
-        Locale.setDefault(Locale.FRANCE)
+        startKoin {
+            modules(
+                module {
+                    single { Locale.FRANCE }
+                }
+            )
+        }
     }
 
     @After
     fun tearDown() {
-        Locale.setDefault(originalLocale)
+        stopKoin()
     }
 
     @Test
     fun positive_isCorrect() {
         val amount = BigDecimal("1234.56")
         val formattedAmount = amount.toFormattedAmount()
-        assertEquals("1 234,56 €", formattedAmount)
+        assertEquals("1\u202f234,56\u00a0€", formattedAmount)
     }
 
     @Test
     fun negative_isCorrect() {
         val amount = BigDecimal("-1234.56")
         val formattedAmount = amount.toFormattedAmount()
-        assertEquals("-1 234,56 €", formattedAmount)
+        assertEquals("-1\u202f234,56\u00a0€", formattedAmount)
     }
 
     @Test
     fun zero_isCorrect() {
         val amount = BigDecimal("0.00")
         val formattedAmount = amount.toFormattedAmount()
-        assertEquals("0,00 €", formattedAmount)
+        assertEquals("0,00\u00a0€", formattedAmount)
     }
 
     @Test
     fun customLocale_isCorrect() {
+        stopKoin()
+        startKoin {
+            modules(
+                module {
+                    single { Locale.CHINA }
+                }
+            )
+        }
         val amount = BigDecimal("1234.56")
-        val formattedAmount = amount.toFormattedAmount(Locale.CHINA)
+        val formattedAmount = amount.toFormattedAmount()
         assertEquals("¥1,234.56", formattedAmount)
     }
 }
