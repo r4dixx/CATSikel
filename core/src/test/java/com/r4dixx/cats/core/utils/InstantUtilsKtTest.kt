@@ -13,7 +13,7 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 @OptIn(ExperimentalTime::class)
-class DateUtilsKtTest {
+class InstantUtilsKtTest {
 
     private val epochMilliSeconds = 1609459200000 // Friday, January 1, 2021
 

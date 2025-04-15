@@ -10,7 +10,7 @@ import java.math.BigDecimal
 import java.util.Locale
 import kotlin.test.Test
 
-class AmountUtilsKtTest {
+class BigDecimalUtilsKtTest {
 
     @Before
     fun setUp() {
