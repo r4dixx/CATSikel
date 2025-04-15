@@ -33,6 +33,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.common.ui.state.CATSUIState
 import com.r4dixx.cats.design.components.CATSRowItem
 import com.r4dixx.cats.design.components.CATSTextGradient
@@ -51,7 +52,9 @@ fun AccountSheetScaffold(
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    CATSUIState(viewModel.state, modifier) { data ->
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    CATSUIState(uiState, modifier) { data ->
         CATSSheetScaffold(
             initialSheetValue = SheetValue.Expanded,
             topBarText = data.accountLabel,

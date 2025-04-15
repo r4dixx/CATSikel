@@ -8,7 +8,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
@@ -16,23 +15,19 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.core.ui.CATSViewModel
 import com.r4dixx.cats.design.R
 import com.r4dixx.cats.design.theme.CATSGradient
-import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun <T> CATSUIState(
-    state: StateFlow<CATSViewModel.State<T>>,
+    uiState: CATSViewModel.UIState<T>,
     modifier: Modifier = Modifier,
     loadingContent: @Composable () -> Unit = { CATSProgress() },
     errorContent: @Composable (message: String?) -> Unit = { message -> CATSError(message = message) },
     emptyContent: @Composable () -> Unit = { CATSEmpty() },
     content: @Composable (data: T) -> Unit
 ) {
-    val uiState by state.collectAsStateWithLifecycle()
-
     when {
         uiState.isLoading -> loadingContent()
         uiState.isSuccess -> {
@@ -44,7 +39,7 @@ fun <T> CATSUIState(
             }
         }
         uiState.isError -> {
-            val errorState = uiState as? CATSViewModel.State.Error
+            val errorState = uiState as? CATSViewModel.UIState.Error
             errorContent(errorState?.message)
         }
     }

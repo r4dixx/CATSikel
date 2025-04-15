@@ -15,11 +15,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.common.data.model.Account
 import com.r4dixx.cats.common.data.model.Bank
 import com.r4dixx.cats.common.ui.state.CATSUIState
@@ -39,7 +41,9 @@ fun BanksScaffold(
     onAccountClick: (Bank, Account) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    CATSUIState(viewModel.state, modifier) { data ->
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    CATSUIState(uiState, modifier) { data ->
         CATSScaffold(
             topBarText = stringResource(R.string.banks_top_bar_text),
             onBack = null
@@ -106,9 +110,8 @@ private fun BanksScreenItem(
         header = {
             Text(
                 text = bank.name,
-                style = MaterialTheme.typography.titleMedium,
-
-                )
+                style = MaterialTheme.typography.titleMedium
+            )
         },
         content = {
             LazyRow(

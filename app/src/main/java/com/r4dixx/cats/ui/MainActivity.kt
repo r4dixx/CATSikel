@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(CATSRoute.Account.route) {
-                            val uiState by viewModel.state.collectAsStateWithLifecycle()
+                            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
                             uiState.dataOrNull?.let { data ->
                                 AccountSheetScaffold(
                                     viewModel = koinViewModel(parameters = { parametersOf(data.bank, data.account) }),

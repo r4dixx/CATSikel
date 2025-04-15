@@ -7,32 +7,32 @@ import kotlinx.coroutines.flow.asStateFlow
 
 abstract class CATSViewModel<T> : ViewModel() {
 
-    private val _state = MutableStateFlow<State<T>>(State.Loading)
-    val state: StateFlow<State<T>> = _state.asStateFlow()
+    private val _uiState = MutableStateFlow<UIState<T>>(UIState.Loading)
+    val uiState: StateFlow<UIState<T>> = _uiState.asStateFlow()
 
-    protected fun updateState(transform: (State<T>) -> State<T>) {
-        _state.value = transform(_state.value)
+    protected fun updateUiState(transform: (UIState<T>) -> UIState<T>) {
+        _uiState.value = transform(_uiState.value)
     }
 
-    protected suspend fun emitState(newState: State<T>) {
-        _state.emit(newState)
+    protected suspend fun emitUiState(newState: UIState<T>) {
+        _uiState.emit(newState)
     }
 
-    protected fun setLoading() { _state.value = State.Loading }
-    protected fun setSuccess(data: T) { _state.value = State.Success(data) }
-    protected fun setError(message: String) { _state.value = State.Error(message) }
-    protected fun setError(throwable: Throwable) { _state.value = State.Error(throwable) }
+    protected fun setLoading() { _uiState.value = UIState.Loading }
+    protected fun setSuccess(data: T) { _uiState.value = UIState.Success(data) }
+    protected fun setError(message: String) { _uiState.value = UIState.Error(message) }
+    protected fun setError(throwable: Throwable) { _uiState.value = UIState.Error(throwable) }
 
-    protected suspend fun emitLoading() { _state.emit(State.Loading) }
-    protected suspend fun emitSuccess(data: T) { _state.emit(State.Success(data)) }
-    protected suspend fun emitError(message: String) { _state.emit(State.Error(message)) }
-    protected suspend fun emitError(throwable: Throwable) { _state.emit(State.Error(throwable)) }
+    protected suspend fun emitLoading() { _uiState.emit(UIState.Loading) }
+    protected suspend fun emitSuccess(data: T) { _uiState.emit(UIState.Success(data)) }
+    protected suspend fun emitError(message: String) { _uiState.emit(UIState.Error(message)) }
+    protected suspend fun emitError(throwable: Throwable) { _uiState.emit(UIState.Error(throwable)) }
 
-    sealed class State<out T> {
-        data object Loading : State<Nothing>()
-        data class Success<T>(val data: T) : State<T>()
+    sealed class UIState<out T> {
+        data object Loading : UIState<Nothing>()
+        data class Success<T>(val data: T) : UIState<T>()
         data class Error(val message: String? = null, val throwable: Throwable? = null) :
-            State<Nothing>() {
+            UIState<Nothing>() {
             constructor(message: String) : this(message = message, throwable = null)
             constructor(throwable: Throwable) : this(
                 message = throwable.message,

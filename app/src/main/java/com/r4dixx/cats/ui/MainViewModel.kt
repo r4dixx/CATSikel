@@ -5,6 +5,7 @@ import com.r4dixx.cats.common.data.model.Bank
 import com.r4dixx.cats.core.ui.CATSViewModel
 
 class MainViewModel: CATSViewModel<MainViewModel.Data>() {
+
     fun onNavigateToAccount(bank: Bank, account: Account) {
         val data = Data(bank, account)
         setSuccess(data)
