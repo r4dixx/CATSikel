@@ -22,13 +22,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.r4dixx.cats.common.ui.state.CATSUIState
 import com.r4dixx.cats.design.components.CATSCard
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.components.scaffold.CATSScaffold
+import com.r4dixx.cats.design.components.state.CATSUIState
 import com.r4dixx.cats.design.theme.CATSDimension
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.feature.banks.R
+import com.r4dixx.cats.feature.banks.model.UIBank
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable

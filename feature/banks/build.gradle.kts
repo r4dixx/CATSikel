@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -30,14 +29,15 @@ android {
 
 
 dependencies {
+    implementation(libs.koin.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+
     implementation(libs.kotlinx.collections.immutable)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.ktor.client.android)
 
     lintChecks(libs.bundles.compose.lint)
 
     implementation(project(":core"))
-    implementation(project(":common:data"))
-    implementation(project(":common:ui"))
     implementation(project(":design"))
+    implementation(project(":domain"))
 }

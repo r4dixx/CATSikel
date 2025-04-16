@@ -1,11 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = "com.r4dixx.cats.feature.account"
+    namespace = "com.r4dixx.cats.data.local"
     compileSdk = libs.versions.sdkCompile.get().toInt()
 
     defaultConfig {
@@ -21,23 +20,7 @@ android {
     kotlinOptions {
         jvmTarget = libs.versions.java.get()
     }
-
-    buildFeatures {
-        compose = true
-    }
 }
 
-
 dependencies {
-    implementation(libs.koin.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.bundles.compose)
-
-    implementation(libs.kotlinx.collections.immutable)
-
-    lintChecks(libs.bundles.compose.lint)
-
-    implementation(project(":core"))
-    implementation(project(":design"))
-    implementation(project(":domain"))
 }

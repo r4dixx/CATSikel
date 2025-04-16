@@ -9,9 +9,9 @@ sealed class CATSRoute {
     }
 
     data object Account : CATSRoute() {
+        private const val ROUTE_NAME = "route_account"
         const val ARG_BANK_NAME = "bankName"
         const val ARG_ACCOUNT_ID = "accountId"
-        private const val ROUTE_NAME = "route_account"
         const val ROUTE = "$ROUTE_NAME/{$ARG_BANK_NAME}/{$ARG_ACCOUNT_ID}"
 
         val arguments = listOf(

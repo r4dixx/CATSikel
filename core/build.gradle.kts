@@ -23,9 +23,7 @@ android {
 }
 
 dependencies {
-    api(libs.koin.android)
-
-    implementation(libs.bundles.ktor)
+    implementation(libs.koin.android)
 
     testImplementation(libs.kotlin.test)
     testImplementation(libs.koin.test)

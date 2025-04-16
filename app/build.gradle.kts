@@ -53,13 +53,16 @@ android {
 }
 
 dependencies {
+    implementation(libs.koin.compose)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.navigation.compose)
+
     lintChecks(libs.bundles.compose.lint)
 
     implementation(project(":core"))
+    implementation(project(":data:api"))
     implementation(project(":design"))
+    implementation(project(":domain"))
     implementation(project(":feature:account"))
     implementation(project(":feature:banks"))
 }

@@ -1,0 +1,17 @@
+package com.r4dixx.cats.feature.banks.model
+
+import com.r4dixx.cats.domain.model.Account
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
+
+data class UIAccount(
+    val id: Long,
+    val label: String
+)
+
+fun Account.toUIAccount() = UIAccount(
+    id = id,
+    label = label
+)
+
+fun List<Account>.toUIAccounts(): ImmutableList<UIAccount> = map { it.toUIAccount() }.toImmutableList()

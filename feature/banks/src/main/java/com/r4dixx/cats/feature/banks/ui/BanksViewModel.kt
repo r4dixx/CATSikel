@@ -1,9 +1,11 @@
 package com.r4dixx.cats.feature.banks.ui
 
 import androidx.lifecycle.viewModelScope
-import com.r4dixx.cats.common.data.model.Bank
 import com.r4dixx.cats.core.ui.CATSViewModel
-import com.r4dixx.cats.feature.banks.domain.GetBanksUseCase
+import com.r4dixx.cats.domain.model.Bank
+import com.r4dixx.cats.domain.usecase.GetBanksUseCase
+import com.r4dixx.cats.feature.banks.model.UIBank
+import com.r4dixx.cats.feature.banks.model.toUIBanks
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

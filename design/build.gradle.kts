@@ -28,10 +28,10 @@ android {
 }
 
 dependencies {
-    api(libs.koin.compose)
-    api(platform(libs.androidx.compose.bom))
-    api(libs.bundles.compose)
-    debugApi(libs.bundles.compose.debug)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
 
     lintChecks(libs.bundles.compose.lint)
+
+    implementation(project(":core"))
 }
