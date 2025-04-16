@@ -1,4 +1,4 @@
-package com.r4dixx.cats.feature.account.ui
+package com.r4dixx.cats.feature.account.ui.view
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -37,11 +37,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.design.components.CATSRowItem
 import com.r4dixx.cats.design.components.CATSTextGradient
 import com.r4dixx.cats.design.components.scaffold.CATSSheetScaffold
-import com.r4dixx.cats.design.components.state.CATSUIState
+import com.r4dixx.cats.design.components.state.CATSStateful
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 import com.r4dixx.cats.feature.account.R
-import com.r4dixx.cats.feature.account.model.UIOperation
+import com.r4dixx.cats.feature.account.ui.AccountViewModel
+import com.r4dixx.cats.feature.account.ui.model.UIOperation
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
 
@@ -52,9 +53,9 @@ fun AccountSheetScaffold(
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
-    CATSUIState(uiState, modifier) { data ->
+    CATSStateful(state, modifier) { data ->
         CATSSheetScaffold(
             initialSheetValue = SheetValue.Expanded,
             topBarText = data.accountLabel,
@@ -103,7 +104,7 @@ private fun AccountSheetContent(
                     .background(MaterialTheme.colorScheme.background)
             )
         }
-        
+
         stickyHeader {
             CATSTextGradient(
                 text = accountBalance,

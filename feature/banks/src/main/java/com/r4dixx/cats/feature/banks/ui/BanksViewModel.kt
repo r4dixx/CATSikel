@@ -1,16 +1,23 @@
 package com.r4dixx.cats.feature.banks.ui
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.r4dixx.cats.core.ui.CATSViewModel
+import com.r4dixx.cats.core.state.CATSState
+import com.r4dixx.cats.core.state.CATSStateHandler
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.usecase.GetBanksUseCase
-import com.r4dixx.cats.feature.banks.model.UIBank
-import com.r4dixx.cats.feature.banks.model.toUIBanks
-import kotlinx.collections.immutable.ImmutableList
+import com.r4dixx.cats.feature.banks.ui.model.UIData
+import com.r4dixx.cats.feature.banks.ui.model.toUIBanks
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class BanksViewModel(getBanks: GetBanksUseCase) : CATSViewModel<BanksViewModel.Data>() {
+class BanksViewModel(
+    stateHandler: CATSStateHandler<UIData>,
+    getBanks: GetBanksUseCase
+) : ViewModel() {
+
+    val state: StateFlow<CATSState<UIData>> = stateHandler.state
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -19,7 +26,7 @@ class BanksViewModel(getBanks: GetBanksUseCase) : CATSViewModel<BanksViewModel.D
                     .sorted()
                     .withAccounts()
                     .toData()
-                    .also { data -> setSuccess(data) }
+                    .also { data -> stateHandler.setSuccess(data) }
             }
         }
     }
@@ -31,7 +38,7 @@ class BanksViewModel(getBanks: GetBanksUseCase) : CATSViewModel<BanksViewModel.D
         bank.copy(accounts = accounts)
     }
 
-    private fun List<Bank>.toData(): Data {
+    private fun List<Bank>.toData(): UIData {
         val banksCA = mutableListOf<Bank>()
         val banksNotCA = mutableListOf<Bank>()
         forEach { bank ->
@@ -42,16 +49,11 @@ class BanksViewModel(getBanks: GetBanksUseCase) : CATSViewModel<BanksViewModel.D
             }
         }
 
-        val data = Data (
+        val data = UIData(
             banksCA = banksCA.toUIBanks(),
             banksNotCA = banksNotCA.toUIBanks()
         )
 
         return data
     }
-
-    data class Data(
-        val banksCA: ImmutableList<UIBank>,
-        val banksNotCA: ImmutableList<UIBank>
-    )
 }

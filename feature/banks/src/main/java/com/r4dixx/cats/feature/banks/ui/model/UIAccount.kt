@@ -1,4 +1,4 @@
-package com.r4dixx.cats.feature.banks.model
+package com.r4dixx.cats.feature.banks.ui.model
 
 import com.r4dixx.cats.core.utils.sanitized
 import com.r4dixx.cats.domain.model.Account

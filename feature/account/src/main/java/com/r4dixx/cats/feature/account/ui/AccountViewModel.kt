@@ -1,15 +1,20 @@
 package com.r4dixx.cats.feature.account.ui
 
-import com.r4dixx.cats.core.ui.CATSViewModel
+import androidx.lifecycle.ViewModel
+import com.r4dixx.cats.core.state.CATSState
+import com.r4dixx.cats.core.state.CATSStateHandler
 import com.r4dixx.cats.domain.model.Operation
-import com.r4dixx.cats.feature.account.model.UIOperation
-import kotlinx.collections.immutable.ImmutableList
+import com.r4dixx.cats.feature.account.ui.model.UIData
+import kotlinx.coroutines.flow.StateFlow
 import kotlin.time.ExperimentalTime
 
 class AccountViewModel(
+    stateHandler: CATSStateHandler<UIData>,
     bankName: String,
     accountId: Long
-) : CATSViewModel<AccountViewModel.Data>() {
+) : ViewModel() {
+
+    val state: StateFlow<CATSState<UIData>> = stateHandler.state
 
     init {
         bankName
@@ -21,12 +26,6 @@ class AccountViewModel(
     }
 
     @OptIn(ExperimentalTime::class)
-    private fun List<Operation>.sorted() = sortedWith(compareByDescending<Operation> { it.date }.thenBy { it.title })
-
-    data class Data(
-        val bankName: String,
-        val accountLabel: String,
-        val accountBalance: String,
-        val accountOperations: ImmutableList<UIOperation>,
-    )
+    private fun List<Operation>.sorted() =
+        sortedWith(compareByDescending<Operation> { it.date }.thenBy { it.title })
 }

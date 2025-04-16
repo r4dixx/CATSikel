@@ -3,11 +3,11 @@ package com.r4dixx.cats.design.components.state
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.r4dixx.cats.core.ui.CATSViewModel
+import com.r4dixx.cats.core.state.CATSState
 
 @Composable
-fun <T> CATSUIState(
-    uiState: CATSViewModel.UIState<T>,
+fun <T> CATSStateful(
+    state: CATSState<T>,
     modifier: Modifier = Modifier,
     loadingContent: @Composable () -> Unit = { CATSProgress() },
     errorContent: @Composable (message: String?) -> Unit = { message -> CATSError(message = message) },
@@ -15,17 +15,17 @@ fun <T> CATSUIState(
     content: @Composable (data: T) -> Unit
 ) {
     when {
-        uiState.isLoading -> loadingContent()
-        uiState.isSuccess -> {
-            val data = uiState.dataOrNull
+        state.isLoading -> loadingContent()
+        state.isSuccess -> {
+            val data = state.dataOrNull
             if (data == null || (data is Collection<*> && data.isEmpty()) || (data is Map<*, *> && data.isEmpty())) {
                 emptyContent()
             } else {
                 Box(modifier) { content(data) }
             }
         }
-        uiState.isError -> {
-            val errorState = uiState as? CATSViewModel.UIState.Error
+        state.isError -> {
+            val errorState = state as? CATSState.Error
             errorContent(errorState?.message)
         }
     }

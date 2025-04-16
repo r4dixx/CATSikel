@@ -1,4 +1,4 @@
-package com.r4dixx.cats.feature.account.model
+package com.r4dixx.cats.feature.account.ui.model
 
 import androidx.compose.runtime.Stable
 import com.r4dixx.cats.core.utils.toFormattedAmount

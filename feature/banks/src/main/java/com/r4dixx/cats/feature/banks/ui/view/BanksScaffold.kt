@@ -1,4 +1,4 @@
-package com.r4dixx.cats.feature.banks.ui
+package com.r4dixx.cats.feature.banks.ui.view
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -25,11 +25,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.design.components.CATSCard
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.components.scaffold.CATSScaffold
-import com.r4dixx.cats.design.components.state.CATSUIState
+import com.r4dixx.cats.design.components.state.CATSStateful
 import com.r4dixx.cats.design.theme.CATSDimension
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.feature.banks.R
-import com.r4dixx.cats.feature.banks.model.UIBank
+import com.r4dixx.cats.feature.banks.ui.BanksViewModel
+import com.r4dixx.cats.feature.banks.ui.model.UIBank
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable
@@ -38,9 +39,9 @@ fun BanksScaffold(
     onAccountClick: (String, Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
-    CATSUIState(uiState, modifier) { data ->
+    CATSStateful(state, modifier) { data ->
         CATSScaffold(
             topBarText = stringResource(R.string.banks_top_bar_text),
             onBack = null
