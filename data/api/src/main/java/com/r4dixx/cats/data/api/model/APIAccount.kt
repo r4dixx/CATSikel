@@ -1,8 +1,7 @@
 package com.r4dixx.cats.data.api.model
 
-import com.r4dixx.cats.domain.model.Account
-import com.r4dixx.cats.core.utils.sanitized
 import com.r4dixx.cats.data.api.serializer.BigDecimalSerializer
+import com.r4dixx.cats.domain.model.Account
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
@@ -30,7 +29,7 @@ data class APIAccount(
 
 fun APIAccount.toDomainAccount() = Account(
     id = id,
-    label = label.sanitized(),
+    label = label,
     balance = balance,
     operations = operations.distinct().map { it.toDomainOperation() }
 )

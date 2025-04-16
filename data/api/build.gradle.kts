@@ -27,6 +27,5 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.bundles.ktor)
 
-    implementation(project(":core"))
     implementation(project(":domain"))
 }

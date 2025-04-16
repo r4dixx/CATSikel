@@ -22,7 +22,6 @@ graph LR
   :feature:account --> :core
   :feature:account --> :design
   :feature:account --> :domain
-  :data:api --> :core
   :data:api --> :domain
   :app --> :core
   :app --> :data:api

@@ -1,5 +1,6 @@
 package com.r4dixx.cats.feature.banks.model
 
+import com.r4dixx.cats.core.utils.sanitized
 import com.r4dixx.cats.domain.model.Account
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -11,7 +12,7 @@ data class UIAccount(
 
 fun Account.toUIAccount() = UIAccount(
     id = id,
-    label = label
+    label = label.sanitized()
 )
 
 fun List<Account>.toUIAccounts(): ImmutableList<UIAccount> = map { it.toUIAccount() }.toImmutableList()
