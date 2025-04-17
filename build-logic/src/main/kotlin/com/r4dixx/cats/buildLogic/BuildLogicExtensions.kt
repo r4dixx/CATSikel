@@ -37,7 +37,7 @@ fun Project.setupAndroidModule(isApplication: Boolean) {
             minSdk = libs.versions.sdkMin.get().toInt()
             targetSdk = libs.versions.sdkTarget.get().toInt()
             versionCode = libs.versions.appMajor.get().toInt() * 10_000 + libs.versions.appMinor.get().toInt() * 100 + libs.versions.appPatch.get().toInt()
-            versionName = "${libs.versions.appMajor}.${libs.versions.appMinor}.${libs.versions.appPatch}"
+            versionName = "${libs.versions.appMajor.get()}.${libs.versions.appMinor.get()}.${libs.versions.appPatch.get()}"
         }
 
         if (isApplication) {
