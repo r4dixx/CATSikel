@@ -21,6 +21,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "CATS_Test_SIKEL"
 
+includeBuild("build-logic")
+
 include(":app")
 include(":core:ui")
 include(":core:utils")

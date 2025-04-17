@@ -8,7 +8,7 @@ sdkMin = "24"
 sdkCompile = "35"
 sdkTarget = "35"
 
-java = "17" # Also update sourceCompatibility and targetCompatibility in compileOptions
+java = "17"
 kotlin = "2.1.20"
 agp = "8.9.1"
 
@@ -28,6 +28,9 @@ modulegraph = "0.12.0"
 ##########################################################################################################################################
 
 [libraries]
+
+android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "composeActitivy" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -83,6 +86,8 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+cats-android-application = { id = "com.r4dixx.cats.android.application" }
+cats-android-library = { id = "com.r4dixx.cats.android.library" }
 
 modulegraph = { id = "dev.iurysouza.modulegraph", version.ref = "modulegraph" }
