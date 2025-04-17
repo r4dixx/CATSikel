@@ -1,4 +1,4 @@
-package com.r4dixx.cats.data.api.model
+package com.r4dixx.cats.data.remote.model
 
 import com.r4dixx.cats.domain.model.Bank
 import kotlinx.serialization.Serializable

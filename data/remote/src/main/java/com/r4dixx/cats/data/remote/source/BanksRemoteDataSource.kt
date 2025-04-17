@@ -1,6 +1,6 @@
-package com.r4dixx.cats.data.api.source
+package com.r4dixx.cats.data.remote.source
 
-import com.r4dixx.cats.data.api.model.APIBank
+import com.r4dixx.cats.data.remote.model.APIBank
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

@@ -1,8 +1,8 @@
-package com.r4dixx.cats.data.api
+package com.r4dixx.cats.data.remote
 
-import com.r4dixx.cats.data.api.repository.BanksRepositoryImpl
-import com.r4dixx.cats.data.api.source.BanksFallbackDataSource
-import com.r4dixx.cats.data.api.source.BanksRemoteDataSource
+import com.r4dixx.cats.data.remote.repository.BanksRepositoryImpl
+import com.r4dixx.cats.data.remote.source.BanksFallbackDataSource
+import com.r4dixx.cats.data.remote.source.BanksRemoteDataSource
 import com.r4dixx.cats.domain.repository.BanksRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android

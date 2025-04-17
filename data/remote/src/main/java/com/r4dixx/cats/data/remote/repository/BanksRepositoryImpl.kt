@@ -1,8 +1,8 @@
-package com.r4dixx.cats.data.api.repository
+package com.r4dixx.cats.data.remote.repository
 
-import com.r4dixx.cats.data.api.model.toDomainBank
-import com.r4dixx.cats.data.api.source.BanksFallbackDataSource
-import com.r4dixx.cats.data.api.source.BanksRemoteDataSource
+import com.r4dixx.cats.data.remote.model.toDomainBank
+import com.r4dixx.cats.data.remote.source.BanksFallbackDataSource
+import com.r4dixx.cats.data.remote.source.BanksRemoteDataSource
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.repository.BanksRepository
 

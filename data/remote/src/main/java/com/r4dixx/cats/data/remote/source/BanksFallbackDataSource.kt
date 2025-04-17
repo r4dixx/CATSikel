@@ -1,7 +1,7 @@
-package com.r4dixx.cats.data.api.source
+package com.r4dixx.cats.data.remote.source
 
 import android.content.Context
-import com.r4dixx.cats.data.api.model.APIBank
+import com.r4dixx.cats.data.remote.model.APIBank
 import com.r4dixx.cats.data.remote.R
 import kotlinx.serialization.json.Json
 

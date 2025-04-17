@@ -1,6 +1,6 @@
-package com.r4dixx.cats.data.api.model
+package com.r4dixx.cats.data.remote.model
 
-import com.r4dixx.cats.data.api.serializer.BigDecimalSerializer
+import com.r4dixx.cats.data.remote.serializer.BigDecimalSerializer
 import com.r4dixx.cats.domain.model.Account
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
