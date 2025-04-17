@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.cats.android.library)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
