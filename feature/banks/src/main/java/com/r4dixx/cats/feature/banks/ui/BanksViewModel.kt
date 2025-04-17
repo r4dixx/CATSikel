@@ -2,12 +2,12 @@ package com.r4dixx.cats.feature.banks.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.r4dixx.cats.core.state.CATSState
-import com.r4dixx.cats.core.state.CATSStateHandler
+import com.r4dixx.cats.core.ui.state.CATSState
+import com.r4dixx.cats.core.ui.state.CATSStateHandler
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.usecase.GetBanksUseCase
-import com.r4dixx.cats.feature.banks.ui.model.UIData
-import com.r4dixx.cats.feature.banks.ui.model.toUIBanks
+import com.r4dixx.cats.feature.banks.model.UIData
+import com.r4dixx.cats.feature.banks.model.toUIBanks
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

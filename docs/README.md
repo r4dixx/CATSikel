@@ -8,23 +8,30 @@
 }%%
 
 graph LR
+  subgraph :core
+    :core:ui["ui"]
+    :core:utils["utils"]
+  end
   subgraph :data
-    :data:api["api"]
+    :data:remote["remote"]
   end
   subgraph :feature
     :feature:banks["banks"]
     :feature:account["account"]
   end
-  :design --> :core
-  :feature:banks --> :core
+  :design --> :core:ui
+  :feature:banks --> :core:ui
+  :feature:banks --> :core:utils
   :feature:banks --> :design
   :feature:banks --> :domain
-  :feature:account --> :core
+  :feature:account --> :core:ui
+  :feature:account --> :core:utils
   :feature:account --> :design
   :feature:account --> :domain
-  :data:api --> :domain
-  :app --> :core
-  :app --> :data:api
+  :data:remote --> :domain
+  :app --> :core:ui
+  :app --> :core:utils
+  :app --> :data:remote
   :app --> :design
   :app --> :domain
   :app --> :feature:account
@@ -33,11 +40,12 @@ graph LR
 classDef android-library fill:#3BD482,stroke:#fff,stroke-width:2px,color:#fff;
 classDef android-application fill:#2C4162,stroke:#fff,stroke-width:2px,color:#fff;
 class :design android-library
-class :core android-library
+class :core:ui android-library
 class :feature:banks android-library
+class :core:utils android-library
 class :domain android-library
 class :feature:account android-library
-class :data:api android-library
+class :data:remote android-library
 class :app android-application
 
 ```

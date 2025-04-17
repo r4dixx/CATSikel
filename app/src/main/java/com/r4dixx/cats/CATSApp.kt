@@ -1,11 +1,12 @@
 package com.r4dixx.cats
 
 import android.app.Application
-import com.r4dixx.cats.core.di.coreModule
-import com.r4dixx.cats.data.api.di.dataApiModule
-import com.r4dixx.cats.domain.di.domainModule
-import com.r4dixx.cats.feature.account.di.featureAccountModule
-import com.r4dixx.cats.feature.banks.di.featureBanksModule
+import com.r4dixx.cats.core.ui.coreUiModule
+import com.r4dixx.cats.core.utils.coreUtilsModule
+import com.r4dixx.cats.data.api.dataApiModule
+import com.r4dixx.cats.domain.domainModule
+import com.r4dixx.cats.feature.account.featureAccountModule
+import com.r4dixx.cats.feature.banks.featureBanksModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -17,7 +18,8 @@ class CATSApp : Application() {
             androidLogger()
             androidContext(this@CATSApp)
             modules(
-                coreModule,
+                coreUiModule,
+                coreUtilsModule,
                 dataApiModule,
                 domainModule,
                 featureAccountModule,

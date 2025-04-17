@@ -1,10 +1,10 @@
 package com.r4dixx.cats.feature.account.ui
 
 import androidx.lifecycle.ViewModel
-import com.r4dixx.cats.core.state.CATSState
-import com.r4dixx.cats.core.state.CATSStateHandler
+import com.r4dixx.cats.core.ui.state.CATSState
+import com.r4dixx.cats.core.ui.state.CATSStateHandler
 import com.r4dixx.cats.domain.model.Operation
-import com.r4dixx.cats.feature.account.ui.model.UIData
+import com.r4dixx.cats.feature.account.model.UIData
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.time.ExperimentalTime
 

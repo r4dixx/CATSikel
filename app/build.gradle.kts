@@ -59,8 +59,9 @@ dependencies {
 
     lintChecks(libs.bundles.compose.lint)
 
-    implementation(project(":core"))
-    implementation(project(":data:api"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:utils"))
+    implementation(project(":data:remote"))
     implementation(project(":design"))
     implementation(project(":domain"))
     implementation(project(":feature:account"))

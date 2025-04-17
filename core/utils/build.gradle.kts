@@ -1,11 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = "com.r4dixx.cats.design"
+    namespace = "com.r4dixx.cats.core.utils"
     compileSdk = libs.versions.sdkCompile.get().toInt()
 
     defaultConfig {
@@ -21,17 +20,11 @@ android {
     kotlinOptions {
         jvmTarget = libs.versions.java.get()
     }
-
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.bundles.compose)
+    implementation(libs.koin.android)
 
-    lintChecks(libs.bundles.compose.lint)
-
-    implementation(project(":core:ui"))
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.koin.test)
 }

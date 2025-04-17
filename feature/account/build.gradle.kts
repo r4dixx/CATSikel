@@ -37,7 +37,8 @@ dependencies {
 
     lintChecks(libs.bundles.compose.lint)
 
-    implementation(project(":core"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:utils"))
     implementation(project(":design"))
     implementation(project(":domain"))
 }

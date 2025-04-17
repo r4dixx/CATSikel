@@ -3,7 +3,7 @@ package com.r4dixx.cats.design.components.state
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.r4dixx.cats.core.state.CATSState
+import com.r4dixx.cats.core.ui.state.CATSState
 
 @Composable
 fun <T> CATSStateful(

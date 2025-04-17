@@ -1,11 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    namespace = "com.r4dixx.cats.feature.banks"
+    namespace = "com.r4dixx.cats.data.remote"
     compileSdk = libs.versions.sdkCompile.get().toInt()
 
     defaultConfig {
@@ -21,24 +21,11 @@ android {
     kotlinOptions {
         jvmTarget = libs.versions.java.get()
     }
-
-    buildFeatures {
-        compose = true
-    }
 }
 
-
 dependencies {
-    implementation(libs.koin.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.bundles.compose)
+    implementation(libs.koin.android)
+    implementation(libs.bundles.ktor)
 
-    implementation(libs.kotlinx.collections.immutable)
-
-    lintChecks(libs.bundles.compose.lint)
-
-    implementation(project(":core:ui"))
-    implementation(project(":core:utils"))
-    implementation(project(":design"))
     implementation(project(":domain"))
 }
