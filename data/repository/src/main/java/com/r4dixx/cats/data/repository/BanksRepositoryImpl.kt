@@ -1,7 +1,7 @@
 package com.r4dixx.cats.data.repository
 
-import com.r4dixx.cats.data.remote.source.BanksFallbackDataSource
-import com.r4dixx.cats.data.remote.source.BanksRemoteDataSource
+import com.r4dixx.cats.data.network.source.BanksAPIFallbackDataSource
+import com.r4dixx.cats.data.network.source.BanksAPIDataSource
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.repository.BanksRepository
 
@@ -11,8 +11,8 @@ import com.r4dixx.cats.domain.repository.BanksRepository
  * and if it fails, it tries to retrieve banks from fallback file.
  */
 class BanksRepositoryImpl(
-    private val fallback: BanksFallbackDataSource,
-    private val remote: BanksRemoteDataSource,
+    private val fallback: BanksAPIFallbackDataSource,
+    private val remote: BanksAPIDataSource,
 ) : BanksRepository {
     override suspend fun getBanks(): Result<List<Bank>> {
         return remote

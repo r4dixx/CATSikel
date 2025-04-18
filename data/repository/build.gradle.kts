@@ -8,8 +8,8 @@ android {
 
 dependencies {
     implementation(libs.koin.android)
+    implementation(project(":data:local"))
 
-    implementation(project(":data:persistence"))
-    implementation(project(":data:remote"))
+    implementation(project(":data:network"))
     implementation(project(":domain"))
 }

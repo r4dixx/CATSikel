@@ -3,8 +3,8 @@ package com.r4dixx.cats
 import android.app.Application
 import com.r4dixx.cats.core.ui.coreUiModule
 import com.r4dixx.cats.core.utils.coreUtilsModule
-import com.r4dixx.cats.data.persistence.dataPersistenceModule
-import com.r4dixx.cats.data.remote.dataRemoteModule
+import com.r4dixx.cats.data.local.dataLocalModule
+import com.r4dixx.cats.data.network.dataNetworkModule
 import com.r4dixx.cats.data.repository.dataRepositoryModule
 import com.r4dixx.cats.domain.domainModule
 import com.r4dixx.cats.feature.account.featureAccountModule
@@ -22,8 +22,8 @@ class CATSApp : Application() {
             modules(
                 coreUiModule,
                 coreUtilsModule,
-                dataPersistenceModule,
-                dataRemoteModule,
+                dataLocalModule,
+                dataNetworkModule,
                 dataRepositoryModule,
                 domainModule,
                 featureAccountModule,

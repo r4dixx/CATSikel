@@ -1,8 +1,8 @@
 package com.r4dixx.cats.data.repository
 
-import com.r4dixx.cats.data.remote.model.APIAccount
-import com.r4dixx.cats.data.remote.model.APIBank
-import com.r4dixx.cats.data.remote.model.APIOperation
+import com.r4dixx.cats.data.network.model.APIAccount
+import com.r4dixx.cats.data.network.model.APIBank
+import com.r4dixx.cats.data.network.model.APIOperation
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.model.Operation
