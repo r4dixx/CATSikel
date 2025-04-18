@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="banks_top_bar_text">Mes Comptes</string>
-    <string name="header_bank_type_ca">Crédit Agricole ✨</string>
-    <string name="header_bank_type_not_ca">Autres Banques 🏦</string>
-</resources>
