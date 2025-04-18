@@ -5,6 +5,14 @@ plugins {
 
 android {
     namespace = "com.r4dixx.cats.data.persistence"
+
+    defaultConfig {
+        buildConfigField("int", "DATABASE_VERSION", libs.versions.database.get())
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
