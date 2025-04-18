@@ -1,6 +1,5 @@
-package com.r4dixx.cats.data.remote.repository
+package com.r4dixx.cats.data.repository
 
-import com.r4dixx.cats.data.remote.model.toDomainBank
 import com.r4dixx.cats.data.remote.source.BanksFallbackDataSource
 import com.r4dixx.cats.data.remote.source.BanksRemoteDataSource
 import com.r4dixx.cats.domain.model.Bank

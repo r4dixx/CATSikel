@@ -1,7 +1,6 @@
 package com.r4dixx.cats.data.remote.model
 
 import com.r4dixx.cats.data.remote.serializer.BigDecimalSerializer
-import com.r4dixx.cats.domain.model.Account
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
@@ -25,11 +24,4 @@ data class APIAccount(
     val balance: BigDecimal,
     
     val operations: List<APIOperation>
-)
-
-fun APIAccount.toDomainAccount() = Account(
-    id = id,
-    label = label,
-    balance = balance,
-    operations = operations.distinct().map { it.toDomainOperation() }
 )

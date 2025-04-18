@@ -2,7 +2,6 @@ package com.r4dixx.cats.data.remote.model
 
 import com.r4dixx.cats.data.remote.serializer.BigDecimalSerializer
 import com.r4dixx.cats.data.remote.serializer.InstantSerializer
-import com.r4dixx.cats.domain.model.Operation
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 import kotlin.time.ExperimentalTime
@@ -21,11 +20,4 @@ data class APIOperation(
 
     @Serializable(InstantSerializer::class)
     val date: Instant
-)
-
-@OptIn(ExperimentalTime::class)
-fun APIOperation.toDomainOperation() = Operation(
-    title = title,
-    amount = amount,
-    date = date
 )

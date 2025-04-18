@@ -1,9 +1,7 @@
 package com.r4dixx.cats.data.remote
 
-import com.r4dixx.cats.data.remote.repository.BanksRepositoryImpl
 import com.r4dixx.cats.data.remote.source.BanksFallbackDataSource
 import com.r4dixx.cats.data.remote.source.BanksRemoteDataSource
-import com.r4dixx.cats.domain.repository.BanksRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -17,10 +15,9 @@ import kotlinx.serialization.json.Json
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
-val dataApiModule = module {
+val dataRemoteModule = module {
     single { BanksRemoteDataSource(get()) }
     single { BanksFallbackDataSource(androidApplication().baseContext) }
-    single<BanksRepository> { BanksRepositoryImpl(get(), get()) }
     single {
         HttpClient(Android) {
             install(Logging) {
