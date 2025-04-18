@@ -12,6 +12,8 @@ java = "17"
 kotlin = "2.1.20"
 agp = "8.9.1"
 
+ksp = "2.1.20-2.0.0"
+
 koin = "4.0.3"
 
 composeActitivy = "1.10.1"
@@ -20,6 +22,7 @@ composeLintChecks = "1.4.2"
 composeNavigation = "2.8.9"
 
 ktor = "3.1.1"
+room = "2.7.0"
 
 kotlinxCollectionsImmutable = "0.3.8"
 
@@ -55,6 +58,10 @@ ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negoti
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+
 ##########################################################################################################################################
 
 [bundles]
@@ -80,6 +87,8 @@ ktor = [
 ##########################################################################################################################################
 
 [plugins]
+
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }

@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.cats.android.library)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -8,4 +9,8 @@ android {
 
 dependencies {
     implementation(libs.koin.android)
+
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
 }
