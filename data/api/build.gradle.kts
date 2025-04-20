@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.r4dixx.cats.data.network"
+    namespace = "com.r4dixx.cats.data.api"
 }
 
 dependencies {

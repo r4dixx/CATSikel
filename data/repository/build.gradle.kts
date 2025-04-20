@@ -9,7 +9,7 @@ android {
 dependencies {
     implementation(libs.koin.android)
     implementation(project(":data:local"))
+    implementation(project(":data:api"))
 
-    implementation(project(":data:network"))
     implementation(project(":domain"))
 }

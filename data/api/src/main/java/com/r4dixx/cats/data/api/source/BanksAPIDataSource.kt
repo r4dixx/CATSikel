@@ -1,6 +1,6 @@
-package com.r4dixx.cats.data.network.source
+package com.r4dixx.cats.data.api.source
 
-import com.r4dixx.cats.data.network.model.APIBank
+import com.r4dixx.cats.data.api.model.APIBank
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -9,8 +9,12 @@ class BanksAPIDataSource(private val httpClient: HttpClient) {
     suspend fun getBanks(): Result<List<APIBank>> {
         return try {
             val response = httpClient.get(ENDPOINT_BANKS)
-            val banks = response.body<List<APIBank>>()
-            Result.success(banks)
+            val banks = response.body<List<APIBank>>().distinct()
+            if (banks.isNotEmpty()) {
+                Result.success(banks)
+            } else {
+                Result.failure(Exception("BanksAPIDataSource - No banks found"))
+            }
         } catch (e: Exception) {
             Result.failure(e)
         }

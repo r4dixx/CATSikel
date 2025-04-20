@@ -6,7 +6,8 @@ import kotlin.time.Instant
 
 @OptIn(ExperimentalTime::class)
 data class Operation(
+    val id: Long,
     val title: String,
     val amount: BigDecimal,
-    val date: Instant
+    val date: Instant,
 )

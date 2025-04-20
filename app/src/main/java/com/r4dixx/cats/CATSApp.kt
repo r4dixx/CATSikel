@@ -4,7 +4,7 @@ import android.app.Application
 import com.r4dixx.cats.core.ui.coreUiModule
 import com.r4dixx.cats.core.utils.coreUtilsModule
 import com.r4dixx.cats.data.local.dataLocalModule
-import com.r4dixx.cats.data.network.dataNetworkModule
+import com.r4dixx.cats.data.api.dataApiModule
 import com.r4dixx.cats.data.repository.dataRepositoryModule
 import com.r4dixx.cats.domain.domainModule
 import com.r4dixx.cats.feature.account.featureAccountModule
@@ -23,7 +23,7 @@ class CATSApp : Application() {
                 coreUiModule,
                 coreUtilsModule,
                 dataLocalModule,
-                dataNetworkModule,
+                dataApiModule,
                 dataRepositoryModule,
                 domainModule,
                 featureAccountModule,

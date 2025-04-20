@@ -34,7 +34,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:utils"))
     implementation(project(":data:local"))
-    implementation(project(":data:network"))
+    implementation(project(":data:api"))
     implementation(project(":data:repository"))
     implementation(project(":design"))
     implementation(project(":domain"))

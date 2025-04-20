@@ -1,7 +1,7 @@
-package com.r4dixx.cats.data.network
+package com.r4dixx.cats.data.api
 
-import com.r4dixx.cats.data.network.source.BanksAPIDataSource
-import com.r4dixx.cats.data.network.source.BanksAPIFallbackDataSource
+import com.r4dixx.cats.data.api.source.BanksAPIDataSource
+import com.r4dixx.cats.data.api.source.BanksAPIRawDataSource
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -15,9 +15,9 @@ import kotlinx.serialization.json.Json
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
-val dataNetworkModule = module {
+val dataApiModule = module {
     single { BanksAPIDataSource(get()) }
-    single { BanksAPIFallbackDataSource(androidApplication().baseContext) }
+    single { BanksAPIRawDataSource(androidApplication().baseContext) }
     single {
         HttpClient(Android) {
             install(Logging) {

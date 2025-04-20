@@ -1,5 +1,4 @@
-package com.r4dixx.cats.data.network.serializer
-
+package com.r4dixx.cats.data.api.serializer
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException

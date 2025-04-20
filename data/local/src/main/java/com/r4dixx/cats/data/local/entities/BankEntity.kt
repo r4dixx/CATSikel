@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "banks")
 data class BankEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    @ColumnInfo val name: String,
-    @ColumnInfo (name = "is_ca") val isCA: Boolean?,
+    @PrimaryKey val name: String,
+    @ColumnInfo(name = "is_ca") val isCA: Boolean
 )

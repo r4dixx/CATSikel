@@ -1,13 +1,12 @@
-package com.r4dixx.cats.data.network.model
+package com.r4dixx.cats.data.api.model
 
-import com.r4dixx.cats.data.network.serializer.BigDecimalSerializer
-import com.r4dixx.cats.data.network.serializer.InstantSerializer
+import com.r4dixx.cats.data.api.serializer.BigDecimalSerializer
+import com.r4dixx.cats.data.api.serializer.InstantSerializer
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
-@OptIn(ExperimentalTime::class)
 @Serializable
 data class APIOperation(
     val id: Long,
@@ -19,5 +18,6 @@ data class APIOperation(
     val category: String,
 
     @Serializable(InstantSerializer::class)
+    @OptIn(ExperimentalTime::class)
     val date: Instant
 )
