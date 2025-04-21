@@ -15,7 +15,7 @@ class BanksLocalDataSource(private val database: CATSDatabase) {
             if (banks.isNotEmpty()) {
                 Result.success(banks)
             } else {
-                Result.failure(Exception("BanksLocalDataSource - No banks found"))
+                Result.failure(Exception("No banks found"))
             }
         } catch (e: Exception) {
             Result.failure(e)
@@ -50,6 +50,11 @@ class BanksLocalDataSource(private val database: CATSDatabase) {
     suspend fun getAccountWithOperations(id: Long): Result<AccountWithOperations> {
         return try {
             val account = database.accountDao.queryAccountWithOperations(id)
+            if (account.account.id != 0L) {
+                Result.success(account)
+            } else {
+                Result.failure(Exception("No account found"))
+            }
             Result.success(account)
         } catch (e: Exception) {
             Result.failure(e)
