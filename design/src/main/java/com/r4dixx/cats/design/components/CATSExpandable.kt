@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.r4dixx.cats.design.R
+import com.r4dixx.cats.design.theme.CATSTheme
 
 @Composable
 fun CATSExpandable(
@@ -66,12 +67,14 @@ fun CATSExpandable(
 @Preview
 @Composable
 private fun CATSExpandablePreview() {
-    CATSExpandable(
-        header = {
-            Text(text = "Expandable Header")
-        },
-        content = {
-            Text(text = "Expandable Content")
-        }
-    )
+    CATSTheme {
+        CATSExpandable(
+            header = {
+                Text(text = "Expandable Header")
+            },
+            content = {
+                Text(text = "Expandable Content")
+            }
+        )
+    }
 }

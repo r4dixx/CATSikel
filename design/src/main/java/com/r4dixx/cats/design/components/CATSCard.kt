@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.r4dixx.cats.design.theme.CATSDimension.cardHeightDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.design.theme.CATSGradient
+import com.r4dixx.cats.design.theme.CATSTheme
 
 @Composable
 fun CATSCard(
@@ -49,10 +50,12 @@ fun CATSCard(
 @Preview
 @Composable
 private fun CATSCardPreview() {
-    CATSCard(onClick = { }) {
-        Text(
-            text = "CATSCard",
-            modifier = Modifier.padding(spacingDefault)
-        )
+    CATSTheme {
+        CATSCard(onClick = { }) {
+            Text(
+                text = "CATSCard",
+                modifier = Modifier.padding(spacingDefault)
+            )
+        }
     }
 }

@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.tooling.preview.Preview
 import com.r4dixx.cats.design.theme.CATSGradient
+import com.r4dixx.cats.design.theme.CATSTheme
 
 @Composable
 fun CATSIconGradient(
@@ -39,8 +40,10 @@ fun CATSIconGradient(
 @Preview
 @Composable
 private fun CATSIconGradientPreview() {
-    CATSIconGradient(
-        painter = rememberVectorPainter(Icons.Default.AccountCircle),
-        contentDescription = "CATS Logo"
-    )
+    CATSTheme {
+        CATSIconGradient(
+            painter = rememberVectorPainter(Icons.Default.AccountCircle),
+            contentDescription = "CATS Logo"
+        )
+    }
 }

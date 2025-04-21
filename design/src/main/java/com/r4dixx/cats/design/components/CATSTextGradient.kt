@@ -8,6 +8,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.r4dixx.cats.design.theme.CATSGradient
+import com.r4dixx.cats.design.theme.CATSTheme
 
 @Composable
 fun CATSTextGradient(
@@ -30,5 +31,7 @@ fun CATSTextGradient(
 @Preview
 @Composable
 private fun CATSTextGradientPreview() {
-    CATSTextGradient(text = "CATS")
+    CATSTheme {
+        CATSTextGradient(text = "CATS")
+    }
 }
