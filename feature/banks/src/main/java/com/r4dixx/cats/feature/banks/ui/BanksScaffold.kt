@@ -39,7 +39,7 @@ import kotlinx.collections.immutable.persistentListOf
 @Composable
 fun BanksScaffold(
     viewModel: BanksViewModel,
-    onAccountClick: (String, Long) -> Unit,
+    onAccountClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CATSScaffold(
@@ -70,7 +70,7 @@ private fun BanksContent(
     banksCA: ImmutableList<UIBank>,
     banksNotCA: ImmutableList<UIBank>,
     modifier: Modifier = Modifier,
-    onAccountClick: (String, Long) -> Unit,
+    onAccountClick: (Long) -> Unit,
 ) {
     LazyColumn(modifier) {
         stickyItems(R.string.header_bank_type_ca, banksCA, onAccountClick)
@@ -83,7 +83,7 @@ private fun BanksContent(
 private fun LazyListScope.stickyItems(
     @StringRes labelRes: Int,
     banks: ImmutableList<UIBank>,
-    onAccountClick: (String, Long) -> Unit,
+    onAccountClick: (Long) -> Unit,
 ) {
     stickyHeader {
         Text(
@@ -107,7 +107,7 @@ private fun LazyListScope.stickyItems(
 @Composable
 private fun BankItem(
     bank: UIBank,
-    onAccountClick: (String, Long) -> Unit,
+    onAccountClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CATSExpandable(
@@ -125,7 +125,7 @@ private fun BankItem(
                 modifier = Modifier.padding(top = CATSDimension.spacingSmall)
             ) {
                 items(bank.accounts) { account ->
-                    CATSCard(onClick = { onAccountClick(bank.name, account.id) }) {
+                    CATSCard(onClick = { onAccountClick(account.id) }) {
                         Text(
                             text = account.label,
                             overflow = TextOverflow.Ellipsis,
@@ -148,7 +148,7 @@ private fun BankItem(
 private fun BanksContentPreview() {
     CATSTheme {
         BanksContent(
-            onAccountClick = { _, _ -> },
+            onAccountClick = {},
             banksCA = persistentListOf(
                 UIBank(
                     name = "Credit Agricole",

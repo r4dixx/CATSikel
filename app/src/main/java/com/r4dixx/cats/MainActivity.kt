@@ -29,10 +29,8 @@ class MainActivity : ComponentActivity() {
                         composable(CATSRoute.Banks.ROUTE) {
                             BanksScaffold(
                                 viewModel = koinViewModel(),
-                                onAccountClick = { bankName, accountId ->
-                                    navController.navigate(
-                                        CATSRoute.Account.createRoute(bankName, accountId)
-                                    )
+                                onAccountClick = { accountId ->
+                                    navController.navigate(CATSRoute.Account.createRoute(accountId))
                                 }
                             )
                         }
@@ -41,20 +39,11 @@ class MainActivity : ComponentActivity() {
                             route = CATSRoute.Account.ROUTE,
                             arguments = CATSRoute.Account.arguments
                         ) { backStackEntry ->
-                            val bankName = backStackEntry.arguments?.getString(CATSRoute.Account.ARG_BANK_NAME)
                             val accountId = backStackEntry.arguments?.getLong(CATSRoute.Account.ARG_ACCOUNT_ID)
-
-                            if (bankName != null && accountId != null) {
-                                AccountSheetScaffold(
-                                    viewModel = koinViewModel(parameters = {
-                                        parametersOf(
-                                            bankName,
-                                            accountId
-                                        )
-                                    }),
-                                    onBack = { navController.popBackStack() },
-                                )
-                            }
+                            AccountSheetScaffold(
+                                viewModel = koinViewModel(parameters = { parametersOf(accountId) }),
+                                onBack = { navController.popBackStack() },
+                            )
                         }
                     }
                 }

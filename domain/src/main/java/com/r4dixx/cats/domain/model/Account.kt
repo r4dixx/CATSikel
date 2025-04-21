@@ -4,6 +4,7 @@ import java.math.BigDecimal
 
 data class Account(
     val id: Long,
+    val bankName: String?,
     val label: String,
     val balance: BigDecimal,
     val operations: List<Operation>

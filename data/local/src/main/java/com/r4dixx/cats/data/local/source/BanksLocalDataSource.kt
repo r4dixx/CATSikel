@@ -5,6 +5,7 @@ import com.r4dixx.cats.data.local.database.CATSDatabase
 import com.r4dixx.cats.data.local.entities.AccountEntity
 import com.r4dixx.cats.data.local.entities.BankEntity
 import com.r4dixx.cats.data.local.entities.OperationEntity
+import com.r4dixx.cats.data.local.relations.AccountWithOperations
 import com.r4dixx.cats.data.local.relations.BankWithAccounts
 
 class BanksLocalDataSource(private val database: CATSDatabase) {
@@ -41,6 +42,15 @@ class BanksLocalDataSource(private val database: CATSDatabase) {
                 database.operationDao.insertOperations(operationEntities)
             }
             Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getAccountWithOperations(id: Long): Result<AccountWithOperations> {
+        return try {
+            val account = database.accountDao.queryAccountWithOperations(id)
+            Result.success(account)
         } catch (e: Exception) {
             Result.failure(e)
         }

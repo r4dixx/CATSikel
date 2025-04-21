@@ -9,7 +9,7 @@ class BanksAPIDataSource(private val httpClient: HttpClient) {
     suspend fun getBanks(): Result<List<APIBank>> {
         return try {
             val response = httpClient.get(ENDPOINT_BANKS)
-            val banks = response.body<List<APIBank>>().distinct()
+            val banks = response.body<List<APIBank>>()
             if (banks.isNotEmpty()) {
                 Result.success(banks)
             } else {

@@ -76,4 +76,8 @@ class BanksRepositoryImpl(
         Log.e("BanksRepositoryImpl", "All sources failed to provide banks data", finalException)
         return Result.failure(finalException)
     }
+
+    override suspend fun getAccount(id: Long): Result<Account> {
+        return local.getAccountWithOperations(id).mapCatching { it.toDomainAccount() }
+    }
 }

@@ -54,6 +54,7 @@ fun APIBank.toDomainBank() = Bank(
 
 fun APIAccount.toDomainAccount() = Account(
     id = id,
+    bankName = null,
     label = label,
     balance = balance,
     operations = operations.distinct().map { it.toDomainOperation() }
@@ -79,6 +80,7 @@ fun BankWithAccounts.toDomainBank() = Bank(
 
 fun AccountWithOperations.toDomainAccount() = Account(
     id = account.id,
+    bankName = account.bankName,
     label = account.label,
     balance = account.balance,
     operations = operations.distinct().map { it.toDomainOperation() }
