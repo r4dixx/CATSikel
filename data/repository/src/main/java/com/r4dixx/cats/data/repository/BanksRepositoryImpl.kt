@@ -4,6 +4,7 @@ import android.util.Log
 import com.r4dixx.cats.data.api.source.BanksAPIDataSource
 import com.r4dixx.cats.data.api.source.BanksAPIRawDataSource
 import com.r4dixx.cats.data.local.source.BanksLocalDataSource
+import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.repository.BanksRepository
 
@@ -21,57 +22,58 @@ class BanksRepositoryImpl(
 ) : BanksRepository {
     override suspend fun getBanks(): Result<List<Bank>> {
         // Try to fetch banks from the API
-        Log.d("BanksRepositoryImpl", "Trying to fetch banks from API")
         val apiResult = api.getBanks().mapCatching { apiBanks ->
             val localBanks = apiBanks.map { it.toLocalBank() }
-            Log.d("BanksRepositoryImpl", "Successfully fetched banks from API")
+            Log.d("BanksRepositoryImpl", "Fetched banks from API")
             local.upsertBanksData(localBanks).getOrThrow()
-            Log.i("BanksRepositoryImpl", "Successfully inserted banks data into local storage")
+            Log.i("BanksRepositoryImpl", "Upserted API banks data into local storage")
             apiBanks.map { it.toDomainBank() }
         }
 
         if (apiResult.isSuccess) {
-            Log.d("BanksRepositoryImpl", "Returning API result")
             return apiResult
         } else {
-            Log.w("BanksRepositoryImpl", "Failed to fetch banks from API")
+            Log.w("BanksRepositoryImpl", "Failed to fetch banks from API: ${apiResult.exceptionOrNull()?.message}")
         }
 
         // Try to fetch banks from local storage
-        Log.d("BanksRepositoryImpl", "Trying to fetch banks from local storage")
         val localResult = local.getBanksWithAccounts().mapCatching { localBanks ->
-            Log.i("BanksRepositoryImpl", "Successfully fetched banks from local storage")
+            Log.i("BanksRepositoryImpl", "Fetched banks from local storage")
             localBanks.map { it.toDomainBank() }
         }
 
         if (localResult.isSuccess) {
-            Log.d("BanksRepositoryImpl", "Returning local storage result")
-            return localResult
+            // Only return if the list is not empty, otherwise try raw fallback
+            localResult.getOrNull()?.takeIf { it.isNotEmpty() }?.let {
+                Log.d("BanksRepositoryImpl", "Returning non-empty local storage result")
+                return localResult
+            } ?: Log.i("BanksRepositoryImpl", "Local storage was empty, trying fallback.")
+
         } else {
-            Log.w("BanksRepositoryImpl", "Failed to fetch banks from local storage")
+            Log.w("BanksRepositoryImpl", "Failed to fetch banks from local storage: ${localResult.exceptionOrNull()?.message}")
         }
 
         // Try to fetch banks from the fallback JSON file
-        Log.d("BanksRepositoryImpl", "Trying to fetch banks from fallback JSON file")
         val rawResult = raw.getBanks().mapCatching { rawBanks ->
-            Log.d("BanksRepositoryImpl", "Successfully fetched banks from fallback JSON file")
+            Log.d("BanksRepositoryImpl", "Fetched banks from fallback JSON file")
             val localBanks = rawBanks.map { it.toLocalBank() }
             local.upsertBanksData(localBanks).getOrThrow()
-            Log.d("BanksRepositoryImpl", "Successfully inserted banks into local storage")
+            Log.i("BanksRepositoryImpl", "Upserted fallback banks data into local storage")
             rawBanks.map { it.toDomainBank() }
         }
 
         if (rawResult.isSuccess) {
-            Log.i("BanksRepositoryImpl", "Returning fallback JSON file result")
             return rawResult
         } else {
             Log.w("BanksRepositoryImpl", "Failed to fetch banks from fallback JSON file: ${rawResult.exceptionOrNull()?.message}")
         }
 
         val finalException = apiResult.exceptionOrNull()
+            ?: localResult.exceptionOrNull()
             ?: rawResult.exceptionOrNull()
-            ?: Exception("Failed to fetch banks from all sources")
+            ?: IllegalStateException("Failed to fetch banks from all sources")
 
+        Log.e("BanksRepositoryImpl", "All sources failed to provide banks data", finalException)
         return Result.failure(finalException)
     }
 }
