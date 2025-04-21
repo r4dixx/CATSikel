@@ -23,10 +23,10 @@ class BanksRepositoryImpl(
         // Try to fetch banks from the API
         Log.d("BanksRepositoryImpl", "Trying to fetch banks from API")
         val apiResult = api.getBanks().mapCatching { apiBanks ->
-            val banks = apiBanks.map { it.toLocalBank() }
+            val localBanks = apiBanks.map { it.toLocalBank() }
             Log.d("BanksRepositoryImpl", "Successfully fetched banks from API")
-//            local.insertBanks(banks)
-//            Log.d("BanksRepositoryImpl", "Successfully inserted banks into local storage")
+            local.upsertBanksData(localBanks).getOrThrow()
+            Log.i("BanksRepositoryImpl", "Successfully inserted banks data into local storage")
             apiBanks.map { it.toDomainBank() }
         }
 
@@ -39,8 +39,8 @@ class BanksRepositoryImpl(
 
         // Try to fetch banks from local storage
         Log.d("BanksRepositoryImpl", "Trying to fetch banks from local storage")
-        val localResult = local.getBanks().mapCatching { localBanks ->
-            Log.d("BanksRepositoryImpl", "Successfully fetched banks from local storage")
+        val localResult = local.getBanksWithAccounts().mapCatching { localBanks ->
+            Log.i("BanksRepositoryImpl", "Successfully fetched banks from local storage")
             localBanks.map { it.toDomainBank() }
         }
 
@@ -55,19 +55,23 @@ class BanksRepositoryImpl(
         Log.d("BanksRepositoryImpl", "Trying to fetch banks from fallback JSON file")
         val rawResult = raw.getBanks().mapCatching { rawBanks ->
             Log.d("BanksRepositoryImpl", "Successfully fetched banks from fallback JSON file")
-            val banks = rawBanks.map { it.toLocalBank() }
-//            local.insertBanks(banks)
-//            Log.d("BanksRepositoryImpl", "Successfully inserted banks into local storage")
+            val localBanks = rawBanks.map { it.toLocalBank() }
+            local.upsertBanksData(localBanks).getOrThrow()
+            Log.d("BanksRepositoryImpl", "Successfully inserted banks into local storage")
             rawBanks.map { it.toDomainBank() }
         }
 
         if (rawResult.isSuccess) {
-            Log.d("BanksRepositoryImpl", "Returning fallback JSON file result")
+            Log.i("BanksRepositoryImpl", "Returning fallback JSON file result")
             return rawResult
         } else {
-            Log.w("BanksRepositoryImpl", "Failed to fetch banks from fallback JSON file")
+            Log.w("BanksRepositoryImpl", "Failed to fetch banks from fallback JSON file: ${rawResult.exceptionOrNull()?.message}")
         }
 
-        return Result.failure(Exception("Failed to fetch banks from all sources"))
+        val finalException = apiResult.exceptionOrNull()
+            ?: rawResult.exceptionOrNull()
+            ?: Exception("Failed to fetch banks from all sources")
+
+        return Result.failure(finalException)
     }
 }
