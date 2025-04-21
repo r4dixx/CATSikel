@@ -29,9 +29,12 @@ class BanksRepositoryImpl(
 //            Log.d("BanksRepositoryImpl", "Successfully inserted banks into local storage")
             apiBanks.map { it.toDomainBank() }
         }
+
         if (apiResult.isSuccess) {
             Log.d("BanksRepositoryImpl", "Returning API result")
             return apiResult
+        } else {
+            Log.w("BanksRepositoryImpl", "Failed to fetch banks from API")
         }
 
         // Try to fetch banks from local storage
@@ -40,9 +43,12 @@ class BanksRepositoryImpl(
             Log.d("BanksRepositoryImpl", "Successfully fetched banks from local storage")
             localBanks.map { it.toDomainBank() }
         }
+
         if (localResult.isSuccess) {
             Log.d("BanksRepositoryImpl", "Returning local storage result")
             return localResult
+        } else {
+            Log.w("BanksRepositoryImpl", "Failed to fetch banks from local storage")
         }
 
         // Try to fetch banks from the fallback JSON file
@@ -54,9 +60,12 @@ class BanksRepositoryImpl(
 //            Log.d("BanksRepositoryImpl", "Successfully inserted banks into local storage")
             rawBanks.map { it.toDomainBank() }
         }
+
         if (rawResult.isSuccess) {
             Log.d("BanksRepositoryImpl", "Returning fallback JSON file result")
             return rawResult
+        } else {
+            Log.w("BanksRepositoryImpl", "Failed to fetch banks from fallback JSON file")
         }
 
         return Result.failure(Exception("Failed to fetch banks from all sources"))
