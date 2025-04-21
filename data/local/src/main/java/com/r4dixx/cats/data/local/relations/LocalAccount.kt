@@ -5,7 +5,7 @@ import androidx.room.Relation
 import com.r4dixx.cats.data.local.entities.AccountEntity
 import com.r4dixx.cats.data.local.entities.OperationEntity
 
-data class AccountWithOperations(
+data class LocalAccount(
     @Embedded val account: AccountEntity,
     @Relation(
         parentColumn = "id",

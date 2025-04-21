@@ -1,10 +1,11 @@
 package com.r4dixx.cats.data.local.source
 
 import com.r4dixx.cats.data.local.dao.BankDAO
-import com.r4dixx.cats.data.local.relations.BankWithAccounts
+import com.r4dixx.cats.data.local.entities.BankEntity
+import com.r4dixx.cats.data.local.relations.LocalBank
 
 class BanksLocalDataSource(private val bankDao: BankDAO) {
-    suspend fun getBanks(): Result<List<BankWithAccounts>> {
+    suspend fun getBanks(): Result<List<LocalBank>> {
         return try {
             val banks = bankDao.queryBanks().distinct()
             Result.success(banks)

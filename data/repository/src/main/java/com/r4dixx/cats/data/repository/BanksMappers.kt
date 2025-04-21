@@ -6,8 +6,8 @@ import com.r4dixx.cats.data.api.model.APIOperation
 import com.r4dixx.cats.data.local.entities.AccountEntity
 import com.r4dixx.cats.data.local.entities.BankEntity
 import com.r4dixx.cats.data.local.entities.OperationEntity
-import com.r4dixx.cats.data.local.relations.AccountWithOperations
-import com.r4dixx.cats.data.local.relations.BankWithAccounts
+import com.r4dixx.cats.data.local.relations.LocalAccount
+import com.r4dixx.cats.data.local.relations.LocalBank
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.model.Operation
@@ -15,7 +15,7 @@ import kotlin.time.ExperimentalTime
 
 // region API - Local
 
-fun APIBank.toLocalBank() = BankWithAccounts(
+fun APIBank.toLocalBank() = LocalBank(
     bank = BankEntity(
         name = name,
         isCA = isCA == 1
@@ -23,7 +23,7 @@ fun APIBank.toLocalBank() = BankWithAccounts(
     accounts = accounts.distinct().map { it.toLocalAccount(name) }
 )
 
-fun APIAccount.toLocalAccount(bankName: String) = AccountWithOperations(
+fun APIAccount.toLocalAccount(bankName: String) = LocalAccount(
     account = AccountEntity(
         id = id,
         bankName = bankName,
@@ -71,13 +71,13 @@ fun APIOperation.toDomainOperation() = Operation(
 
 // region Local - Domain
 
-fun BankWithAccounts.toDomainBank() = Bank(
+fun LocalBank.toDomainBank() = Bank(
     name = bank.name,
     isCA = bank.isCA,
     accounts = accounts.distinct().map { it.toDomainAccount() }
 )
 
-fun AccountWithOperations.toDomainAccount() = Account(
+fun LocalAccount.toDomainAccount() = Account(
     id = account.id,
     label = account.label,
     balance = account.balance,

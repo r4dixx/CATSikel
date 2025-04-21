@@ -5,13 +5,13 @@ import androidx.room.Relation
 import com.r4dixx.cats.data.local.entities.AccountEntity
 import com.r4dixx.cats.data.local.entities.BankEntity
 
-data class BankWithAccounts(
+data class LocalBank(
     @Embedded val bank: BankEntity,
     @Relation(
         entity = AccountEntity::class,
         parentColumn = "name",
         entityColumn = "bank_name"
     )
-    val accounts: List<AccountWithOperations>
+    val accounts: List<LocalAccount>
 )
 
