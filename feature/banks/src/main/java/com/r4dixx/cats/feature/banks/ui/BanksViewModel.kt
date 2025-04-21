@@ -13,47 +13,39 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class BanksViewModel(
-    stateHandler: CATSStateHandler<UIData>,
-    getBanks: GetBanksUseCase
+    private val stateHandler: CATSStateHandler<UIData>,
+    private val getBanks: GetBanksUseCase
 ) : ViewModel() {
 
     val state: StateFlow<CATSState<UIData>> = stateHandler.state
 
     init {
+        fetchBanks()
+    }
+
+    private fun fetchBanks() {
         viewModelScope.launch(Dispatchers.IO) {
             getBanks().onSuccess { banks ->
-                banks
-                    .sorted()
-                    .withAccounts()
-                    .toData()
-                    .also { data -> stateHandler.setSuccess(data) }
+                val uiData = banks.sorted().withAccountsSorted().toUIData()
+                stateHandler.setSuccess(uiData)
+            }.onFailure { error ->
+                stateHandler.setError(error)
             }
         }
     }
 
     private fun List<Bank>.sorted() = sortedBy { bank -> bank.name }
 
-    private fun List<Bank>.withAccounts() = map { bank ->
+    private fun List<Bank>.withAccountsSorted() = map { bank ->
         val accounts = bank.accounts.sortedBy { account -> account.label.lowercase() }
         bank.copy(accounts = accounts)
     }
 
-    private fun List<Bank>.toData(): UIData {
-        val banksCA = mutableListOf<Bank>()
-        val banksNotCA = mutableListOf<Bank>()
-        forEach { bank ->
-            if (bank.isCA) {
-                banksCA.add(bank)
-            } else {
-                banksNotCA.add(bank)
-            }
-        }
-
-        val data = UIData(
+    private fun List<Bank>.toUIData(): UIData {
+        val (banksCA, banksNotCA) = partition { it.isCA }
+        return UIData(
             banksCA = banksCA.toUIBanks(),
             banksNotCA = banksNotCA.toUIBanks()
         )
-
-        return data
     }
 }
