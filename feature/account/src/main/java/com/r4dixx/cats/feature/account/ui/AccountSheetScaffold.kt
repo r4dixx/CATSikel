@@ -8,6 +8,7 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -34,7 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.r4dixx.cats.design.components.CATSRowItem
+import com.r4dixx.cats.design.components.CATSCard
 import com.r4dixx.cats.design.components.CATSTextGradient
 import com.r4dixx.cats.design.components.scaffold.CATSSheetScaffold
 import com.r4dixx.cats.design.components.state.CATSStatefulBox
@@ -131,24 +132,33 @@ private fun AccountSheetContent(
         }
 
         items(accountOperations) { operation ->
-            CATSRowItem(modifier = Modifier.padding(spacingDefault)) {
-                Column {
+            CATSCard(
+                onClick = {},
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(spacingDefault)
+                ) {
+                    Column {
+                        Text(
+                            text = operation.title,
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                        Text(
+                            text = operation.date,
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    }
+
+                    Spacer(Modifier.weight(1f))
+
                     Text(
-                        text = operation.title,
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    Text(
-                        text = operation.date,
-                        style = MaterialTheme.typography.labelSmall
+                        text = operation.amount,
+                        style = MaterialTheme.typography.bodyLarge
                     )
                 }
 
-                Spacer(Modifier.weight(1f))
-
-                Text(
-                    text = operation.amount,
-                    style = MaterialTheme.typography.bodyLarge
-                )
             }
             Spacer(Modifier.height(spacingSmall))
         }
