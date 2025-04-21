@@ -7,7 +7,6 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -54,32 +53,37 @@ fun AccountSheetScaffold(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    CATSStateful(state, modifier) { data ->
-        CATSSheetScaffold(
-            initialSheetValue = SheetValue.Expanded,
-            topBarText = data.accountLabel,
-            onBack = onBack,
-            content = {},
-            sheetContent = {
+    CATSSheetScaffold(
+        modifier = modifier,
+        initialSheetValue = SheetValue.Expanded,
+        topBarText = state.dataOrNull?.accountLabel ?: stringResource(R.string.header_account_default),
+        onBack = onBack,
+        content = {},
+        sheetContent = {
+            CATSStateful(
+                state = state,
+                modifier = Modifier.padding(bottom = spacingSmall)
+            ) { data ->
+
                 val listState = rememberLazyListState()
-                Box(Modifier.padding(bottom = spacingSmall)) {
-                    AccountSheetContent(
-                        listState = listState,
-                        bankName = data.bankName,
-                        accountBalance = data.accountBalance,
-                        accountOperations = data.accountOperations
-                    )
-                    AccountSheetAnimatedFAB(
-                        listState = listState,
-                        modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .padding(spacingDefault)
-                    )
-                }
+
+                AccountSheetContent(
+                    listState = listState,
+                    bankName = data.bankName,
+                    accountBalance = data.accountBalance,
+                    accountOperations = data.accountOperations
+                )
+                AccountSheetAnimatedFAB(
+                    listState = listState,
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(spacingDefault)
+                )
             }
-        )
-    }
+        }
+    )
 }
+
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

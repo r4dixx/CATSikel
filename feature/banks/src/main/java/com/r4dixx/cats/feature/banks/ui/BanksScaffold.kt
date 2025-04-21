@@ -38,20 +38,24 @@ fun BanksScaffold(
     onAccountClick: (String, Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    CATSScaffold(
+        topBarText = stringResource(R.string.banks_top_bar_text),
+        onBack = null,
+        modifier = modifier
+    ) { paddingValues ->
 
-    CATSStateful(state, modifier) { data ->
-        CATSScaffold(
-            topBarText = stringResource(R.string.banks_top_bar_text),
-            onBack = null
-        ) { paddingValues ->
+        val state by viewModel.state.collectAsStateWithLifecycle()
+
+        CATSStateful(
+            state = state,
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(spacingDefault)
+        ) { data ->
             BanksScreenContent(
                 banksCA = data.banksCA,
                 banksNotCA = data.banksNotCA,
                 onAccountClick = onAccountClick,
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .padding(spacingDefault)
             )
         }
     }

@@ -4,6 +4,8 @@
     <string name="header_bank_type_ca">Crédit Agricole ✨</string>
     <string name="header_bank_type_not_ca">Autres Banques 🏦</string>
 
+    <string name="header_account_default">Compte bancaire</string>
+
     <!-- Content descriptions -->
     <string name="cd_fab_scroll_top">Retourner en haut</string>
 </resources>

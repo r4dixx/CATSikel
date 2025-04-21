@@ -1,6 +1,7 @@
 package com.r4dixx.cats.design.components.state
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.r4dixx.cats.core.ui.state.CATSState
@@ -10,9 +11,9 @@ fun <T> CATSStateful(
     state: CATSState<T>,
     modifier: Modifier = Modifier,
     loadingContent: @Composable () -> Unit = { CATSProgress() },
-    errorContent: @Composable (message: String?) -> Unit = { message -> CATSError(message = message) },
+    errorContent: @Composable (message: String?) -> Unit = { message -> CATSError(message) },
     emptyContent: @Composable () -> Unit = { CATSEmpty() },
-    content: @Composable (data: T) -> Unit
+    content: @Composable BoxScope. (data: T) -> Unit
 ) {
     when {
         state.isLoading -> loadingContent()
