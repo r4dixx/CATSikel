@@ -10,6 +10,7 @@ import com.r4dixx.cats.feature.banks.model.UIData
 import com.r4dixx.cats.feature.banks.model.toUIBanks
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class BanksViewModel(
@@ -25,12 +26,12 @@ class BanksViewModel(
 
     private fun fetchBanks() {
         viewModelScope.launch(Dispatchers.IO) {
-            getBanks().onSuccess { banks ->
-                val uiData = banks.sorted().withAccountsSorted().toUIData()
-                stateHandler.setSuccess(uiData)
-            }.onFailure { error ->
-                stateHandler.setError(error)
-            }
+            getBanks()
+                .catch { error -> stateHandler.emitError(error) }
+                .collect { banks ->
+                    val uiData = banks.sorted().withAccountsSorted().toUIData()
+                    stateHandler.emitSuccess(uiData)
+                }
         }
     }
 

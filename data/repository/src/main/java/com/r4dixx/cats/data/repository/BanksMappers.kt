@@ -13,37 +13,6 @@ import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.model.Operation
 import kotlin.time.ExperimentalTime
 
-// region API - Local
-
-fun APIBank.toLocalBank() = BankWithAccounts(
-    bank = BankEntity(
-        name = name,
-        isCA = isCA == 1
-    ),
-    accountsWithOperations = accounts.distinct().map { it.toLocalAccount(name) }
-)
-
-fun APIAccount.toLocalAccount(bankName: String) = AccountWithOperations(
-    account = AccountEntity(
-        id = id,
-        bankName = bankName,
-        label = label,
-        balance = balance
-    ),
-    operations = operations.distinct().map { it.toLocalOperation(id) }
-)
-
-@OptIn(ExperimentalTime::class)
-fun APIOperation.toLocalOperation(accountId: Long) = OperationEntity(
-    id = id,
-    accountId = accountId,
-    title = title,
-    amount = amount,
-    date = date
-)
-
-// endregion API - Local
-
 // region API - Domain
 
 fun APIBank.toDomainBank() = Bank(
@@ -95,3 +64,34 @@ fun OperationEntity.toDomainOperation() = Operation(
 )
 
 // endregion Local - Domain
+
+// region Domain - Local
+
+fun Bank.toLocalBank() = BankWithAccounts(
+    bank = BankEntity(
+        name = name,
+        isCA = isCA
+    ),
+    accountsWithOperations = accounts.distinct().map { it.toLocalAccount(name) }
+)
+
+fun Account.toLocalAccount(bankName: String) = AccountWithOperations(
+    account = AccountEntity(
+        id = id,
+        bankName = bankName,
+        label = label,
+        balance = balance
+    ),
+    operations = operations.distinct().map { it.toLocalOperation(id) }
+)
+
+@OptIn(ExperimentalTime::class)
+fun Operation.toLocalOperation(accountId: Long) = OperationEntity(
+    id = id,
+    accountId = accountId,
+    title = title,
+    amount = amount,
+    date = date
+)
+
+// endregion Domain - Local

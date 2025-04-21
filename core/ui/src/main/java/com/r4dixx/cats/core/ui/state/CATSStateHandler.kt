@@ -10,22 +10,6 @@ class CATSStateHandler<T>(initialState: CATSState<T> = CATSState.Loading) {
     private val _state = MutableStateFlow(initialState)
     val state: StateFlow<CATSState<T>> = _state.asStateFlow()
 
-    fun setLoading() {
-        _state.value = CATSState.Loading
-    }
-
-    fun setSuccess(data: T) {
-        _state.value = CATSState.Success(data)
-    }
-
-    fun setError(message: String) {
-        _state.value = CATSState.Error(message)
-    }
-
-    fun setError(throwable: Throwable) {
-        _state.value = CATSState.Error(throwable)
-    }
-
     suspend fun emitLoading() {
         _state.emit(CATSState.Loading)
     }
@@ -43,7 +27,7 @@ class CATSStateHandler<T>(initialState: CATSState<T> = CATSState.Loading) {
     }
 
     fun updateState(transform: (CATSState<T>) -> CATSState<T>) {
-        _state.update(transform) // Uses kotlinx.coroutines.flow.update
+        _state.update(transform)
     }
 
     val current: CATSState<T>

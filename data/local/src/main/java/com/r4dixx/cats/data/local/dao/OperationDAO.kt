@@ -9,5 +9,5 @@ import com.r4dixx.cats.data.local.entities.OperationEntity
 interface OperationDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOperations(operations: List<OperationEntity>)
+    fun insertOperations(operations: List<OperationEntity>)
 }
