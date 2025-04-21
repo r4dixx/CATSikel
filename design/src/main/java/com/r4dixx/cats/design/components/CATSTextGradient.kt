@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import com.r4dixx.cats.design.theme.CATSGradient
 
 @Composable
@@ -22,4 +23,12 @@ fun CATSTextGradient(
         overflow = TextOverflow.Ellipsis,
         modifier = modifier
     )
+}
+
+// Previews
+
+@Preview
+@Composable
+private fun CATSTextGradientPreview() {
+    CATSTextGradient(text = "CATS")
 }

@@ -14,7 +14,7 @@ android {
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose)
-
+    debugImplementation(libs.bundles.compose.debug)
     lintChecks(libs.bundles.compose.lint)
 
     implementation(project(":core:ui"))

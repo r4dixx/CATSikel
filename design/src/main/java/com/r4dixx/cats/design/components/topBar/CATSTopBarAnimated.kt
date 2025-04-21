@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 
 @Composable
@@ -48,4 +49,12 @@ fun CATSTopBarAnimated(
             .alpha(alpha)
                 then modifier
     )
+}
+
+// Previews
+
+@Preview
+@Composable
+private fun CATSTopBarAnimatedPreview() {
+    CATSTopBarAnimated(text = "Title", visible = true, onBack = {})
 }

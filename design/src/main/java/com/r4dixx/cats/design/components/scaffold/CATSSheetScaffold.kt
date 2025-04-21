@@ -11,6 +11,7 @@ import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetValue
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
@@ -21,13 +22,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.r4dixx.cats.design.components.topBar.CATSTopBarAnimated
 import com.r4dixx.cats.design.theme.CATSDimension.sheetHeightDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
+import com.r4dixx.cats.design.theme.CATSTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -82,7 +86,7 @@ fun CATSSheetScaffold(
         sheetSwipeEnabled = true,
         sheetDragHandle = null,
         sheetPeekHeight = sheetHeightDp,
-        sheetShape = BottomSheetDefaults.ExpandedShape,
+        sheetShape = RectangleShape,
         sheetContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
         topBar = {
             CATSTopBarAnimated(
@@ -108,4 +112,21 @@ fun CATSSheetScaffold(
             }
         },
     )
+}
+
+// Previews
+
+@ExperimentalMaterial3Api
+@Preview
+@Composable
+private fun CATSSheetScaffoldPreview() {
+    CATSTheme {
+        CATSSheetScaffold(
+            initialSheetValue = SheetValue.Expanded,
+            sheetContent = { Text(text = "Sheet Content") },
+            onBack = {},
+            topBarText = "Top Bar",
+            content = { }
+        )
+    }
 }

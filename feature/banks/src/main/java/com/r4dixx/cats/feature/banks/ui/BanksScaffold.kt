@@ -21,16 +21,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.design.components.CATSCard
 import com.r4dixx.cats.design.components.CATSExpandable
 import com.r4dixx.cats.design.components.scaffold.CATSScaffold
-import com.r4dixx.cats.design.components.state.CATSStateful
+import com.r4dixx.cats.design.components.state.CATSStatefulBox
 import com.r4dixx.cats.design.theme.CATSDimension
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
+import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.feature.banks.R
+import com.r4dixx.cats.feature.banks.model.UIAccount
 import com.r4dixx.cats.feature.banks.model.UIBank
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun BanksScaffold(
@@ -46,13 +50,13 @@ fun BanksScaffold(
 
         val state by viewModel.state.collectAsStateWithLifecycle()
 
-        CATSStateful(
+        CATSStatefulBox(
             state = state,
             modifier = Modifier
                 .padding(paddingValues)
                 .padding(spacingDefault)
         ) { data ->
-            BanksScreenContent(
+            BanksContent(
                 banksCA = data.banksCA,
                 banksNotCA = data.banksNotCA,
                 onAccountClick = onAccountClick,
@@ -62,7 +66,7 @@ fun BanksScaffold(
 }
 
 @Composable
-private fun BanksScreenContent(
+private fun BanksContent(
     banksCA: ImmutableList<UIBank>,
     banksNotCA: ImmutableList<UIBank>,
     modifier: Modifier = Modifier,
@@ -87,12 +91,12 @@ private fun LazyListScope.stickyItems(
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colorScheme.background) // Necessary to avoid overlap when scrolling
         )
     }
     item { Spacer(Modifier.height(CATSDimension.spacingSmall)) }
     items(banks) { bank ->
-        BanksScreenItem(
+        BankItem(
             bank = bank,
             onAccountClick = onAccountClick,
             modifier = Modifier.padding(top = CATSDimension.spacingSmall)
@@ -101,7 +105,7 @@ private fun LazyListScope.stickyItems(
 }
 
 @Composable
-private fun BanksScreenItem(
+private fun BankItem(
     bank: UIBank,
     onAccountClick: (String, Long) -> Unit,
     modifier: Modifier = Modifier,
@@ -133,5 +137,41 @@ private fun BanksScreenItem(
                     }
                 }
             }
-        })
+        }
+    )
 }
+
+// Preview
+
+@Preview
+@Composable
+private fun BanksContentPreview() {
+    CATSTheme {
+        BanksContent(
+            onAccountClick = { _, _ -> },
+            banksCA = persistentListOf(
+                UIBank(
+                    name = "Credit Agricole",
+                    isCA = true,
+                    accounts = persistentListOf(
+                        UIAccount(id = 1, label = "Compte Courant"),
+                        UIAccount(id = 2, label = "Compte Joint"),
+                    )
+                )
+            ),
+            banksNotCA = persistentListOf(
+                UIBank(
+                    name = "Banque Populaire",
+                    isCA = false,
+                    accounts = persistentListOf(
+                        UIAccount(id = 1, label = "Compte Courant"),
+                        UIAccount(id = 2, label = "Compte Epargne"),
+                        UIAccount(id = 3, label = "Compte Titres")
+                    )
+                )
+            )
+        )
+    }
+}
+
+
