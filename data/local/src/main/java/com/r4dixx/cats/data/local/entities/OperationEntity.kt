@@ -3,13 +3,12 @@ package com.r4dixx.cats.data.local.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
 import java.math.BigDecimal
 import kotlin.time.Instant
 
-
 @Entity(
     tableName = "operations",
+    primaryKeys = ["id", "account_id"],
     foreignKeys = [ForeignKey(
         entity = AccountEntity::class,
         parentColumns = ["id"],
@@ -18,7 +17,7 @@ import kotlin.time.Instant
     )]
 )
 data class OperationEntity(
-    @PrimaryKey val id: Long,
+    val id: Long,
     @ColumnInfo(name = "account_id", index = true) val accountId: Long,
     @ColumnInfo val title: String,
     @ColumnInfo val amount: BigDecimal,
