@@ -13,8 +13,8 @@ graph LR
     :core:utils["utils"]
   end
   subgraph :data
-    :data:persistence["persistence"]
-    :data:remote["remote"]
+    :data:local["local"]
+    :data:api["api"]
     :data:repository["repository"]
   end
   subgraph :feature
@@ -32,15 +32,15 @@ graph LR
   :feature:account --> :domain
   :app --> :core:ui
   :app --> :core:utils
-  :app --> :data:persistence
-  :app --> :data:remote
+  :app --> :data:local
+  :app --> :data:api
   :app --> :data:repository
   :app --> :design
   :app --> :domain
   :app --> :feature:account
   :app --> :feature:banks
-  :data:repository --> :data:persistence
-  :data:repository --> :data:remote
+  :data:repository --> :data:local
+  :data:repository --> :data:api
   :data:repository --> :domain
 
 classDef android-library fill:#3BD482,stroke:#fff,stroke-width:2px,color:#fff;
@@ -52,8 +52,8 @@ class :core:utils android-library
 class :domain android-library
 class :feature:account android-library
 class :app android-application
-class :data:persistence android-library
-class :data:remote android-library
+class :data:local android-library
+class :data:api android-library
 class :data:repository android-library
 
 ```
