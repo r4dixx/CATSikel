@@ -1,12 +1,13 @@
 package com.r4dixx.cats.design.components
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
@@ -26,26 +27,23 @@ import com.r4dixx.cats.design.theme.CATSTheme
 
 @Composable
 fun CATSExpandable(
-    header: @Composable () -> Unit,
+    header: @Composable BoxScope.() -> Unit,
     modifier: Modifier = Modifier,
     initiallyExpanded: Boolean = false,
     onClick: () -> Unit = {},
-    content: @Composable () -> Unit,
+    content: @Composable AnimatedVisibilityScope.() -> Unit,
 ) {
     var expanded by rememberSaveable { mutableStateOf(initiallyExpanded) }
 
     Column(modifier) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable {
-                    expanded = !expanded
-                    onClick()
-                },
-            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.clickable {
+                expanded = !expanded
+                onClick()
+            },
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            header()
-            Spacer(modifier = Modifier.weight(1f))
+            Box(Modifier.weight(1f)) { header() }
 
             val rotationAngle by animateFloatAsState(if (expanded) 180f else 0f)
 
