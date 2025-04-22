@@ -92,7 +92,7 @@ private fun LazyListScope.stickyItems(
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.background) // Necessary to avoid overlap when scrolling
+                .background(MaterialTheme.colorScheme.surface) // Necessary to avoid overlap when scrolling
                 .padding(bottom = spacingSmall)
 
         )

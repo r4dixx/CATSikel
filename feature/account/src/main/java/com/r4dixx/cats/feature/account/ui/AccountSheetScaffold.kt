@@ -113,7 +113,7 @@ private fun AccountSheetContent(
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.background) // Necessary to avoid overlap when scrolling
+                    .background(MaterialTheme.colorScheme.surface) // Necessary to avoid overlap when scrolling
             )
         }
 
@@ -123,7 +123,7 @@ private fun AccountSheetContent(
                 style = MaterialTheme.typography.displayLarge,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.background)  // Necessary to avoid overlap when scrolling
+                    .background(MaterialTheme.colorScheme.surface)  // Necessary to avoid overlap when scrolling
                     .padding(bottom = spacingSmall)
             )
         }

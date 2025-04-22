@@ -30,6 +30,8 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     lintChecks(libs.bundles.compose.lint)
 
+    implementation(libs.material)
+
     implementation(project(":core:ui"))
     implementation(project(":core:utils"))
     implementation(project(":data:local"))

@@ -1,43 +1,32 @@
 package com.r4dixx.cats.design.theme
 
+import android.os.Build
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-
-private val ColorScheme = darkColorScheme(
-    primary = CATSColor.Mint,
-    onPrimary = CATSColor.LightGrey,
-    primaryContainer = CATSColor.DeepBlack,
-    onPrimaryContainer = CATSColor.LightGrey,
-
-    secondary = CATSColor.Lavender,
-    onSecondary = CATSColor.DeepBlack,
-    secondaryContainer = Color.Transparent,
-    onSecondaryContainer = CATSColor.DeepBlack,
-
-    tertiary = CATSColor.Coral,
-    onTertiary = CATSColor.DeepBlack,
-    tertiaryContainer = CATSColor.DeepBlack,
-    onTertiaryContainer = CATSColor.DeepBlack,
-
-    background = CATSColor.DeepBlack,
-    onBackground = CATSColor.LightGrey,
-
-    surface = CATSColor.DeepBlack,
-    surfaceContainer = CATSColor.DeepBlack,
-    surfaceContainerLow = CATSColor.DeepBlack,
-    onSurface = CATSColor.LightGrey,
-    surfaceVariant = CATSColor.Mint,
-    onSurfaceVariant = CATSColor.DeepBlack,
-
-    error = CATSColor.MediumRed,
-)
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
-fun CATSTheme(content: @Composable () -> Unit) {
+fun CATSTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    dynamicColor: Boolean = true,
+    content: @Composable () -> Unit
+) {
+    val colorScheme = when {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
+        darkTheme -> darkColorScheme()
+        else -> lightColorScheme()
+    }
+
     MaterialTheme(
-        colorScheme = ColorScheme,
+        colorScheme = colorScheme,
         typography = CATSTypography.default,
         content = content
     )

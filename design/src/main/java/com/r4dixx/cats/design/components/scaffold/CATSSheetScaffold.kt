@@ -84,10 +84,11 @@ fun CATSSheetScaffold(
 
     BottomSheetScaffold(
         scaffoldState = rememberBottomSheetScaffoldState(sheetState),
-        modifier = Modifier.background(MaterialTheme.colorScheme.background) then modifier,
+        modifier = Modifier.background(MaterialTheme.colorScheme.surface) then modifier,
         sheetSwipeEnabled = true,
         sheetDragHandle = null,
         sheetShadowElevation = 0.dp,
+        sheetTonalElevation = 0.dp,
         sheetPeekHeight = sheetHeightDp,
         sheetShape = RectangleShape,
         sheetContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -109,7 +110,7 @@ fun CATSSheetScaffold(
                 Modifier
                     .height(sheetHeightDp)
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.background)
+                    .background(MaterialTheme.colorScheme.surface)
                     .navigationBarsPadding()
                     .padding(spacingDefault)
             ) {
