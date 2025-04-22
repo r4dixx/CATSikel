@@ -1,8 +1,10 @@
 package com.r4dixx.cats.design.components.scaffold
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -82,7 +84,7 @@ fun CATSSheetScaffold(
 
     BottomSheetScaffold(
         scaffoldState = rememberBottomSheetScaffoldState(sheetState),
-        modifier = modifier,
+        modifier = Modifier.background(MaterialTheme.colorScheme.background) then modifier,
         sheetSwipeEnabled = true,
         sheetDragHandle = null,
         sheetPeekHeight = sheetHeightDp,
@@ -96,7 +98,7 @@ fun CATSSheetScaffold(
                 modifier = Modifier.onGloballyPositioned { coordinates ->
                     val topBarHeightDp = with(density) { coordinates.size.height.toDp() }
                     val availableHeight = (screenHeightDp - topBarHeightDp).coerceAtLeast(0.dp)
-                    sheetHeightDp = availableHeight.coerceAtLeast(BottomSheetDefaults.SheetPeekHeight) - spacingDefault
+                    sheetHeightDp = availableHeight.coerceAtLeast(BottomSheetDefaults.SheetPeekHeight) + 1.dp // Because there's an extra spacer
                 }
             )
         },
@@ -105,8 +107,10 @@ fun CATSSheetScaffold(
             Box(
                 Modifier
                     .height(sheetHeightDp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.background)
                     .navigationBarsPadding()
-                    .padding(horizontal = spacingDefault)
+                    .padding(spacingDefault)
             ) {
                 sheetContent()
             }

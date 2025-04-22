@@ -64,10 +64,7 @@ fun AccountSheetScaffold(
         onBack = onBack,
         content = {},
         sheetContent = {
-            CATSStatefulBox(
-                state = state,
-                modifier = Modifier.padding(bottom = spacingSmall)
-            ) { data ->
+            CATSStatefulBox(state) { data ->
 
                 val coroutineScope = rememberCoroutineScope()
                 val listState = rememberLazyListState()
@@ -89,7 +86,7 @@ fun AccountSheetScaffold(
                     onClick = { coroutineScope.launch { listState.animateScrollToItem(0) } },
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
-                        .padding(spacingDefault)
+                        .padding(vertical = spacingDefault, horizontal = spacingSmall)
                 )
             }
         }
