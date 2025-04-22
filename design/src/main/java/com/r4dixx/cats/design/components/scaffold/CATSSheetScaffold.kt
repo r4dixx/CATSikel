@@ -87,6 +87,7 @@ fun CATSSheetScaffold(
         modifier = Modifier.background(MaterialTheme.colorScheme.background) then modifier,
         sheetSwipeEnabled = true,
         sheetDragHandle = null,
+        sheetShadowElevation = 0.dp,
         sheetPeekHeight = sheetHeightDp,
         sheetShape = RectangleShape,
         sheetContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -98,7 +99,7 @@ fun CATSSheetScaffold(
                 modifier = Modifier.onGloballyPositioned { coordinates ->
                     val topBarHeightDp = with(density) { coordinates.size.height.toDp() }
                     val availableHeight = (screenHeightDp - topBarHeightDp).coerceAtLeast(0.dp)
-                    sheetHeightDp = availableHeight.coerceAtLeast(BottomSheetDefaults.SheetPeekHeight) + 1.dp // Because there's an extra spacer
+                    sheetHeightDp = availableHeight.coerceAtLeast(BottomSheetDefaults.SheetPeekHeight)
                 }
             )
         },
