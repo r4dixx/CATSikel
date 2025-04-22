@@ -29,6 +29,7 @@ import com.r4dixx.cats.design.components.scaffold.CATSScaffold
 import com.r4dixx.cats.design.components.state.CATSStatefulBox
 import com.r4dixx.cats.design.theme.CATSDimension
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
+import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.feature.banks.R
 import com.r4dixx.cats.feature.banks.model.UIAccount
@@ -92,9 +93,10 @@ private fun LazyListScope.stickyItems(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.background) // Necessary to avoid overlap when scrolling
+                .padding(bottom = spacingSmall)
+
         )
     }
-    item { Spacer(Modifier.height(CATSDimension.spacingSmall)) }
     items(banks) { bank ->
         BankItem(
             bank = bank,
