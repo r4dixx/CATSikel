@@ -129,10 +129,7 @@ private fun AccountSheetContent(
         }
 
         items(accountOperations) { operation ->
-            CATSCard(
-                onClick = {},
-                modifier = Modifier.fillMaxWidth()
-            ) {
+            CATSCard(onClick = {}) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(spacingDefault)

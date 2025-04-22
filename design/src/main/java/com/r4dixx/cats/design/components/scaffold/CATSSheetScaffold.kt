@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.BottomSheetScaffold
@@ -111,7 +110,6 @@ fun CATSSheetScaffold(
                     .height(sheetHeightDp)
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.surface)
-                    .navigationBarsPadding()
                     .padding(spacingDefault)
             ) {
                 sheetContent()
@@ -132,7 +130,7 @@ private fun CATSSheetScaffoldPreview() {
             sheetContent = { Text(text = "Sheet Content") },
             onBack = {},
             topBarText = "Top Bar",
-            content = { }
+            content = {}
         )
     }
 }
