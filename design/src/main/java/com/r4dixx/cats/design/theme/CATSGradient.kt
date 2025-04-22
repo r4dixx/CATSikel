@@ -13,6 +13,7 @@ object CATSGradient {
             colors = listOf(
                 MaterialTheme.colorScheme.primary,
                 MaterialTheme.colorScheme.secondary,
+                MaterialTheme.colorScheme.tertiary,
             )
         )
 }

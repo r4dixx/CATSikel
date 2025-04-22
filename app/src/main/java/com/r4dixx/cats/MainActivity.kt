@@ -7,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.r4dixx.cats.design.theme.CATSSystemBarStyle
 import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.feature.account.ui.AccountSheetScaffold
 import com.r4dixx.cats.feature.banks.ui.BanksScaffold
@@ -19,7 +18,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge(CATSSystemBarStyle.status, CATSSystemBarStyle.navigation)
+        enableEdgeToEdge()
         setContent {
             KoinAndroidContext {
                 CATSTheme {
@@ -29,9 +28,7 @@ class MainActivity : ComponentActivity() {
                         composable(CATSRoute.Banks.ROUTE) {
                             BanksScaffold(
                                 viewModel = koinViewModel(),
-                                onAccountClick = { accountId ->
-                                    navController.navigate(CATSRoute.Account.createRoute(accountId))
-                                }
+                                onAccountClick = { accountId -> navController.navigate(CATSRoute.Account.createRoute(accountId)) },
                             )
                         }
 
@@ -42,7 +39,7 @@ class MainActivity : ComponentActivity() {
                             val accountId = backStackEntry.arguments?.getLong(CATSRoute.Account.ARG_ACCOUNT_ID)
                             AccountSheetScaffold(
                                 viewModel = koinViewModel(parameters = { parametersOf(accountId) }),
-                                onBack = { navController.popBackStack() },
+                                onBack = { navController.popBackStack() }
                             )
                         }
                     }
