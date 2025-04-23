@@ -3,7 +3,6 @@ package com.r4dixx.cats.core.ui.state
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 
 class CATSStateHandler<T>(initialState: CATSState<T> = CATSState.Loading) {
 
@@ -25,11 +24,4 @@ class CATSStateHandler<T>(initialState: CATSState<T> = CATSState.Loading) {
     suspend fun emitError(throwable: Throwable) {
         _state.emit(CATSState.Error(throwable))
     }
-
-    fun updateState(transform: (CATSState<T>) -> CATSState<T>) {
-        _state.update(transform)
-    }
-
-    val current: CATSState<T>
-        get() = _state.value
 }

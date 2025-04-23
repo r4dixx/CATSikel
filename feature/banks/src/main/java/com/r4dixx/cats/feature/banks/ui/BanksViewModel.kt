@@ -53,7 +53,7 @@ class BanksViewModel(
         )
     }
     
-    // Data
+    // Model
 
     @Stable
     data class UIData(

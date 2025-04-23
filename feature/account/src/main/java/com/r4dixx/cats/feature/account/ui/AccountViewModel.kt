@@ -53,7 +53,7 @@ class AccountViewModel(
     @OptIn(ExperimentalTime::class)
     private fun List<Operation>.sorted() = sortedWith(compareByDescending<Operation> { it.date }.thenBy { it.title })
 
-    // Data
+    // Model
 
     @Stable
     data class UIData(

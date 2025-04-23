@@ -38,13 +38,13 @@ import kotlinx.collections.immutable.persistentListOf
 @Composable
 fun BanksScaffold(
     viewModel: BanksViewModel,
-    onAccountClick: (Long) -> Unit,
-    modifier: Modifier = Modifier,
     onIconClick: () -> Unit,
+    onAccountClick: (Long) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     CATSScaffold(
         topBarText = stringResource(R.string.banks_top_bar_text),
-        onBack = null,
+        onBack = onIconClick,
         modifier = modifier
     ) { paddingValues ->
 
@@ -52,14 +52,12 @@ fun BanksScaffold(
 
         CATSStatefulBox(
             state = state,
-            modifier = Modifier
-                .padding(paddingValues)
-                .padding(spacingDefault)
+            modifier = Modifier.padding(paddingValues).padding(spacingDefault)
         ) { data ->
             BanksContent(
                 banksCA = data.banksCA,
                 banksNotCA = data.banksNotCA,
-                onAccountClick = onAccountClick,
+                onAccountClick = onAccountClick
             )
         }
     }
@@ -69,8 +67,8 @@ fun BanksScaffold(
 private fun BanksContent(
     banksCA: ImmutableList<BanksViewModel.UIBank>,
     banksNotCA: ImmutableList<BanksViewModel.UIBank>,
-    modifier: Modifier = Modifier,
     onAccountClick: (Long) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier) {
         stickyItems(R.string.header_bank_type_ca, banksCA, onAccountClick)
@@ -149,7 +147,6 @@ private fun BankItem(
 private fun BanksContentPreview() {
     CATSTheme {
         BanksContent(
-            onAccountClick = {},
             banksCA = persistentListOf(
                 BanksViewModel.UIBank(
                     name = "Credit Agricole",
@@ -170,7 +167,8 @@ private fun BanksContentPreview() {
                         BanksViewModel.UIAccount(id = 3, label = "Compte Titres")
                     )
                 )
-            )
+            ),
+            onAccountClick = {}
         )
     }
 }
