@@ -43,7 +43,6 @@ import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.feature.account.R
-import com.r4dixx.cats.feature.account.model.UIOperation
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
@@ -100,7 +99,7 @@ private fun AccountSheetContent(
     listState: LazyListState,
     bankName: String,
     accountBalance: String,
-    accountOperations: ImmutableList<UIOperation>,
+    accountOperations: ImmutableList<AccountViewModel.UIOperation>,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -194,12 +193,12 @@ private fun AccountSheetContentPreview() {
             bankName = "Banque Populaire",
             accountBalance = "125,56 €",
             accountOperations = persistentListOf(
-                UIOperation(
+                AccountViewModel.UIOperation(
                     title = "Auchan",
                     amount = "-12,50 €",
                     date = "01/01/2021",
                 ),
-                UIOperation(
+                AccountViewModel.UIOperation(
                     title = "Carrefour",
                     amount = "-14,20 €",
                     date = "01/12/2021",

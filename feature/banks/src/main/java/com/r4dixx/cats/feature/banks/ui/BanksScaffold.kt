@@ -32,8 +32,6 @@ import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 import com.r4dixx.cats.design.theme.CATSTheme
 import com.r4dixx.cats.feature.banks.R
-import com.r4dixx.cats.feature.banks.model.UIAccount
-import com.r4dixx.cats.feature.banks.model.UIBank
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -42,6 +40,7 @@ fun BanksScaffold(
     viewModel: BanksViewModel,
     onAccountClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
+    onIconClick: () -> Unit,
 ) {
     CATSScaffold(
         topBarText = stringResource(R.string.banks_top_bar_text),
@@ -68,8 +67,8 @@ fun BanksScaffold(
 
 @Composable
 private fun BanksContent(
-    banksCA: ImmutableList<UIBank>,
-    banksNotCA: ImmutableList<UIBank>,
+    banksCA: ImmutableList<BanksViewModel.UIBank>,
+    banksNotCA: ImmutableList<BanksViewModel.UIBank>,
     modifier: Modifier = Modifier,
     onAccountClick: (Long) -> Unit,
 ) {
@@ -83,7 +82,7 @@ private fun BanksContent(
 @OptIn(ExperimentalFoundationApi::class)
 private fun LazyListScope.stickyItems(
     @StringRes labelRes: Int,
-    banks: ImmutableList<UIBank>,
+    banks: ImmutableList<BanksViewModel.UIBank>,
     onAccountClick: (Long) -> Unit,
 ) {
     stickyHeader {
@@ -108,7 +107,7 @@ private fun LazyListScope.stickyItems(
 
 @Composable
 private fun BankItem(
-    bank: UIBank,
+    bank: BanksViewModel.UIBank,
     onAccountClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -152,23 +151,23 @@ private fun BanksContentPreview() {
         BanksContent(
             onAccountClick = {},
             banksCA = persistentListOf(
-                UIBank(
+                BanksViewModel.UIBank(
                     name = "Credit Agricole",
                     isCA = true,
                     accounts = persistentListOf(
-                        UIAccount(id = 1, label = "Compte Courant"),
-                        UIAccount(id = 2, label = "Compte Joint"),
+                        BanksViewModel.UIAccount(id = 1, label = "Compte Courant"),
+                        BanksViewModel.UIAccount(id = 2, label = "Compte Joint"),
                     )
                 )
             ),
             banksNotCA = persistentListOf(
-                UIBank(
+                BanksViewModel.UIBank(
                     name = "Banque Populaire",
                     isCA = false,
                     accounts = persistentListOf(
-                        UIAccount(id = 1, label = "Compte Courant"),
-                        UIAccount(id = 2, label = "Compte Epargne"),
-                        UIAccount(id = 3, label = "Compte Titres")
+                        BanksViewModel.UIAccount(id = 1, label = "Compte Courant"),
+                        BanksViewModel.UIAccount(id = 2, label = "Compte Epargne"),
+                        BanksViewModel.UIAccount(id = 3, label = "Compte Titres")
                     )
                 )
             )
