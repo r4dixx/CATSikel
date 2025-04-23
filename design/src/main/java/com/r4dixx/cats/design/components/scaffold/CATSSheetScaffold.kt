@@ -56,28 +56,21 @@ fun CATSSheetScaffold(
         skipHiddenState = false
     )
 
-    var topBarVisible by remember { mutableStateOf(false) }
-
-    LaunchedEffect(Unit) {
-        topBarVisible = true
-    }
-
     LaunchedEffect(initialSheetValue) {
         if (initialSheetValue == SheetValue.Expanded) {
-            sheetState.show()
+            sheetState.expand()
         }
     }
 
     onBack?.let {
         LaunchedEffect(sheetState.isVisible) {
             if (!sheetState.isVisible) {
-                topBarVisible = false
                 it.invoke()
             }
         }
     }
 
-    BackHandler {
+    BackHandler(enabled = sheetState.isVisible) {
         coroutineScope.launch { sheetState.hide() }
     }
 
@@ -117,8 +110,6 @@ fun CATSSheetScaffold(
         },
     )
 }
-
-// Previews
 
 @ExperimentalMaterial3Api
 @Preview
