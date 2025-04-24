@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
             KoinAndroidContext {
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
-                CATSTheme(darkThemeGradient = state.dynamicGradient) {
+                CATSTheme(darkDynamicGradientEnabled = state.darkDynamicGradient) {
                     val navController = rememberNavController()
 
                     NavHost(navController, CATSRoute.Banks.ROUTE) {
