@@ -68,10 +68,9 @@ fun CATSSheetScaffold(
                 it.invoke()
             }
         }
-    }
-
-    BackHandler(enabled = sheetState.isVisible) {
-        coroutineScope.launch { sheetState.hide() }
+        BackHandler(sheetState.isVisible) {
+            coroutineScope.launch { sheetState.hide() }
+        }
     }
 
     BottomSheetScaffold(
