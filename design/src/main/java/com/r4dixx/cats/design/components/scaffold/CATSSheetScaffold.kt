@@ -77,7 +77,7 @@ fun CATSSheetScaffold(
     BottomSheetScaffold(
         scaffoldState = rememberBottomSheetScaffoldState(sheetState),
         modifier = Modifier.background(MaterialTheme.colorScheme.surface) then modifier,
-        sheetSwipeEnabled = true,
+        sheetSwipeEnabled = false,
         sheetDragHandle = null,
         sheetShadowElevation = 0.dp,
         sheetTonalElevation = 0.dp,
