@@ -55,7 +55,7 @@ koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", versi
 koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
 
 kotzilla-plugin = { group = "io.kotzilla", name = "kotzilla-plugin", version.ref = "kotzilla" }
-kotzilla-sdk = { group = "io.kotzilla", name = "kotzilla-sdk", version.ref = "kotzilla" }
+kotzilla-sdk = { group = "io.kotzilla", name = "kotzilla-sdk-ktor3", version.ref = "kotzilla" }
 
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 
