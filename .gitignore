@@ -51,5 +51,6 @@ captures/
 # Kotlin
 .kotlin
 
-# Koin
+# Kotzilla
 kotzilla.json
+kotzilla.key

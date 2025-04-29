@@ -19,9 +19,9 @@ class CATSApp : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            analytics()
             androidLogger()
             androidContext(this@CATSApp)
+            analytics()
             modules(
                 appModule,
                 coreUiModule,
