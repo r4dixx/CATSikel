@@ -24,10 +24,10 @@ class CATSApp : Application() {
             analytics()
             modules(
                 appModule,
-                coreUiModule,
                 coreUtilsModule,
-                dataLocalModule,
+                coreUiModule,
                 dataApiModule,
+                dataLocalModule,
                 dataRepositoryModule,
                 domainModule,
                 featureAccountModule,

@@ -13,8 +13,8 @@ graph LR
     :core:utils["utils"]
   end
   subgraph :data
-    :data:local["local"]
     :data:api["api"]
+    :data:local["local"]
     :data:repository["repository"]
   end
   subgraph :feature
@@ -32,8 +32,8 @@ graph LR
   :feature:account --> :domain
   :app --> :core:ui
   :app --> :core:utils
-  :app --> :data:local
   :app --> :data:api
+  :app --> :data:local
   :app --> :data:repository
   :app --> :design
   :app --> :domain
@@ -52,8 +52,8 @@ class :core:utils android-library
 class :domain android-library
 class :feature:account android-library
 class :app android-application
-class :data:local android-library
 class :data:api android-library
+class :data:local android-library
 class :data:repository android-library
 
 ```

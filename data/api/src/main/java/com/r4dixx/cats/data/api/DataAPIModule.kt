@@ -16,8 +16,8 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
 val dataApiModule = module {
-    single { BanksAPIDataSource(get()) }
-    single { BanksAPIRawDataSource(androidApplication().baseContext) }
+    single { BanksAPIDataSource(httpClient = get<HttpClient>()) }
+    single { BanksAPIRawDataSource(context = androidApplication().baseContext) }
     single {
         HttpClient(Android) {
             install(Logging) {
