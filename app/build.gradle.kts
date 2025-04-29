@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.cats.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotzilla)
 }
 
 android {
@@ -25,6 +26,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.kotzilla.sdk)
     implementation(libs.koin.compose)
 
     implementation(libs.androidx.activity.compose)
