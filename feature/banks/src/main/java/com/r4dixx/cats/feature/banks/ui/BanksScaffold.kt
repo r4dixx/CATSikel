@@ -160,17 +160,14 @@ private fun BanksTopBarAction(onIconClick: () -> Unit) {
     val animatedRotationAngle by animateFloatAsState(
         targetValue = rotationAngle,
         animationSpec = tween(durationMillis = 1000),
-        label = "IconRotation",
-        finishedListener = {
-            onIconClick()
-            haptic.performHapticFeedback(HapticFeedbackType.Confirm)
-        }
+        label = "IconRotation"
     )
 
     IconButton(
         onClick = {
             rotationAngle = if (rotationAngle == 0f) 360f else 0f
-            haptic.performHapticFeedback(HapticFeedbackType.ToggleOn)
+            haptic.performHapticFeedback(HapticFeedbackType.Confirm)
+            onIconClick()
         }
     ) {
         CATSIconGradient(

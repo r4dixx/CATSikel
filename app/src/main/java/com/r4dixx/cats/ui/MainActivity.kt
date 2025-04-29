@@ -5,10 +5,12 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -28,13 +30,21 @@ class MainActivity : ComponentActivity() {
     private val viewModel : MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        super.onCreate(savedInstanceState)
         setContent {
             KoinAndroidContext {
                 val state by viewModel.state.collectAsStateWithLifecycle()
+                val view = LocalView.current
 
-                CATSTheme(darkDynamicGradientEnabled = state.darkDynamicGradient) {
+                SideEffect {
+                    WindowCompat.getInsetsController(window, view).apply {
+                        isAppearanceLightStatusBars = !state.darkDynamicGradientEnabled
+                        isAppearanceLightNavigationBars = !state.darkDynamicGradientEnabled
+                    }
+                }
+
+                CATSTheme(darkDynamicGradientEnabled = state.darkDynamicGradientEnabled) {
                     val navController = rememberNavController()
 
                     NavHost(navController, CATSRoute.Banks.ROUTE) {
