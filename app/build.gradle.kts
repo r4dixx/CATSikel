@@ -26,6 +26,7 @@ android {
 
 dependencies {
     implementation(libs.koin.compose)
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
     lintChecks(libs.bundles.compose.lint)

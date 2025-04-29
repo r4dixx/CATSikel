@@ -13,6 +13,7 @@ android {
 
 dependencies {
     implementation(libs.koin.compose)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose)
     implementation(libs.bundles.compose.debug)
