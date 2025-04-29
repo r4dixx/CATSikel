@@ -9,20 +9,20 @@ import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
 
-    private val initialState: UIData = UIData(darkDynamicGradientEnabled = false)
+    private val initialState: UIData = UIData(isDarkGradient = false)
     private val _state = MutableStateFlow(initialState)
     val state: StateFlow<UIData> = _state.asStateFlow()
 
     fun toggleDynamicColor() {
         viewModelScope.launch {
             val currentState = _state.value
-            val newDarkDynamicGradient = !currentState.darkDynamicGradientEnabled
-            val newState = _state.value.copy(darkDynamicGradientEnabled = newDarkDynamicGradient)
+            val newDarkDynamicGradient = !currentState.isDarkGradient
+            val newState = _state.value.copy(isDarkGradient = newDarkDynamicGradient)
             _state.emit(newState)
         }
     }
 
     data class UIData(
-        val darkDynamicGradientEnabled: Boolean
+        val isDarkGradient: Boolean
     )
 }

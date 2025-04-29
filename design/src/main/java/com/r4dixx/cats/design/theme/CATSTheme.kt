@@ -29,17 +29,17 @@ val MaterialTheme.gradient: CATSGradient
 @Composable
 fun CATSTheme(
     dynamicColorEnabled: Boolean = true,
-    darkDynamicGradientEnabled: Boolean = false,
+    darkGradientEnabled: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val supportsDynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     val targetColorScheme = when {
         dynamicColorEnabled && supportsDynamicColor -> {
             val context = LocalContext.current
-            if (darkDynamicGradientEnabled) dynamicDarkColorScheme(context)
+            if (darkGradientEnabled) dynamicDarkColorScheme(context)
             else dynamicLightColorScheme(context)
         }
-        darkDynamicGradientEnabled -> darkColorScheme()
+        darkGradientEnabled -> darkColorScheme()
         else -> lightColorScheme()
     }
 
@@ -84,7 +84,7 @@ fun CATSTheme(
         surfaceContainerLowest = animateColorAsState(targetColorScheme.surfaceContainerLowest, animationSpec).value,
     )
 
-    val gradient = CATSGradient(darkDynamicGradientEnabled)
+    val gradient = CATSGradient(darkGradientEnabled)
 
     CompositionLocalProvider(LocalCATSGradient provides gradient) {
         MaterialTheme(

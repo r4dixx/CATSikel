@@ -39,12 +39,12 @@ class MainActivity : ComponentActivity() {
 
                 SideEffect {
                     WindowCompat.getInsetsController(window, view).apply {
-                        isAppearanceLightStatusBars = !state.darkDynamicGradientEnabled
-                        isAppearanceLightNavigationBars = !state.darkDynamicGradientEnabled
+                        isAppearanceLightStatusBars = !state.isDarkGradient
+                        isAppearanceLightNavigationBars = !state.isDarkGradient
                     }
                 }
 
-                CATSTheme(darkDynamicGradientEnabled = state.darkDynamicGradientEnabled) {
+                CATSTheme(darkGradientEnabled = state.isDarkGradient) {
                     val navController = rememberNavController()
 
                     NavHost(navController, CATSRoute.Banks.ROUTE) {
