@@ -5,7 +5,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -93,7 +92,6 @@ fun AccountSheetScaffold(
 }
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun AccountSheetContent(
     listState: LazyListState,

@@ -3,6 +3,7 @@ package com.r4dixx.cats.design.components.scaffold
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -18,6 +19,7 @@ fun CATSScaffold(
     onBack: (() -> Unit)?,
     topBarText: String,
     modifier: Modifier = Modifier,
+    topBarActions: @Composable RowScope.() -> Unit = {},
     content: @Composable ((PaddingValues) -> Unit)
 ) {
     onBack?.let {
@@ -32,7 +34,8 @@ fun CATSScaffold(
             CATSTopBarAnimated(
                 visible = true,
                 text = topBarText,
-                onBack = onBack
+                onBack = onBack,
+                actions = topBarActions
             )
         },
         content = { paddingValues -> content(paddingValues) }

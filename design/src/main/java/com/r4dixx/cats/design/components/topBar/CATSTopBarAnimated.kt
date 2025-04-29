@@ -2,6 +2,7 @@ package com.r4dixx.cats.design.components.topBar
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,6 +20,7 @@ fun CATSTopBarAnimated(
     text: String,
     visible: Boolean,
     modifier: Modifier = Modifier,
+    actions: @Composable RowScope.() -> Unit = {},
     onBack: (() -> Unit)?,
 ) {
     var hasAppeared by remember { mutableStateOf(false) }
@@ -43,6 +45,7 @@ fun CATSTopBarAnimated(
 
     CATSTopBar(
         text = text,
+        actions = actions,
         onBack = onBack,
         modifier = Modifier
             .offset { IntOffset(0, offsetY.toInt()) }

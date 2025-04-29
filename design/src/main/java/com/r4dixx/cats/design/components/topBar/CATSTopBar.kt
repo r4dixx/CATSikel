@@ -1,5 +1,6 @@
 package com.r4dixx.cats.design.components.topBar
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -23,17 +24,20 @@ import com.r4dixx.cats.design.theme.CATSTheme
 fun CATSTopBar(
     text: String,
     modifier: Modifier = Modifier,
-    onBack: (() -> Unit)?
+    actions: @Composable RowScope.() -> Unit = {},
+    onBack: (() -> Unit)?,
 ) {
     TopAppBar(
         modifier = modifier,
+        actions = actions,
         title = {
             CATSTextGradient(
                 text = text,
                 style = MaterialTheme.typography.headlineLarge,
                 maxLines = 1
             )
-        }, navigationIcon = {
+        },
+        navigationIcon = {
             onBack?.let {
                 IconButton(onClick = it) {
                     CATSIconGradient(
@@ -43,7 +47,7 @@ fun CATSTopBar(
                     )
                 }
             }
-        }
+        },
     )
 }
 

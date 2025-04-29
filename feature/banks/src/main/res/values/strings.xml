@@ -6,4 +6,5 @@
 
     <!-- Content descriptions -->
     <string name="cd_fab_scroll_top">Retourner en haut</string>
+    <string name="cd_cats_icon">Appuie pour changer de thème</string>
 </resources>

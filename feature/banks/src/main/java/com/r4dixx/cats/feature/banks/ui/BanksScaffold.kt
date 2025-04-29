@@ -1,10 +1,12 @@
 package com.r4dixx.cats.feature.banks.ui
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -12,12 +14,20 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -25,9 +35,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.r4dixx.cats.design.components.CATSCard
 import com.r4dixx.cats.design.components.CATSExpandable
+import com.r4dixx.cats.design.components.CATSIconGradient
 import com.r4dixx.cats.design.components.scaffold.CATSScaffold
 import com.r4dixx.cats.design.components.state.CATSStatefulBox
-import com.r4dixx.cats.design.theme.CATSDimension
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingSmall
 import com.r4dixx.cats.design.theme.CATSTheme
@@ -38,13 +48,14 @@ import kotlinx.collections.immutable.persistentListOf
 @Composable
 fun BanksScaffold(
     viewModel: BanksViewModel,
-    onIconClick: () -> Unit,
     onAccountClick: (Long) -> Unit,
-    modifier: Modifier = Modifier
+    onIconClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     CATSScaffold(
         topBarText = stringResource(R.string.banks_top_bar_text),
-        onBack = onIconClick,
+        topBarActions = { BanksTopBarAction(onIconClick) },
+        onBack = null,
         modifier = modifier
     ) { paddingValues ->
 
@@ -52,7 +63,9 @@ fun BanksScaffold(
 
         CATSStatefulBox(
             state = state,
-            modifier = Modifier.padding(paddingValues).padding(spacingDefault)
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(spacingDefault)
         ) { data ->
             BanksContent(
                 banksCA = data.banksCA,
@@ -77,7 +90,6 @@ private fun BanksContent(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 private fun LazyListScope.stickyItems(
     @StringRes labelRes: Int,
     banks: ImmutableList<BanksViewModel.UIBank>,
@@ -98,7 +110,7 @@ private fun LazyListScope.stickyItems(
         BankItem(
             bank = bank,
             onAccountClick = onAccountClick,
-            modifier = Modifier.padding(top = CATSDimension.spacingSmall)
+            modifier = Modifier.padding(top = spacingSmall)
         )
     }
 }
@@ -119,9 +131,9 @@ private fun BankItem(
         },
         content = {
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(CATSDimension.spacingSmall),
+                horizontalArrangement = Arrangement.spacedBy(spacingSmall),
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(top = CATSDimension.spacingSmall)
+                modifier = Modifier.padding(top = spacingSmall)
             ) {
                 items(bank.accounts) { account ->
                     CATSCard(onClick = { onAccountClick(account.id) }) {
@@ -138,6 +150,37 @@ private fun BankItem(
             }
         }
     )
+}
+
+@Composable
+private fun BanksTopBarAction(onIconClick: () -> Unit) {
+    val haptic = LocalHapticFeedback.current
+
+    var rotationAngle by remember { mutableFloatStateOf(0f) }
+    val animatedRotationAngle by animateFloatAsState(
+        targetValue = rotationAngle,
+        animationSpec = tween(durationMillis = 1000),
+        label = "IconRotation",
+        finishedListener = {
+            onIconClick()
+            haptic.performHapticFeedback(HapticFeedbackType.Confirm)
+        }
+    )
+
+    IconButton(
+        onClick = {
+            rotationAngle = if (rotationAngle == 0f) 360f else 0f
+            haptic.performHapticFeedback(HapticFeedbackType.ToggleOn)
+        }
+    ) {
+        CATSIconGradient(
+            painter = painterResource(com.r4dixx.cats.design.R.drawable.ic_cats),
+            contentDescription = stringResource(R.string.cd_cats_icon),
+            modifier = Modifier
+                .fillMaxSize()
+                .rotate(animatedRotationAngle)
+        )
+    }
 }
 
 // Preview
@@ -171,6 +214,14 @@ private fun BanksContentPreview() {
             onAccountClick = {}
         )
     }
+}
+
+@Preview
+@Composable
+private fun BanksTopBarActionPreview() {
+    BanksTopBarAction(
+        onIconClick = {}
+    )
 }
 
 
