@@ -180,7 +180,7 @@ private fun BanksTopBarAction(onIconClick: () -> Unit) {
     }
 }
 
-// Preview
+// Previews
 
 @Preview
 @Composable

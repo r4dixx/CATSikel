@@ -43,7 +43,7 @@ fun CATSTheme(
         else -> lightColorScheme()
     }
 
-    val animationSpec = tween<Color>(durationMillis = 1500)
+    val animationSpec = tween<Color>(durationMillis = 800)
 
     val animatedColorScheme = ColorScheme(
         primary = animateColorAsState(targetColorScheme.primary, animationSpec).value,
