@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.tooling.preview.Preview
 import com.r4dixx.cats.design.theme.CATSTheme
-import com.r4dixx.cats.design.theme.gradients
+import com.r4dixx.cats.design.theme.gradient
 
 @Composable
 fun CATSIconGradient(
@@ -21,7 +21,7 @@ fun CATSIconGradient(
     contentDescription: String?,
     modifier: Modifier = Modifier,
 ) {
-    val gradient = MaterialTheme.gradients.default
+    val gradient = MaterialTheme.gradient.default
     Icon(
         painter = painter,
         contentDescription = contentDescription,

@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.r4dixx.cats.design.theme.CATSDimension.cardHeightDefault
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.design.theme.CATSTheme
-import com.r4dixx.cats.design.theme.gradients
+import com.r4dixx.cats.design.theme.gradient
 
 @Composable
 fun CATSCard(
@@ -33,7 +33,7 @@ fun CATSCard(
         ),
         modifier = Modifier
             .background(
-                brush = MaterialTheme.gradients.default,
+                brush = MaterialTheme.gradient.default,
                 shape = MaterialTheme.shapes.medium
             )
                 then modifier

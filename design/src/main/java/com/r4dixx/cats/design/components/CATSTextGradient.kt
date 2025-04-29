@@ -9,7 +9,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.r4dixx.cats.design.theme.CATSTheme
-import com.r4dixx.cats.design.theme.gradients
+import com.r4dixx.cats.design.theme.gradient
 
 @Composable
 fun CATSTextGradient(
@@ -21,7 +21,7 @@ fun CATSTextGradient(
     Text(
         text = text,
         maxLines = maxLines,
-        style = style.copy(MaterialTheme.gradients.default),
+        style = style.copy(MaterialTheme.gradient.default),
         overflow = TextOverflow.Ellipsis,
         modifier = modifier
     )

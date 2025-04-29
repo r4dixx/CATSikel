@@ -17,7 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 private val LocalCATSGradient = staticCompositionLocalOf { CATSGradient(enabled = false) }
 
 @Suppress("ComposeUnstableReceiver")
-val MaterialTheme.gradients: CATSGradient
+val MaterialTheme.gradient: CATSGradient
     @Composable
     @ReadOnlyComposable
     get() = LocalCATSGradient.current

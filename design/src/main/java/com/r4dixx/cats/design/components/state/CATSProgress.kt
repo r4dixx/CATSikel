@@ -9,11 +9,11 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import com.r4dixx.cats.design.theme.CATSTheme
-import com.r4dixx.cats.design.theme.gradients
+import com.r4dixx.cats.design.theme.gradient
 
 @Composable
 fun CATSProgress(modifier: Modifier = Modifier) {
-    val gradient = MaterialTheme.gradients.default
+    val gradient = MaterialTheme.gradient.default
     CircularProgressIndicator(
         modifier = Modifier
             .graphicsLayer(alpha = 0.99f)
