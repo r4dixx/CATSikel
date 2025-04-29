@@ -9,6 +9,7 @@ import com.r4dixx.cats.core.utils.extensions.toFormattedAmount
 import com.r4dixx.cats.core.utils.extensions.toFormattedDate
 import com.r4dixx.cats.domain.model.Operation
 import com.r4dixx.cats.domain.usecase.GetAccountUseCase
+import io.kotzilla.sdk.KotzillaSDK
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
@@ -33,7 +34,11 @@ class AccountViewModel(
     private fun fetchAccount(accountId: Long?) {
         viewModelScope.launch(Dispatchers.IO) {
             when (accountId) {
-                0L, null -> stateHandler.emitError(NullPointerException("Account id does not exist"))
+                0L, null -> {
+                    val exception = NullPointerException("Account id does not exist")
+                    KotzillaSDK.logError("Error fetching account", exception)
+                    stateHandler.emitError(exception)
+                }
                 else ->
                     getAccount(accountId)
                         .catch { error -> stateHandler.emitError(error) }

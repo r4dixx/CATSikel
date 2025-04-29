@@ -1,5 +1,6 @@
 package com.r4dixx.cats.data.api.serializer
 
+import io.kotzilla.sdk.KotzillaSDK
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -19,15 +20,19 @@ object InstantSerializer : KSerializer<Instant> {
             val input = decoder.decodeLong()
             Instant.fromEpochSeconds(input)
         } catch (e: SerializationException) {
-            throw SerializationException("Unable to deserialize to Instant", e)
+            KotzillaSDK.logError("Unable to deserialize to Instant", e)
+            Instant.DISTANT_PAST
         }
     }
 
     override fun serialize(encoder: Encoder, value: Instant) {
-        try {
-            encoder.encodeLong(value.epochSeconds)
+        val serializedValue = try {
+            value.epochSeconds
         } catch (e: SerializationException) {
-            throw SerializationException("Unable to serialize Instant", e)
+            KotzillaSDK.logError("Unable to serialize Instant", e)
+            0
         }
+
+        encoder.encodeLong(serializedValue)
     }
 }

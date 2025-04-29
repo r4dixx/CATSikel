@@ -1,5 +1,6 @@
 package com.r4dixx.cats.data.api.serializer
 
+import io.kotzilla.sdk.KotzillaSDK
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -26,17 +27,21 @@ object BigDecimalSerializer : KSerializer<BigDecimal> {
                 val doubleValue = decoder.decodeDouble()
                 BigDecimal(doubleValue).setScale(2, RoundingMode.HALF_UP)
             } catch (e: SerializationException) {
-                throw SerializationException("Unable to deserialize to BigDecimal", e)
+                KotzillaSDK.logError("Unable to deserialize to BigDecimal", e)
+                BigDecimal.ZERO
             }
         }
     }
 
     override fun serialize(encoder: Encoder, value: BigDecimal) {
-        try {
+        val serializedValue = try {
             val formattedValue = value.setScale(2, RoundingMode.HALF_UP).toString()
-            encoder.encodeString(formattedValue)
+            formattedValue
         } catch (e: SerializationException) {
-            throw SerializationException("Unable to serialize BigDecimal", e)
+            KotzillaSDK.logError("Unable to serialize BigDecimal", e)
+            BigDecimal.ZERO.toString()
         }
+
+        encoder.encodeString(serializedValue)
     }
 }

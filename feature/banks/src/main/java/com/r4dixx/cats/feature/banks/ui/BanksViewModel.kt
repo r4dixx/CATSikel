@@ -9,6 +9,7 @@ import com.r4dixx.cats.core.utils.extensions.sanitized
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.usecase.GetBanksUseCase
+import io.kotzilla.sdk.KotzillaSDK
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +31,10 @@ class BanksViewModel(
     private fun fetchBanks() {
         viewModelScope.launch(Dispatchers.IO) {
             getBanks()
-                .catch { error -> stateHandler.emitError(error) }
+                .catch { exception ->
+                    KotzillaSDK.logError("Error fetching banks", exception)
+                    stateHandler.emitError(exception)
+                }
                 .collect { banks ->
                     val uiData = banks.sorted().withAccountsSorted().toUIData()
                     stateHandler.emitSuccess(uiData)
