@@ -41,7 +41,10 @@ class AccountViewModel(
                 }
                 else ->
                     getAccount(accountId)
-                        .catch { error -> stateHandler.emitError(error) }
+                        .catch { error ->
+                            KotzillaSDK.logError("Error getting account", error)
+                            stateHandler.emitError(error)
+                        }
                         .collect { account ->
                             val uiData = UIData(
                                 bankName = account.bankName.orEmpty(),
