@@ -4,8 +4,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.BottomSheetScaffold
@@ -14,7 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -25,8 +23,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.r4dixx.cats.design.components.topBar.CATSTopBarAnimated
@@ -48,34 +46,30 @@ fun CATSSheetScaffold(
     val coroutineScope = rememberCoroutineScope()
 
     val density = LocalDensity.current
-    val screenHeightDp = LocalConfiguration.current.screenHeightDp.dp
+    val windowInfo = LocalWindowInfo.current
+
     var sheetHeightDp by remember { mutableStateOf(sheetHeightDefault) }
 
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-
-    LaunchedEffect(initialSheetValue) {
-        when (initialSheetValue) {
-            SheetValue.Expanded -> sheetState.expand()
-            SheetValue.PartiallyExpanded -> sheetState.partialExpand()
-            SheetValue.Hidden -> sheetState.hide()
-        }
-    }
+    val sheetState = rememberStandardBottomSheetState(
+        initialValue = initialSheetValue,
+        skipHiddenState = false
+    )
 
     onBack?.let {
+        BackHandler(sheetState.isVisible) {
+            coroutineScope.launch { sheetState.hide() }
+        }
         LaunchedEffect(sheetState.isVisible) {
             if (!sheetState.isVisible) {
                 it.invoke()
             }
-        }
-        BackHandler(sheetState.isVisible) {
-            coroutineScope.launch { sheetState.hide() }
         }
     }
 
     BottomSheetScaffold(
         scaffoldState = rememberBottomSheetScaffoldState(sheetState),
         modifier = Modifier.background(MaterialTheme.colorScheme.surface) then modifier,
-        sheetSwipeEnabled = false,
+        sheetSwipeEnabled = true,
         sheetDragHandle = null,
         sheetShadowElevation = 0.dp,
         sheetTonalElevation = 0.dp,
@@ -89,6 +83,7 @@ fun CATSSheetScaffold(
                 onBack = { coroutineScope.launch { sheetState.hide() } },
                 modifier = Modifier.onGloballyPositioned { coordinates ->
                     val topBarHeightDp = with(density) { coordinates.size.height.toDp() }
+                    val screenHeightDp = with(density) { windowInfo.containerSize.height.toDp() }
                     val availableHeight = (screenHeightDp - topBarHeightDp).coerceAtLeast(0.dp)
                     sheetHeightDp = availableHeight.coerceAtLeast(BottomSheetDefaults.SheetPeekHeight)
                 }
@@ -98,8 +93,6 @@ fun CATSSheetScaffold(
         sheetContent = {
             Box(
                 Modifier
-                    .height(sheetHeightDp)
-                    .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.surface)
                     .padding(spacingDefault)
             ) {
