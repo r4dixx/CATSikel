@@ -1,20 +1,20 @@
 package com.r4dixx.cats.ui
 
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.SideEffect
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.window.DialogProperties
-import androidx.compose.ui.window.DialogWindowProvider
-import androidx.core.view.WindowCompat
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import com.r4dixx.cats.CATSRoute
 import com.r4dixx.cats.design.theme.CATSTheme
@@ -30,24 +30,35 @@ class MainActivity : ComponentActivity() {
     private val viewModel : MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
             KoinAndroidContext {
                 val state by viewModel.state.collectAsStateWithLifecycle()
-                val view = LocalView.current
 
-                SideEffect {
-                    WindowCompat.getInsetsController(window, view).apply {
-                        isAppearanceLightStatusBars = !state.isDarkGradient
-                        isAppearanceLightNavigationBars = !state.isDarkGradient
+                val systemBarColor = Color.Transparent.toArgb()
+                enableEdgeToEdge(
+                    statusBarStyle = if (state.isDarkGradient) {
+                        SystemBarStyle.dark(systemBarColor)
+                    } else {
+                        SystemBarStyle.light(systemBarColor, systemBarColor)
+                    },
+                    navigationBarStyle = if (state.isDarkGradient) {
+                        SystemBarStyle.dark(systemBarColor)
+                    } else {
+                        SystemBarStyle.light(systemBarColor, systemBarColor)
                     }
-                }
+                )
 
                 CATSTheme(darkGradientEnabled = state.isDarkGradient) {
                     val navController = rememberNavController()
 
-                    NavHost(navController, CATSRoute.Banks.ROUTE) {
+                    NavHost(
+                        navController = navController,
+                        startDestination = CATSRoute.Banks.ROUTE,
+                        modifier = Modifier
+                            .background(MaterialTheme.colorScheme.background)
+                            .systemBarsPadding()
+                    ) {
                         composable(CATSRoute.Banks.ROUTE) {
                             BanksScaffold(
                                 viewModel = koinViewModel(),
@@ -56,16 +67,11 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                        dialog(
+                        composable(
                             route = CATSRoute.Account.ROUTE,
                             arguments = CATSRoute.Account.arguments,
-                            dialogProperties = DialogProperties(usePlatformDefaultWidth = false)
                         ) { backStackEntry ->
                             val accountId = backStackEntry.arguments?.getLong(CATSRoute.Account.ARG_ACCOUNT_ID)
-
-                            val windowProvider = LocalView.current.parent as? DialogWindowProvider
-                            windowProvider?.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-
                             AccountSheetScaffold(
                                 viewModel = koinViewModel(parameters = { parametersOf(accountId) }),
                                 onBack = { navController.popBackStack() }

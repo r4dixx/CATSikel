@@ -43,10 +43,10 @@ kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-p
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "composeActitivy" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
-androidx-ui = { group = "androidx.compose.ui", name = "ui" }
-androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 
 compose-lint-checks = { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "composeLintChecks" }
 
@@ -78,12 +78,12 @@ material = { group = "com.google.android.material", name = "material", version.r
 compose = [
     "androidx-compose-material3",
     "androidx-navigation-compose",
-    "androidx-ui",
-    "androidx-ui-graphics",
+    "androidx-compose-ui",
+    "androidx-compose-ui-graphics",
 ]
 
 compose-debug = [
-    "androidx-ui-tooling"
+    "androidx-compose-ui-tooling"
 ]
 compose-lint = [
     "compose-lint-checks"

@@ -9,7 +9,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -65,9 +64,10 @@ fun AccountSheetScaffold(
         sheetContent = {
             CATSStatefulBox(
                 state = state,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = spacingDefault),
             ) { data ->
-
                 val coroutineScope = rememberCoroutineScope()
                 val listState = rememberLazyListState()
                 val isItemFiveFirstVisible by remember {

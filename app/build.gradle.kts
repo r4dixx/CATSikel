@@ -29,8 +29,8 @@ dependencies {
     implementation(libs.kotzilla.sdk)
     implementation(libs.koin.compose)
 
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.navigation.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
     lintChecks(libs.bundles.compose.lint)
 
     implementation(libs.material)
