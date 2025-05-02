@@ -20,12 +20,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.r4dixx.cats.design.components.topBar.CATSTopBarAnimated
 import com.r4dixx.cats.design.theme.CATSDimension.spacingDefault
 import com.r4dixx.cats.design.theme.CATSTheme
@@ -78,11 +78,13 @@ fun CATSSheetScaffold(
         sheetShadowElevation = 0.dp,
         sheetTonalElevation = 0.dp,
         sheetShape = RectangleShape,
-        sheetContainerColor = Color.Transparent,
+        sheetContainerColor = MaterialTheme.colorScheme.surface,
         sheetContentColor = MaterialTheme.colorScheme.onSurface,
         topBar = {
             CATSTopBarAnimated(
-                modifier = Modifier.onSizeChanged { size -> topBarHeightDp = with(density) { size.height.toDp() } },
+                modifier = Modifier
+                    .zIndex(1f)
+                    .onSizeChanged { size -> topBarHeightDp = with(density) { size.height.toDp() } },
                 visible = sheetState.targetValue != SheetValue.Hidden,
                 text = topBarText,
                 onBack = onBack?.let { { coroutineScope.launch { sheetState.hide() } } }
