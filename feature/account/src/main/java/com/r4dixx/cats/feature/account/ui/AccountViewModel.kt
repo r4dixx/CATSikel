@@ -9,13 +9,14 @@ import com.r4dixx.cats.core.utils.extensions.toFormattedAmount
 import com.r4dixx.cats.core.utils.extensions.toFormattedDate
 import com.r4dixx.cats.domain.model.Operation
 import com.r4dixx.cats.domain.usecase.GetAccountUseCase
-import io.kotzilla.sdk.KotzillaSDK
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import logcat.asLog
+import logcat.logcat
 import java.text.SimpleDateFormat
 import kotlin.time.ExperimentalTime
 
@@ -36,13 +37,13 @@ class AccountViewModel(
             when (accountId) {
                 0L, null -> {
                     val exception = NullPointerException("Account id does not exist")
-                    KotzillaSDK.logError("Error fetching account", exception)
+                    logcat { exception.asLog() }
                     stateHandler.emitError(exception)
                 }
                 else ->
                     getAccount(accountId)
                         .catch { error ->
-                            KotzillaSDK.logError("Error getting account", error)
+                            logcat { error.asLog() }
                             stateHandler.emitError(error)
                         }
                         .collect { account ->

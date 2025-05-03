@@ -1,6 +1,7 @@
 package com.r4dixx.cats.core.utils.extensions
 
-import io.kotzilla.sdk.KotzillaSDK
+import logcat.asLog
+import logcat.logcat
 import org.koin.java.KoinJavaComponent.inject
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -17,7 +18,7 @@ fun Instant.toFormattedDate(dateFormat: Int = SimpleDateFormat.FULL): String {
         val formatter = SimpleDateFormat.getDateInstance(dateFormat, locale)
         formatter.format(date)
     } catch (e: Exception) {
-        KotzillaSDK.logError("Error formatting data", e)
+        logcat { e.asLog() }
         Instant.DISTANT_PAST.toString()
     }
 }

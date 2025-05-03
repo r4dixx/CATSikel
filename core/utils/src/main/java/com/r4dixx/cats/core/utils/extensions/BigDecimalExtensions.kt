@@ -1,6 +1,7 @@
 package com.r4dixx.cats.core.utils.extensions
 
-import io.kotzilla.sdk.KotzillaSDK
+import logcat.asLog
+import logcat.logcat
 import org.koin.java.KoinJavaComponent.inject
 import java.math.BigDecimal
 import java.text.NumberFormat
@@ -11,7 +12,7 @@ fun BigDecimal.toFormattedAmount(): String {
         val locale: Locale by inject(Locale::class.java)
         NumberFormat.getCurrencyInstance(locale).format(this)
     } catch (e: NumberFormatException) {
-        KotzillaSDK.logError("Error formatting amount", e)
+        logcat { e.asLog() }
         "0,00 €"
     }
 }

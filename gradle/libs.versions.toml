@@ -32,6 +32,8 @@ kotlinxCollectionsImmutable = "0.3.8"
 
 modulegraph = "0.12.0"
 
+logcat = "0.1"
+
 ##########################################################################################################################################
 
 [libraries]
@@ -66,6 +68,8 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+square-logcat = { group = "com.squareup.logcat", name = "logcat", version.ref = "logcat" }
 
 ##########################################################################################################################################
 
@@ -109,8 +113,6 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-
-kotzilla = { id = "io.kotzilla.kotzilla-plugin" }
 
 modulegraph = { id = "dev.iurysouza.modulegraph", version.ref = "modulegraph" }
 

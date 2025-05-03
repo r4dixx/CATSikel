@@ -5,6 +5,9 @@ import org.gradle.api.Project
 
 class AndroidApplicationModulePlugin : Plugin<Project> {
     override fun apply(target: Project) {
-        target.setupAndroidModule(isApplication = true)
+        with(target) {
+            setupAndroidModule(isApplication = true)
+            setupBaseDependencies()
+        }
     }
 }

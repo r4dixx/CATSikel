@@ -5,7 +5,6 @@ import com.r4dixx.cats.data.local.source.BanksLocalDataSource
 import com.r4dixx.cats.domain.model.Account
 import com.r4dixx.cats.domain.model.Bank
 import com.r4dixx.cats.domain.repository.BanksRepository
-import io.kotzilla.sdk.KotzillaSDK
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.emitAll
@@ -29,10 +28,7 @@ class BanksRepositoryImpl(
 /*    private fun getBanksFromApiAndSave(): Flow<List<Bank>> = api.getBanks().map { apiBanks ->
         val domainBanks = apiBanks
             .map { it.toDomainBank() }
-            .takeIf { it.isNotEmpty() } ?: run {
-                KotzillaSDK.logError("Error fetching banks from API", Exception("API source is empty."))
-                emptyList()
-            }
+            .takeIf { it.isNotEmpty() } ?: throw Exception("API source is empty.")
         val localBanks = domainBanks.map { it.toLocalBank() }
         local.upsertBanksData(localBanks)
         domainBanks
@@ -42,19 +38,13 @@ class BanksRepositoryImpl(
         local.getBanksWithAccounts().map { localBanks ->
             localBanks
                 .map { it.toDomainBank() }
-                .takeIf { it.isNotEmpty() } ?: run {
-                    KotzillaSDK.logError("Error fetching banks from database", Exception("Local data source is empty."))
-                    emptyList()
-                }
+                .takeIf { it.isNotEmpty() } ?: throw Exception("Local source is empty.")
         }
 
     private fun getBanksFromRaw(): Flow<List<Bank>> = raw.getBanks().map { rawBanks ->
         rawBanks
             .map { it.toDomainBank() }
-            .takeIf { it.isNotEmpty() } ?: run {
-                KotzillaSDK.logError("Error fetching banks from raw JSON file", Exception("Local raw source is empty."))
-                emptyList()
-           }
+            .takeIf { it.isNotEmpty() } ?: throw Exception("Raw source is empty.")
     }
 
     override fun getAccount(id: Long): Flow<Account> =

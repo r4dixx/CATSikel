@@ -4,10 +4,13 @@ import com.android.build.gradle.BaseExtension
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.gradle.api.artifacts.MinimalExternalModuleDependency
+import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.plugins.PluginManager
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.accessors.runtime.extensionOf
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.withType
 import org.gradle.plugin.use.PluginDependency
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -20,6 +23,10 @@ fun PluginManager.alias(notation: Provider<PluginDependency>) {
     apply(notation.get().pluginId)
 }
 
+fun DependencyHandler.implementation(provider: Provider<MinimalExternalModuleDependency>) {
+    add("implementation", provider.get().group + ":" + provider.get().name + ":" + provider.get().version)
+}
+
 fun Project.setupAndroidModule(isApplication: Boolean) {
     with(pluginManager) {
         if (isApplication) {
@@ -27,6 +34,7 @@ fun Project.setupAndroidModule(isApplication: Boolean) {
         } else {
             alias(libs.plugins.android.library)
         }
+
         alias(libs.plugins.kotlin.android)
     }
 
@@ -76,5 +84,11 @@ fun Project.setupAndroidModule(isApplication: Boolean) {
                 jvmTarget.set(JvmTarget.valueOf(javaVersion))
             }
         }
+    }
+}
+
+fun Project.setupBaseDependencies() {
+    dependencies {
+        implementation(libs.square.logcat)
     }
 }
