@@ -27,7 +27,7 @@ import org.koin.core.parameter.parametersOf
 
 class MainActivity : ComponentActivity() {
 
-    private val viewModel : MainViewModel by viewModel()
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +62,10 @@ class MainActivity : ComponentActivity() {
                         composable(CATSRoute.Banks.ROUTE) {
                             BanksScaffold(
                                 viewModel = koinViewModel(),
-                                onAccountClick = { accountId -> navController.navigate(CATSRoute.Account.createRoute(accountId)) },
+                                onAccountClick = { accountId ->
+                                    val route = CATSRoute.Account.createRoute(accountId)
+                                    navController.navigate(route)
+                                },
                                 onIconClick = { viewModel.toggleDynamicColor() }
                             )
                         }
