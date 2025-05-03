@@ -10,6 +10,8 @@ import androidx.compose.ui.graphics.SolidColor
 
 @Stable
 class CATSGradient(private val enabled: Boolean = false) {
+    val isEnabled: Boolean
+        get() = enabled
     val default: Brush
         @Composable
         @ReadOnlyComposable
