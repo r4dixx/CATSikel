@@ -7,7 +7,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.kotzilla.sdk)
     implementation(libs.koin.android)
 
     testImplementation(libs.kotlin.test)

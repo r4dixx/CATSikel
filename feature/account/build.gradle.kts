@@ -12,7 +12,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.kotzilla.sdk)
     implementation(libs.koin.compose)
 
     implementation(platform(libs.androidx.compose.bom))

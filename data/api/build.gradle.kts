@@ -8,7 +8,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.kotzilla.sdk)
     implementation(libs.koin.android)
 
     implementation(libs.bundles.ktor)
