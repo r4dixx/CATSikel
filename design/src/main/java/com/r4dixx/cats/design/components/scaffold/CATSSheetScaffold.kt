@@ -3,6 +3,7 @@ package com.r4dixx.cats.design.components.scaffold
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -92,7 +93,11 @@ fun CATSSheetScaffold(
         },
         content = { paddingValues -> content(paddingValues) },
         sheetContent = {
-            Box(Modifier.padding(top = topBarHeightDp + spacingDefault)) {
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .padding(top = topBarHeightDp + spacingDefault)
+            ) {
                 sheetContent()
             }
         },
