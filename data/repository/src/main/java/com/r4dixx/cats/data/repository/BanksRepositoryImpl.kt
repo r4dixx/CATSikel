@@ -1,6 +1,5 @@
 package com.r4dixx.cats.data.repository
 
-import com.r4dixx.cats.data.api.source.BanksAPIDataSource
 import com.r4dixx.cats.data.api.source.BanksAPIRawDataSource
 import com.r4dixx.cats.data.local.source.BanksLocalDataSource
 import com.r4dixx.cats.domain.model.Account
@@ -14,20 +13,20 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 class BanksRepositoryImpl(
-    private val api: BanksAPIDataSource,
+//    private val api: BanksAPIDataSource,
     private val raw: BanksAPIRawDataSource,
     private val local: BanksLocalDataSource,
 ) : BanksRepository {
 
     override fun getBanks(): Flow<List<Bank>> = flow {
-        emitAll(getBanksFromApiAndSave())
-    }.catch {
+/*        emitAll(getBanksFromApiAndSave())
+    }.catch {*/
         emitAll(getBanksFromLocal())
     }.catch {
         emitAll(getBanksFromRaw())
     }
 
-    private fun getBanksFromApiAndSave(): Flow<List<Bank>> = api.getBanks().map { apiBanks ->
+/*    private fun getBanksFromApiAndSave(): Flow<List<Bank>> = api.getBanks().map { apiBanks ->
         val domainBanks = apiBanks
             .map { it.toDomainBank() }
             .takeIf { it.isNotEmpty() } ?: run {
@@ -37,7 +36,7 @@ class BanksRepositoryImpl(
         val localBanks = domainBanks.map { it.toLocalBank() }
         local.upsertBanksData(localBanks)
         domainBanks
-    }
+    }*/
 
     private fun getBanksFromLocal(): Flow<List<Bank>> =
         local.getBanksWithAccounts().map { localBanks ->
