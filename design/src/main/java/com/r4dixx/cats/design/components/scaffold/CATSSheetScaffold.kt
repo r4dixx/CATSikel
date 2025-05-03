@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -76,6 +77,7 @@ fun CATSSheetScaffold(
         sheetSwipeEnabled = true,
         sheetDragHandle = null,
         sheetPeekHeight = 0.dp,
+        sheetMaxWidth = with(density) { LocalWindowInfo.current.containerSize.width.toDp() },
         sheetShadowElevation = 0.dp,
         sheetTonalElevation = 0.dp,
         sheetShape = RectangleShape,
