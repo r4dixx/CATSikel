@@ -12,12 +12,12 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val dataApiModule = module {
-    single { BanksAPIDataSource(httpClient = get<HttpClient>()) }
-    single { BanksAPIRawDataSource(context = androidApplication().baseContext) }
+    single { BanksAPIDataSource(httpClient = get()) }
+    single { BanksAPIRawDataSource(context = androidContext()) }
     single {
         HttpClient(Android) {
             install(Logging) {

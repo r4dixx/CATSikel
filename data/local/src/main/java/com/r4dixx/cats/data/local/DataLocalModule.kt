@@ -8,7 +8,7 @@ import org.koin.dsl.module
 
 val dataLocalModule = module {
     single { get<CATSDatabase>() }
-    single { BanksLocalDataSource(database = get<CATSDatabase>()) }
+    single { BanksLocalDataSource(database = get()) }
     single {
         Room.databaseBuilder(
             context = androidContext(),

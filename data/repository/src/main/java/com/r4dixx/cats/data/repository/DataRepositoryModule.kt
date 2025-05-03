@@ -8,9 +8,9 @@ import org.koin.dsl.module
 val dataRepositoryModule = module {
     single<BanksRepository> {
         BanksRepositoryImpl(
-//            api = get<BanksAPIDataSource>(),
-            raw = get<BanksAPIRawDataSource>(),
-            local = get<BanksLocalDataSource>()
+//            api = get(),
+            raw = get(),
+            local = get()
         )
     }
 }

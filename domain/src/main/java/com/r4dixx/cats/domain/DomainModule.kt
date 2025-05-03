@@ -6,6 +6,6 @@ import com.r4dixx.cats.domain.usecase.GetBanksUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
-    single { GetAccountUseCase(repository = get<BanksRepository>()) }
-    single { GetBanksUseCase(repository = get<BanksRepository>()) }
+    single { GetAccountUseCase(repository = get()) }
+    single { GetBanksUseCase(repository = get()) }
 }
