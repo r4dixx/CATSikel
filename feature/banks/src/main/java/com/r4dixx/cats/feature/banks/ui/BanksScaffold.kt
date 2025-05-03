@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -156,18 +157,31 @@ private fun BankItem(
 private fun BanksTopBarAction(onIconClick: () -> Unit) {
     val haptic = LocalHapticFeedback.current
 
-    var rotationAngle by remember { mutableFloatStateOf(0f) }
+    var targetRotationAngle by remember { mutableFloatStateOf(0f) }
+    var isClickAnimating by remember { mutableStateOf(false) }
+
     val animatedRotationAngle by animateFloatAsState(
-        targetValue = rotationAngle,
+        targetValue = targetRotationAngle,
         animationSpec = tween(durationMillis = 1000),
-        label = "IconRotation"
+        label = "IconRotation",
+        finishedListener = { finalValue ->
+            if (finalValue == targetRotationAngle && isClickAnimating) {
+                onIconClick()
+                haptic.performHapticFeedback(HapticFeedbackType.Confirm)
+                isClickAnimating = false
+            } else {
+                isClickAnimating = false
+            }
+        }
     )
 
     IconButton(
         onClick = {
-            rotationAngle = if (rotationAngle == 0f) 360f else 0f
-            haptic.performHapticFeedback(HapticFeedbackType.Confirm)
-            onIconClick()
+            if (!isClickAnimating) {
+                targetRotationAngle = if (targetRotationAngle == 0f) 360f else 0f
+                haptic.performHapticFeedback(HapticFeedbackType.ContextClick)
+                isClickAnimating = true
+            }
         }
     ) {
         CATSIconGradient(
