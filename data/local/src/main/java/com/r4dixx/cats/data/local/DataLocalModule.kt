@@ -10,10 +10,8 @@ val dataLocalModule = module {
     single { get<CATSDatabase>() }
     single { BanksLocalDataSource(database = get()) }
     single {
-        Room.databaseBuilder(
-            context = androidContext(),
-            klass = CATSDatabase::class.java,
-            name = "catsikel"
-        ).build()
+        Room.databaseBuilder(androidContext(), CATSDatabase::class.java, "catsikel")
+            .fallbackToDestructiveMigration(true)
+            .build()
     }
 }

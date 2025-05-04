@@ -8,7 +8,7 @@ sdkMin = "24"
 sdkCompile = "35"
 sdkTarget = "35"
 
-database = "1"
+database = "2"
 
 java = "17"
 kotlin = "2.1.20"
