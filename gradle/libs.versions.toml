@@ -25,6 +25,7 @@ composeNavigation = "2.8.9"
 material = "1.12.0"
 
 ktor = "3.1.1"
+ktorfit = "2.5.1"
 room = "2.7.1"
 
 kotlinxCollectionsImmutable = "0.3.8"
@@ -62,6 +63,10 @@ ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-conte
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
+ktorfit-light = { group = "de.jensklingenberg.ktorfit", name = "ktorfit-lib-light", version.ref = "ktorfit" }
+ktorfit-converters-flow = { group = "de.jensklingenberg.ktorfit", name = "ktorfit-converters-flow", version.ref = "ktorfit" }
+ktorfit-plugin = { group = "de.jensklingenberg.ktorfit", name = "de.jensklingenberg.ktorfit.gradle.plugin", version.ref = "ktorfit" }
+
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
@@ -91,7 +96,9 @@ ktor = [
     "ktor-client-android",
     "ktor-client-content-negotiation",
     "ktor-client-logging",
-    "ktor-serialization-kotlinx-json"
+    "ktor-serialization-kotlinx-json",
+    "ktorfit-light",
+    "ktorfit-converters-flow"
 ]
 
 room = [
@@ -111,6 +118,8 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+ktorfit = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit" }
 
 modulegraph = { id = "dev.iurysouza.modulegraph", version.ref = "modulegraph" }
 

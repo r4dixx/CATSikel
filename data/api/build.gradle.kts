@@ -1,6 +1,8 @@
 plugins {
+    alias(libs.plugins.ksp)
     alias(libs.plugins.cats.android.library)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ktorfit)
 }
 
 android {
@@ -9,6 +11,6 @@ android {
 
 dependencies {
     implementation(libs.koin.android)
-
+    implementation(libs.ktorfit.plugin)
     implementation(libs.bundles.ktor)
 }
