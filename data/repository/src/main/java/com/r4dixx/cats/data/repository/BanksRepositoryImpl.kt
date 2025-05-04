@@ -42,9 +42,12 @@ class BanksRepositoryImpl(
         }
 
     private fun getBanksFromRaw(): Flow<List<Bank>> = raw.getBanks().map { rawBanks ->
-        rawBanks
+        val domainBanks = rawBanks
             .map { it.toDomainBank() }
             .takeIf { it.isNotEmpty() } ?: throw Exception("Raw source is empty.")
+        val localBanks = domainBanks.map { it.toLocalBank() }
+        local.upsertBanksData(localBanks)
+        domainBanks
     }
 
     override fun getAccount(id: Long): Flow<Account> =
