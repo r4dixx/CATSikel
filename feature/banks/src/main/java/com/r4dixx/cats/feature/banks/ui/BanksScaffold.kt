@@ -6,7 +6,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -123,6 +122,7 @@ private fun BankItem(
     modifier: Modifier = Modifier,
 ) {
     CATSExpandable(
+        initiallyExpanded = bank.isCA,
         modifier = modifier,
         header = {
             Text(
@@ -187,9 +187,7 @@ private fun BanksTopBarAction(onIconClick: () -> Unit) {
         CATSIconGradient(
             painter = painterResource(com.r4dixx.cats.design.R.drawable.ic_cats),
             contentDescription = stringResource(R.string.cd_cats_icon),
-            modifier = Modifier
-                .fillMaxSize()
-                .rotate(animatedRotationAngle)
+            modifier = Modifier.rotate(animatedRotationAngle)
         )
     }
 }
