@@ -73,15 +73,15 @@ fun Project.setupAndroidModule(isApplication: Boolean) {
         }
 
         compileOptions {
-            val javaVersion = "VERSION_${libs.versions.java.get()}"
-            sourceCompatibility = JavaVersion.valueOf(javaVersion)
-            targetCompatibility = JavaVersion.valueOf(javaVersion)
+            val javaVersion = JavaVersion.valueOf("VERSION_${libs.versions.java.get()}")
+            sourceCompatibility = javaVersion
+            targetCompatibility = javaVersion
         }
 
         tasks.withType<KotlinCompile>().configureEach {
             compilerOptions {
-                val javaVersion = "JVM_${libs.versions.java.get()}"
-                jvmTarget.set(JvmTarget.valueOf(javaVersion))
+                val javaVersion = JvmTarget.valueOf("JVM_${libs.versions.java.get()}")
+                jvmTarget.set(javaVersion)
             }
         }
     }
