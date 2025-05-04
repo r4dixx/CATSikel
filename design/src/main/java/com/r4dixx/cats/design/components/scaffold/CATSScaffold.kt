@@ -32,7 +32,7 @@ fun CATSScaffold(
         modifier = Modifier.background(MaterialTheme.colorScheme.background) then modifier,
         topBar = {
             CATSTopBarAnimated(
-                visible = true,
+                show = true,
                 text = topBarText,
                 onBack = onBack,
                 actions = topBarActions

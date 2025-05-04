@@ -88,7 +88,7 @@ fun CATSSheetScaffold(
                 modifier = Modifier
                     .zIndex(1f)
                     .onSizeChanged { size -> topBarHeightDp = with(density) { size.height.toDp() } },
-                visible = sheetState.targetValue != SheetValue.Hidden,
+                show = sheetState.targetValue != SheetValue.Hidden,
                 text = topBarText,
                 onBack = onBack?.let { { coroutineScope.launch { sheetState.hide() } } }
             )
