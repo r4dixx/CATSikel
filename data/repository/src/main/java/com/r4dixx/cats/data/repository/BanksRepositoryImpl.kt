@@ -32,8 +32,8 @@ class BanksRepositoryImpl(
         }
 
     override fun getBanks(): Flow<List<Bank>> = flow {
-        emitAll(getBanksFromApi())
-    }.catch {
+/*        emitAll(getBanksFromApi())
+    }.catch {*/
         emitAll(getBanksFromLocal())
     }.catch {
         emitAll(getBanksFromRaw())
