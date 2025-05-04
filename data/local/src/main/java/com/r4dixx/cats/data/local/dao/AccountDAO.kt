@@ -11,11 +11,10 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AccountDAO {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAccounts(accounts: List<AccountEntity>)
-
     @Transaction
     @Query("SELECT * FROM accounts WHERE id = :id")
     fun queryAccountWithOperations(id: Long) : Flow<AccountWithOperations>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAccounts(accounts: List<AccountEntity>)
 }

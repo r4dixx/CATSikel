@@ -16,5 +16,5 @@ interface BankDAO {
     fun queryBanksWithAccounts(): Flow<List<BankWithAccounts>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertBanks(banks: List<BankEntity>)
+    suspend fun insertBanks(banks: List<BankEntity>)
 }
