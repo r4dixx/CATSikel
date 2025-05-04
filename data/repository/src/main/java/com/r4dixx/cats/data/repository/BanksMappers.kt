@@ -34,7 +34,7 @@ fun APIOperation.toDomainOperation() = Operation(
     id = id,
     title = title,
     amount = amount,
-    date = date
+    instant = instant
 )
 
 // endregion API - Domain
@@ -60,7 +60,7 @@ fun OperationEntity.toDomainOperation() = Operation(
     id = id,
     title = title,
     amount = amount,
-    date = date
+    instant = instant
 )
 
 // endregion Local - Domain
@@ -91,7 +91,7 @@ fun Operation.toLocalOperation(accountId: Long) = OperationEntity(
     accountId = accountId,
     title = title,
     amount = amount,
-    date = date
+    instant = instant
 )
 
 // endregion Domain - Local

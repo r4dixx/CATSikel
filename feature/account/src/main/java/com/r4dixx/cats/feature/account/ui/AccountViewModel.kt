@@ -60,7 +60,7 @@ class AccountViewModel(
     }
 
     @OptIn(ExperimentalTime::class)
-    private fun List<Operation>.sorted() = sortedWith(compareByDescending<Operation> { it.date }.thenBy { it.title })
+    private fun List<Operation>.sorted() = sortedWith(compareByDescending<Operation> { it.instant }.thenBy { it.title })
 
     // Model
 
@@ -85,7 +85,7 @@ class AccountViewModel(
     private fun Operation.toUIOperation() = UIOperation(
         title = title,
         amount = amount.toFormattedAmount(),
-        date = date.toFormattedDate(SimpleDateFormat.FULL),
+        date = instant.toFormattedDate(SimpleDateFormat.FULL),
     )
 }
 

@@ -9,5 +9,5 @@ data class Operation(
     val id: Long,
     val title: String,
     val amount: BigDecimal,
-    val date: Instant,
+    val instant: Instant,
 )

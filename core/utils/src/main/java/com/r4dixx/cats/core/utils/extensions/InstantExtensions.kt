@@ -13,7 +13,6 @@ import kotlin.time.Instant
 fun Instant.toFormattedDate(dateFormat: Int = SimpleDateFormat.FULL): String {
     return try {
         val locale: Locale by inject(Locale::class.java)
-
         val date = Date(this.toEpochMilliseconds())
         val formatter = SimpleDateFormat.getDateInstance(dateFormat, locale)
         formatter.format(date)

@@ -21,5 +21,5 @@ data class OperationEntity(
     @ColumnInfo(name = "account_id", index = true) val accountId: Long,
     @ColumnInfo val title: String,
     @ColumnInfo val amount: BigDecimal,
-    @ColumnInfo val date: Instant
+    @ColumnInfo val instant: Instant
 )
