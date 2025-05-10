@@ -8,6 +8,9 @@
 # Java class files
 *.class
 
+# Keys
+keys
+
 # generated files
 bin/
 gen/
@@ -47,3 +50,7 @@ captures/
 
 # Kotlin
 .kotlin
+
+# Kotzilla
+kotzilla.json
+kotzilla.key

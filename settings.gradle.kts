@@ -21,9 +21,15 @@ dependencyResolutionManagement {
 
 rootProject.name = "CATS_Test_SIKEL"
 
+includeBuild("build-logic")
+
 include(":app")
-include(":core")
-include(":data")
+include(":core:ui")
+include(":core:utils")
+include(":data:local")
+include(":data:api")
+include(":data:repository")
 include(":design")
 include(":domain")
-include(":ui")
+include(":feature:banks")
+include(":feature:account")

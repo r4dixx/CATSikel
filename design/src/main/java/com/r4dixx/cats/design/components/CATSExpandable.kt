@@ -1,16 +1,17 @@
 package com.r4dixx.cats.design.components
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,32 +21,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.r4dixx.cats.design.R
-import com.r4dixx.cats.design.theme.Dimension
+import com.r4dixx.cats.design.theme.CATSTheme
 
 @Composable
 fun CATSExpandable(
+    header: @Composable BoxScope.() -> Unit,
     modifier: Modifier = Modifier,
     initiallyExpanded: Boolean = false,
     onClick: () -> Unit = {},
-    header: @Composable () -> Unit,
-    content: @Composable () -> Unit,
+    content: @Composable AnimatedVisibilityScope.() -> Unit,
 ) {
     var expanded by rememberSaveable { mutableStateOf(initiallyExpanded) }
 
     Column(modifier) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable {
-                    expanded = !expanded
-                    onClick()
-                },
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Dimension.spacingDefault)
+            modifier = Modifier.clickable {
+                expanded = !expanded
+                onClick()
+            },
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            header()
-            Spacer(modifier = Modifier.weight(1f))
+            Box(Modifier.weight(1f)) { header() }
 
             val rotationAngle by animateFloatAsState(if (expanded) 180f else 0f)
 
@@ -59,5 +57,22 @@ fun CATSExpandable(
         AnimatedVisibility(visible = expanded) {
             content()
         }
+    }
+}
+
+// Previews
+
+@Preview
+@Composable
+private fun CATSExpandablePreview() {
+    CATSTheme {
+        CATSExpandable(
+            header = {
+                Text(text = "Expandable Header")
+            },
+            content = {
+                Text(text = "Expandable Content")
+            }
+        )
     }
 }

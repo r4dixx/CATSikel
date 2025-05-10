@@ -1,28 +1,22 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.cats.android.application)
     alias(libs.plugins.kotlin.compose)
 }
 
 android {
     namespace = "com.r4dixx.cats"
-    compileSdk = libs.versions.sdkCompile.get().toInt()
 
     defaultConfig {
         applicationId = "com.r4dixx.cats"
-        minSdk = libs.versions.sdkMin.get().toInt()
-        targetSdk = libs.versions.sdkTarget.get().toInt()
-        versionCode = libs.versions.appMajor.get().toInt() * 10_000 + libs.versions.appMinor.get().toInt() * 100 + libs.versions.appPatch.get().toInt()
-        versionName = "${libs.versions.appMajor}.${libs.versions.appMinor}.${libs.versions.appPatch}"
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = libs.versions.java.get()
+    buildTypes {
+        debug {
+            applicationIdSuffix = ".debug"
+        }
+        release {
+            isShrinkResources = true
+        }
     }
 
     buildFeatures {
@@ -31,13 +25,21 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.koin.compose)
 
-    implementation(project(":core"))
-    implementation(project(":data"))
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+    lintChecks(libs.bundles.compose.lint)
+
+    implementation(libs.material)
+
+    implementation(project(":core:ui"))
+    implementation(project(":core:utils"))
+    implementation(project(":data:api"))
+    implementation(project(":data:local"))
+    implementation(project(":data:repository"))
     implementation(project(":design"))
     implementation(project(":domain"))
-    implementation(project(":ui"))
+    implementation(project(":feature:account"))
+    implementation(project(":feature:banks"))
 }
